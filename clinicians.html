@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free HIPAA-Compliant Patient Symptom Tracking for Therapists — Surfacing</title>
+<meta name="description" content="Recommend Surfacing to clients as a free, HIPAA-compliant between-session tracker. Review encrypted DBT, CBT & ACT skill data and clinical reports — no server, no account, no cost to you or your clients.">
+<meta name="keywords" content="HIPAA compliant mental health app for therapists, patient symptom tracking tool, between session tracking therapist, DBT skill log therapist, CBT progress tracking, therapist mental health app, clinical mental health tracker, encrypted patient reports, EHR compatible mental health report">
+<link rel="canonical" href="https://surfacingapp.com/clinicians.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://surfacingapp.com/clinicians.html">
+<meta property="og:title" content="Free HIPAA-Compliant Patient Tracking for Therapists — Surfacing">
+<meta property="og:description" content="Recommend Surfacing to clients. Free, HIPAA-compliant, no server. Review encrypted DBT/CBT/ACT skill data and clinical reports between sessions.">
+<meta property="og:image" content="https://surfacingapp.com/assets/main-graphic.png">
+<meta property="og:site_name" content="Surfacing">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HIPAA-Compliant Patient Tracking for Therapists — Surfacing">
+<meta name="twitter:description" content="Free. HIPAA-compliant. No server or account required. The between-session tracking tool your clients will actually use.">
+<meta name="twitter:image" content="https://surfacingapp.com/assets/main-graphic.png">
+<link rel="icon" href="assets/icon.png?v=2" type="image/png">
+<link rel="apple-touch-icon" href="assets/icon.png?v=2">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.filter-pill {
+  padding: 7px 18px; border-radius: 100px; font-size: 13px; font-weight: 600;
+  background: var(--surface2); border: 1.5px solid var(--border); color: var(--text2);
+  cursor: pointer; transition: all 0.18s;
+}
+.filter-pill.active, .filter-pill:hover {
+  background: var(--teal-dim); border-color: var(--teal); color: var(--teal);
+}
+.condition-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 24px; transition: all 0.18s;
+}
+.condition-card:hover { border-color: rgba(78,205,196,0.3); transform: translateY(-2px); }
+.condition-card h4 { font-weight: 700; margin-bottom: 8px; }
+.condition-card p { color: var(--text2); font-size: 14px; line-height: 1.6; }
+.field-tag {
+  display: inline-block; padding: 3px 10px; border-radius: 100px; font-size: 11px;
+  font-weight: 600; background: var(--surface3); color: var(--text3); margin: 2px;
+}
+.free-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 18px; border-radius: 100px; font-size: 14px; font-weight: 600;
+  background: rgba(78,205,196,0.1); border: 1.5px solid rgba(78,205,196,0.3); color: var(--teal);
+}
+.free-badge .check { font-style: normal; }
+.iso-wrapper { perspective:1400px; display:flex; justify-content:center; padding:48px 24px 64px; overflow:hidden; }
+.iso-frame { width:min(700px,100%); background:#091929; border-radius:10px; border:1px solid rgba(255,255,255,0.1); transform:rotateX(18deg) rotateY(-16deg); transform-style:preserve-3d; box-shadow:-52px 52px 110px rgba(0,0,0,0.75),0 0 0 1px rgba(255,255,255,0.04),inset 0 1px 0 rgba(255,255,255,0.07); }
+.iso-chrome { background:#0C1F3A; padding:8px 14px; display:flex; align-items:center; gap:6px; border-bottom:1px solid rgba(255,255,255,0.06); }
+.iso-dot { width:9px; height:9px; border-radius:50%; }
+.iso-url-bar { flex:1; background:rgba(255,255,255,0.05); border-radius:4px; height:20px; margin:0 8px; display:flex; align-items:center; padding:0 10px; font-size:10px; color:rgba(255,255,255,0.3); font-family:monospace; }
+.iso-rpt-header { padding:10px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.06); }
+.iso-filters { padding:8px 16px; display:flex; gap:6px; flex-wrap:wrap; background:rgba(255,255,255,0.02); border-bottom:1px solid rgba(255,255,255,0.05); }
+.iso-filter-chip { padding:3px 10px; border-radius:100px; font-size:9px; font-weight:600; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:rgba(255,255,255,0.4); }
+.iso-filter-chip.active { background:rgba(59,142,240,0.2); border-color:rgba(59,142,240,0.5); color:#7AAED5; }
+.iso-stats { display:flex; border-bottom:1px solid rgba(255,255,255,0.05); }
+.iso-stat { flex:1; padding:10px; text-align:center; border-right:1px solid rgba(255,255,255,0.05); }
+.iso-stat:last-child { border-right:none; }
+.iso-stat-num { font-size:18px; font-weight:900; color:#3B8EF0; line-height:1; }
+.iso-stat-label { font-size:8px; color:rgba(255,255,255,0.3); margin-top:3px; letter-spacing:.5px; text-transform:uppercase; }
+.iso-chart { padding:10px 16px; border-bottom:1px solid rgba(255,255,255,0.05); }
+.iso-chart-bars { display:flex; align-items:flex-end; gap:3px; height:56px; margin-top:6px; }
+.iso-bar { flex:1; border-radius:2px 2px 0 0; background:linear-gradient(to top,#1A5CC0,#3B8EF0); min-height:4px; }
+.iso-entry { display:flex; align-items:center; gap:8px; padding:8px 16px; border-bottom:1px solid rgba(255,255,255,0.04); font-size:10px; }
+.iso-entry-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+.iso-entry-time { color:rgba(255,255,255,0.3); width:80px; flex-shrink:0; }
+.iso-entry-text { flex:1; color:rgba(255,255,255,0.7); }
+.iso-entry-score { font-weight:700; color:#3B8EF0; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="assets/icon.png" alt="Surfacing">Sur<span>facing</span></a>
+    <ul class="nav-links">
+      <li><a href="patients.html">Patients</a></li>
+      <li><a href="clinicians.html" class="active">Clinicians</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="reporting.html">Reports</a></li>
+      <li><a href="ai-analytics.html">AI Analytics</a></li>
+      <li><a href="hipaa.html">HIPAA</a></li>
+      <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+    </ul>
+    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="index.html">Home</a><a href="patients.html">Patients</a><a href="clinicians.html">Clinicians</a>
+  <a href="research.html">Research</a><a href="reporting.html">Reports</a><a href="ai-analytics.html">AI Analytics</a><a href="hipaa.html">HIPAA</a><a href="#contact">Contact Us</a>
+</div>
+
+<!-- ── Hero ──────────────────────────────────────────────────────────────────── -->
+<div class="page-hero">
+  <div class="container-sm">
+    <span class="badge badge-purple" style="margin-bottom:20px;">🩺 For Clinicians &amp; Therapists</span>
+    <h1 class="h1">Between-session data<br>that actually matters.</h1>
+    <p class="lead" style="margin-top:16px;">Surfacing gives clients a low-friction, effortless way to capture episodes the moment they happen — clinically structured, in real time. When they walk in, you both already know what the week looked like.</p>
+    <div style="margin-top:28px;display:inline-flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+      <span class="free-badge"><span class="check">✓</span> Completely free</span>
+      <span class="free-badge"><span class="check">✓</span> HIPAA Compliant design</span>
+      <span class="free-badge"><span class="check">✓</span> No account or app required on your end</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── Finally free banner ────────────────────────────────────────────────────── -->
+<div style="background:linear-gradient(90deg,rgba(59,142,240,0.12),rgba(78,205,196,0.08));border-top:1px solid rgba(59,142,240,0.2);border-bottom:1px solid rgba(59,142,240,0.2);padding:20px 0;text-align:center;">
+  <div class="container">
+    <p style="font-size:17px;font-weight:700;color:var(--text);">Finally — a completely free, HIPAA-compliant way for your clients to track symptoms and events between sessions.</p>
+    <p style="font-size:14px;color:var(--text2);margin-top:6px;">No subscriptions. No upsells. No paywalls. Your clients get the full app. You get the data.</p>
+  </div>
+</div>
+
+<!-- ── Clinical value prop ────────────────────────────────────────────────────── -->
+<section>
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;">
+      <div class="fade-up">
+        <div class="label" style="margin-bottom:14px;">The Clinical Gap</div>
+        <h2 class="h2" style="margin-bottom:20px;">Your clients are guessing. You're working with a sketch.</h2>
+        <p style="color:var(--text2);font-size:15px;line-height:1.8;margin-bottom:24px;">
+          Retrospective self-report — "how was your week?" — is the baseline in most outpatient practice. But memory is reconstructed, trauma compresses timelines, and high-affect states are disproportionately recalled. You make treatment decisions on incomplete data.
+        </p>
+        <p style="color:var(--text2);font-size:15px;line-height:1.8;margin-bottom:28px;">
+          Surfacing changes the input. Your clients log in real time — intensity, trigger, location, skill used, skill outcome — so when they arrive at session, there's a structured record of what actually happened.
+        </p>
+        <div class="callout">
+          <h4>EMA-grade data without the research setup</h4>
+          <p>Ecological Momentary Assessment is the gold standard for mental health data collection. Surfacing delivers that methodology in a consumer app — no IRB, no study cost, no technical barrier.</p>
+        </div>
+      </div>
+      <div class="fade-up fade-up-delay-2">
+        <div class="card">
+          <div class="label" style="margin-bottom:16px;">What arrives in your clinical review</div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+
+            <!-- Entry 1: PTSD -->
+            <div style="padding:14px;background:var(--surface2);border-radius:var(--radius-sm);">
+              <div style="font-size:12px;color:var(--text3);margin-bottom:6px;font-weight:600;">MON · 11:34 AM · Severity 8/10</div>
+              <div style="font-weight:600;color:var(--text);margin-bottom:6px;">PTSD Episode — Driving to work, highway (alone)</div>
+              <div style="font-size:13px;color:var(--text2);margin-bottom:3px;">Flashback type: Intrusive memory · Known trigger: Yes · Feelings: Fear, Shame, Hypervigilance</div>
+              <div style="font-size:13px;color:var(--text2);margin-bottom:3px;">Physical symptoms: Racing heart, sweating, dissociation · Duration: ~25 min</div>
+              <div style="font-size:13px;color:var(--teal);">Skill: Grounding (5-4-3-2-1) · Effectiveness: 6/10 · Left situation: Yes</div>
+            </div>
+
+            <!-- Entry 2: GAD -->
+            <div style="padding:14px;background:var(--surface2);border-radius:var(--radius-sm);">
+              <div style="font-size:12px;color:var(--text3);margin-bottom:6px;font-weight:600;">WED · 7:12 PM · Severity 5/10</div>
+              <div style="font-weight:600;color:var(--text);margin-bottom:6px;">GAD Episode — Home office (with others nearby)</div>
+              <div style="font-size:13px;color:var(--text2);margin-bottom:3px;">Worry topics: Work performance, Finances · Avoidance: No · Physical: Tension, restlessness</div>
+              <div style="font-size:13px;color:var(--text2);margin-bottom:3px;">Social context: With others · Duration: ~40 min · Feelings: Dread, Helplessness</div>
+              <div style="font-size:13px;color:var(--teal);">Skill: Paced breathing · Effectiveness: 9/10 · Relief: Full</div>
+            </div>
+
+            <!-- Entry 3: MDD -->
+            <div style="padding:14px;background:var(--surface2);border-radius:var(--radius-sm);">
+              <div style="font-size:12px;color:var(--text3);margin-bottom:6px;font-weight:600;">FRI · 3:48 AM · Severity 9/10</div>
+              <div style="font-weight:600;color:var(--text);margin-bottom:6px;">MDD Episode — Bedroom (alone, awake since 1 AM)</div>
+              <div style="font-size:13px;color:var(--text2);margin-bottom:3px;">Energy: 2/10 · Sleep: 3 hrs · Self-care completed: No · Isolating: Yes</div>
+              <div style="font-size:13px;color:var(--text2);margin-bottom:3px;">Feelings: Hopelessness, Emptiness, Shame · Physical: Fatigue, body heaviness</div>
+              <div style="font-size:13px;color:#f59e0b;">No skill attempted · Consecutive low days: 4</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Low-friction capture ───────────────────────────────────────────────────── -->
+<section>
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
+
+      <div class="fade-up">
+        <div class="label" style="margin-bottom:14px;">Designed for the Hardest Moments</div>
+        <h2 class="h2" style="margin-bottom:20px;">Surfacing gives clients a clinical-grade capture tool that works — even when they don't.</h2>
+        <p style="color:var(--text2);font-size:15px;line-height:1.8;margin-bottom:20px;">
+          Most journaling tools fail your highest-need clients first. Login screens, blank text fields, and paragraph prompts are barriers — not tools — for someone mid-panic, mid-dissociation, or mid-shutdown. Surfacing was built around one premise: an episode has to be capturable in under 30 seconds, with near-zero cognitive overhead.
+        </p>
+        <p style="color:var(--text2);font-size:15px;line-height:1.8;margin-bottom:28px;">
+          A client with ADHD doesn't forget to track because they don't care — they forget because executive function collapses under emotional load. A client mid-flashback can't compose a journal entry. Surfacing meets them with a structured tap-flow that requires less effort than sending a text, and captures more clinically relevant information than any open-ended diary ever could.
+        </p>
+        <div class="callout teal">
+          <h4>The data you don't get is the data from the worst moments</h4>
+          <p>Standard journals capture the episodes clients remember to write about later. Surfacing captures episodes while they're still in them — which is exactly the data that changes treatment planning.</p>
+        </div>
+      </div>
+
+      <div class="fade-up fade-up-delay-2">
+        <div style="display:flex;flex-direction:column;gap:16px;">
+
+          <div class="feature-strip">
+            <div class="feature-strip-icon">⚡</div>
+            <div class="feature-strip-body">
+              <h4>Under 30 seconds to log an episode</h4>
+              <p>Condition-specific tap selectors, sliders, and quick-pick fields — minimal typing required. Built for capture speed in high-affect states, not reflective journaling after the fact.</p>
+            </div>
+          </div>
+
+          <div class="feature-strip">
+            <div class="feature-strip-icon">🧠</div>
+            <div class="feature-strip-body">
+              <h4>Effortless for clients with ADHD, ASD, and executive function challenges</h4>
+              <p>No blank page. No open-ended prompts. No "where do I start?" Clients open the app and the structure is already there — each field is a specific, answerable question that bypasses the executive demand of unstructured self-reflection entirely.</p>
+            </div>
+          </div>
+
+          <div class="feature-strip">
+            <div class="feature-strip-icon">📵</div>
+            <div class="feature-strip-body">
+              <h4>Fully offline — logs anywhere, instantly</h4>
+              <p>No WiFi needed. No data signal. No account to stay logged into. Episodes happen in the car, in a waiting room, in a parking lot at 11 PM — and Surfacing is there for all of them.</p>
+            </div>
+          </div>
+
+          <div class="feature-strip">
+            <div class="feature-strip-icon">🔓</div>
+            <div class="feature-strip-body">
+              <h4>One biometric tap between distress and data</h4>
+              <p>Face ID or fingerprint opens the app instantly. Clients in active distress aren't navigating a login flow before they can capture what's happening — the moment gets logged while it's still real.</p>
+            </div>
+          </div>
+
+          <div class="feature-strip">
+            <div class="feature-strip-icon">📋</div>
+            <div class="feature-strip-body">
+              <h4>Effortless, structured reports — no manual write-up</h4>
+              <p>Every logged episode automatically becomes part of a formatted, filterable clinical report. No narrative needed from the client. No summarizing required from you. The data structure does the documentation.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Patient Safety & Data Integrity ───────────────────────────────────────── -->
+<section style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="label">Patient Safety &amp; Data Integrity</div>
+      <h2 class="h2">Symptoms delivered securely within your HIPAA-compliant environment</h2>
+      <p class="lead">Every piece of data your client logs stays on their device until they choose to share it. When they do, it arrives as a password-protected, AES-256 encrypted file — designed to open within your existing secure communication tools, EHR attachments, or direct peer-to-peer transfer. No third party touches it. No Surfacing server receives it.</p>
+    </div>
+
+    <div class="grid-3 fade-up" style="gap:24px;margin-bottom:40px;">
+      <div class="card" style="padding:28px;">
+        <div style="font-size:32px;margin-bottom:14px;">🔒</div>
+        <h4 style="font-weight:700;margin-bottom:10px;">Encrypted at every step</h4>
+        <p style="color:var(--text2);font-size:14px;line-height:1.7;">Data is AES-256 encrypted on the client's device, encrypted in the export file, and decrypted only locally on your machine when you enter their password. It never passes through a server.</p>
+      </div>
+      <div class="card" style="padding:28px;">
+        <div style="font-size:32px;margin-bottom:14px;">📋</div>
+        <h4 style="font-weight:700;margin-bottom:10px;">Works in your existing HIPAA workflow</h4>
+        <p style="color:var(--text2);font-size:14px;line-height:1.7;">Open the report in any browser on your existing HIPAA-compliant workstation. It integrates with your current setup — no new software, no new compliance surface, no exceptions to file.</p>
+      </div>
+      <div class="card" style="padding:28px;">
+        <div style="font-size:32px;margin-bottom:14px;">🩺</div>
+        <h4 style="font-weight:700;margin-bottom:10px;">Clinician review, not clinician storage</h4>
+        <p style="color:var(--text2);font-size:14px;line-height:1.7;">You are reviewing a file, not storing PHI in a new system. If you do not save the file after review, no patient data enters your records system. Always consult your privacy officer for guidance on retention obligations in your jurisdiction.</p>
+      </div>
+    </div>
+
+    <div class="fade-up" style="max-width:800px;margin:0 auto;background:rgba(245,158,11,0.08);border:1.5px solid rgba(245,158,11,0.35);border-radius:var(--radius);padding:24px 28px;">
+      <p style="color:#f59e0b;font-size:14px;line-height:1.8;margin:0;">⚠️ <strong>Disclaimer:</strong> Surfacing is a self-report tracking tool intended to supplement clinical assessment, not replace it. Logged data reflects patient perception and self-report accuracy. Clinical decisions should never be made solely on the basis of app data. Surfacing is not a medical device and makes no diagnostic or treatment claims.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Isometric Report Graphic ───────────────────────────────────────────────── -->
+<section style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="label">Sample Report</div>
+      <h2 class="h2">This is what you'll open in your browser</h2>
+      <p class="lead">Interactive, filterable, fully offline. Decrypts with the client's password and loads instantly — no internet, no app, no account.</p>
+    </div>
+    <div class="iso-wrapper fade-up">
+      <div class="iso-frame">
+        <div class="iso-chrome">
+          <div class="iso-dot" style="background:#ff5f56"></div>
+          <div class="iso-dot" style="background:#ffbd2e"></div>
+          <div class="iso-dot" style="background:#27c93f"></div>
+          <div class="iso-url-bar">surfacing-report-dec2026.html &nbsp;·&nbsp; 🔒 Decrypted locally</div>
+        </div>
+        <div class="iso-rpt-header">
+          <div>
+            <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.9);">Surfacing Clinical Report</div>
+            <div style="font-size:9px;color:rgba(255,255,255,0.3);margin-top:2px;">Nov 1 – Dec 15, 2026 &nbsp;·&nbsp; GAD + PTSD &nbsp;·&nbsp; 42 entries logged</div>
+          </div>
+          <div style="font-size:9px;color:#3B8EF0;font-weight:600;">Filter ▾</div>
+        </div>
+        <div class="iso-filters">
+          <div class="iso-filter-chip active">All Conditions</div>
+          <div class="iso-filter-chip">GAD</div>
+          <div class="iso-filter-chip">PTSD</div>
+          <div class="iso-filter-chip">Skills Only</div>
+          <div class="iso-filter-chip" style="margin-left:auto;">Nov 1 – Dec 15 ▾</div>
+        </div>
+        <div class="iso-stats">
+          <div class="iso-stat"><div class="iso-stat-num">42</div><div class="iso-stat-label">Episodes</div></div>
+          <div class="iso-stat"><div class="iso-stat-num" style="color:#f59e0b;">7.4</div><div class="iso-stat-label">Avg Intensity</div></div>
+          <div class="iso-stat"><div class="iso-stat-num" style="color:#4ade80;">7.2</div><div class="iso-stat-label">Skill Score</div></div>
+          <div class="iso-stat"><div class="iso-stat-num">18</div><div class="iso-stat-label">Skills Logged</div></div>
+        </div>
+        <div class="iso-chart">
+          <div style="font-size:9px;color:rgba(255,255,255,0.3);font-weight:600;letter-spacing:.5px;">EPISODES BY WEEK</div>
+          <div class="iso-chart-bars">
+            <div class="iso-bar" style="height:30%"></div><div class="iso-bar" style="height:65%"></div>
+            <div class="iso-bar" style="height:42%"></div><div class="iso-bar" style="height:88%"></div>
+            <div class="iso-bar" style="height:55%"></div><div class="iso-bar" style="height:72%"></div>
+            <div class="iso-bar" style="height:38%"></div><div class="iso-bar" style="height:95%"></div>
+            <div class="iso-bar" style="height:60%"></div><div class="iso-bar" style="height:78%"></div>
+            <div class="iso-bar" style="height:48%"></div><div class="iso-bar" style="height:85%"></div>
+            <div class="iso-bar" style="height:66%"></div><div class="iso-bar" style="height:52%"></div>
+          </div>
+        </div>
+        <div class="iso-entry">
+          <div class="iso-entry-dot" style="background:#e05555"></div>
+          <div class="iso-entry-time">Sun Nov 6 · 5:12p</div>
+          <div class="iso-entry-text">PTSD · Intrusive memory · Highway · Grounding used</div>
+          <div class="iso-entry-score">8/10</div>
+        </div>
+        <div class="iso-entry">
+          <div class="iso-entry-dot" style="background:#f59e0b"></div>
+          <div class="iso-entry-time">Mon Nov 7 · 2:30p</div>
+          <div class="iso-entry-text">GAD · Work/finances · Home office · Paced breathing</div>
+          <div class="iso-entry-score">5/10</div>
+        </div>
+        <div class="iso-entry">
+          <div class="iso-entry-dot" style="background:#4ade80"></div>
+          <div class="iso-entry-time">Wed Nov 9 · 10:15a</div>
+          <div class="iso-entry-text">GAD · Intensity 3 · Skill effective 9/10 · Full relief</div>
+          <div class="iso-entry-score">3/10</div>
+        </div>
+        <div class="iso-entry" style="opacity:0.45">
+          <div class="iso-entry-dot" style="background:rgba(255,255,255,0.2)"></div>
+          <div class="iso-entry-time">+ 39 more</div>
+          <div class="iso-entry-text" style="color:rgba(255,255,255,0.3);">Scroll to view full entry timeline ···</div>
+          <div class="iso-entry-score" style="color:rgba(255,255,255,0.2);">···</div>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:13px;color:var(--text3);margin-top:-24px;">
+      <em>Illustrative sample. Actual report contains all logged entries, custom charts, and skill effectiveness analysis.</em>
+    </p>
+  </div>
+</section>
+
+<!-- ── Condition scenarios ─────────────────────────────────────────────────────── -->
+<section style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="label">Clinical Use Scenarios</div>
+      <h2 class="h2">Condition-specific logging, built in</h2>
+      <p class="lead">Surfacing ships with evidence-informed field sets for over 30 conditions. Each adapts to what's diagnostically meaningful — not just generic "mood" tracking.</p>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px;justify-content:center;" class="fade-up">
+      <button class="filter-pill active" data-filter="all">All Conditions</button>
+      <button class="filter-pill" data-filter="anxiety">Anxiety &amp; Trauma</button>
+      <button class="filter-pill" data-filter="mood">Mood Disorders</button>
+      <button class="filter-pill" data-filter="neuro">Neurodevelopmental</button>
+      <button class="filter-pill" data-filter="ocd">OCD Spectrum</button>
+      <button class="filter-pill" data-filter="other">Other</button>
+    </div>
+    <div class="grid-3 fade-up" style="gap:16px;" id="condition-grid">
+
+      <div class="condition-card" data-category="anxiety">
+        <div class="badge badge-teal" style="margin-bottom:12px;">PTSD</div>
+        <h4>Post-Traumatic Stress</h4>
+        <p>Captures known trigger (yes/no), flashback type, and contextual factors. Helps track episode clustering around specific triggers or times.</p>
+        <div style="margin-top:12px;"><span class="field-tag">known_trigger</span><span class="field-tag">flashback_type</span><span class="field-tag">social_context</span></div>
+      </div>
+
+      <div class="condition-card" data-category="anxiety">
+        <div class="badge badge-teal" style="margin-bottom:12px;">GAD</div>
+        <h4>Generalized Anxiety</h4>
+        <p>Logs worry topics with customizable categories, avoidance behavior, and skill outcome. Reveals content patterns in anxious thinking.</p>
+        <div style="margin-top:12px;"><span class="field-tag">worry_topic</span><span class="field-tag">did_avoid</span><span class="field-tag">social_context</span></div>
+      </div>
+
+      <div class="condition-card" data-category="anxiety">
+        <div class="badge badge-teal" style="margin-bottom:12px;">Social Anxiety</div>
+        <h4>Social Anxiety Disorder</h4>
+        <p>Distinguishes anticipatory vs. reactive anxiety, records situation type, and whether the client avoided entirely — critical for exposure hierarchy work.</p>
+        <div style="margin-top:12px;"><span class="field-tag">anticipatory_reactive</span><span class="field-tag">situation_type</span><span class="field-tag">avoided_entirely</span></div>
+      </div>
+
+      <div class="condition-card" data-category="anxiety">
+        <div class="badge badge-teal" style="margin-bottom:12px;">Specific Phobia</div>
+        <h4>Specific Phobia</h4>
+        <p>Records phobia type, exposure occurrence, and avoidance behavior. Supports tracking between-session exposure homework compliance.</p>
+        <div style="margin-top:12px;"><span class="field-tag">phobia_type</span><span class="field-tag">exposure_occurred</span><span class="field-tag">avoided</span></div>
+      </div>
+
+      <div class="condition-card" data-category="anxiety">
+        <div class="badge badge-teal" style="margin-bottom:12px;">Panic Disorder</div>
+        <h4>Panic Disorder</h4>
+        <p>Logs episode duration, whether the client left the situation, and context type. Supports both interoceptive and situational exposure tracking.</p>
+        <div style="margin-top:12px;"><span class="field-tag">episode_duration</span><span class="field-tag">left_situation</span><span class="field-tag">social_context</span></div>
+      </div>
+
+      <div class="condition-card" data-category="anxiety">
+        <div class="badge badge-teal" style="margin-bottom:12px;">Agoraphobia</div>
+        <h4>Agoraphobia</h4>
+        <p>Tracks specific feared situations (transport, crowds, open spaces), avoidance, and safety behavior use — essential for graduated exposure planning.</p>
+        <div style="margin-top:12px;"><span class="field-tag">situation_type</span><span class="field-tag">avoided_entirely</span><span class="field-tag">safety_behavior</span></div>
+      </div>
+
+      <div class="condition-card" data-category="mood">
+        <div class="badge badge-purple" style="margin-bottom:12px;">MDD</div>
+        <h4>Major Depressive Disorder</h4>
+        <p>Tracks energy level (inverted scale: high = green), sleep hours, self-care completion, and social isolation — the behavioral markers of depressive episodes.</p>
+        <div style="margin-top:12px;"><span class="field-tag">energy_level</span><span class="field-tag">sleep_hours</span><span class="field-tag">self_care</span><span class="field-tag">isolated</span></div>
+      </div>
+
+      <div class="condition-card" data-category="mood">
+        <div class="badge badge-purple" style="margin-bottom:12px;">Bipolar Disorder</div>
+        <h4>Bipolar I &amp; II</h4>
+        <p>Logs mood state across the full spectrum (depressive → manic), energy level, racing thoughts, and impulsive behavior — critical for phase tracking.</p>
+        <div style="margin-top:12px;"><span class="field-tag">mood_state</span><span class="field-tag">energy_level</span><span class="field-tag">racing_thoughts</span><span class="field-tag">impulsive_behavior</span></div>
+      </div>
+
+      <div class="condition-card" data-category="mood">
+        <div class="badge badge-purple" style="margin-bottom:12px;">BPD</div>
+        <h4>Borderline Personality</h4>
+        <p>Captures trigger type (abandonment cue, rejection, invalidation), whether the client acted on the emotion, and regret level — ideal for DBT chain analysis.</p>
+        <div style="margin-top:12px;"><span class="field-tag">trigger_type</span><span class="field-tag">acted_on_emotion</span><span class="field-tag">action_taken</span><span class="field-tag">regret_level</span></div>
+      </div>
+
+      <div class="condition-card" data-category="mood">
+        <div class="badge badge-purple" style="margin-bottom:12px;">PMDD</div>
+        <h4>Premenstrual Dysphoric</h4>
+        <p>Logs cycle phase, symptom type (irritability, depression, anxiety, fatigue), and functioning impact. Reveals luteal phase patterns over months.</p>
+        <div style="margin-top:12px;"><span class="field-tag">cycle_phase</span><span class="field-tag">symptom_type</span><span class="field-tag">functioning_impact</span></div>
+      </div>
+
+      <div class="condition-card" data-category="neuro">
+        <div class="badge badge-amber" style="margin-bottom:12px;">ADHD</div>
+        <h4>ADHD</h4>
+        <p>Records episode type (hyperfocus, shutdown, RSD, impulsivity) and medication adherence. Supports identifying patterns vs. meds-on/off days.</p>
+        <div style="margin-top:12px;"><span class="field-tag">episode_type</span><span class="field-tag">medication_taken</span><span class="field-tag">social_context</span></div>
+      </div>
+
+      <div class="condition-card" data-category="neuro">
+        <div class="badge badge-amber" style="margin-bottom:12px;">Autism Spectrum</div>
+        <h4>Autism Spectrum Disorder</h4>
+        <p>Logs episode type (meltdown vs. shutdown), sensory trigger, and estimated recovery time — useful for understanding capacity and accommodation needs.</p>
+        <div style="margin-top:12px;"><span class="field-tag">episode_type</span><span class="field-tag">sensory_trigger</span><span class="field-tag">recovery_time</span></div>
+      </div>
+
+      <div class="condition-card" data-category="neuro">
+        <div class="badge badge-amber" style="margin-bottom:12px;">RSD</div>
+        <h4>Rejection Sensitive Dysphoria</h4>
+        <p>Tracks perceived trigger source, episode duration, and whether the client acted on the emotion — supports identifying RSD as distinct from BPD reactivity.</p>
+        <div style="margin-top:12px;"><span class="field-tag">trigger_source</span><span class="field-tag">episode_duration</span><span class="field-tag">acted_on_it</span></div>
+      </div>
+
+      <div class="condition-card" data-category="ocd">
+        <div class="badge badge-green" style="margin-bottom:12px;">Trichotillomania</div>
+        <h4>Trichotillomania</h4>
+        <p>Captures whether the urge was acted on, duration, body location, and awareness level (automatic vs. focused). Supports HRT/ACT progress tracking.</p>
+        <div style="margin-top:12px;"><span class="field-tag">acted_on_urge</span><span class="field-tag">duration</span><span class="field-tag">awareness_level</span></div>
+      </div>
+
+      <div class="condition-card" data-category="ocd">
+        <div class="badge badge-green" style="margin-bottom:12px;">Excoriation</div>
+        <h4>Excoriation Disorder</h4>
+        <p>Logs urge, duration, body location, awareness, and trigger (mirror, stress, boredom) — enables behavioral pattern analysis for ERP and HRT.</p>
+        <div style="margin-top:12px;"><span class="field-tag">acted_on_urge</span><span class="field-tag">trigger</span><span class="field-tag">awareness_level</span></div>
+      </div>
+
+      <div class="condition-card" data-category="ocd">
+        <div class="badge badge-green" style="margin-bottom:12px;">BDD</div>
+        <h4>Body Dysmorphic Disorder</h4>
+        <p>Tracks checking behavior type (mirror, photo, comparison), avoidance behavior, and time spent on appearance concerns — core ERP targets.</p>
+        <div style="margin-top:12px;"><span class="field-tag">checking_behavior</span><span class="field-tag">avoidance_behavior</span><span class="field-tag">appearance_time</span></div>
+      </div>
+
+      <div class="condition-card" data-category="other">
+        <div class="badge" style="margin-bottom:12px;background:rgba(224,85,85,0.1);color:var(--danger);border:1px solid rgba(224,85,85,0.25);">Chronic Pain</div>
+        <h4>Chronic Pain</h4>
+        <p>Logs hours in significant pain and functional impact on daily activities. Supports pain-psychology integration and medical co-management.</p>
+        <div style="margin-top:12px;"><span class="field-tag">duration</span><span class="field-tag">affected_function</span></div>
+      </div>
+
+      <div class="condition-card" data-category="other">
+        <div class="badge badge-teal" style="margin-bottom:12px;">+ Custom</div>
+        <h4>Custom Condition Builder</h4>
+        <p>No condition listed? Build your own with custom field types: ratings, number wheels, single-select, multi-select, and free text. Ideal for less common presentations.</p>
+        <div style="margin-top:12px;"><span class="field-tag">any field type</span><span class="field-tag">clinician-designed</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Export workflow ────────────────────────────────────────────────────────── -->
+<section>
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="label">Clinical Workflow</div>
+      <h2 class="h2">From episode to session in 3 steps</h2>
+    </div>
+    <div class="grid-3">
+      <div class="card fade-up fade-up-delay-1" style="text-align:center;">
+        <div style="font-size:48px;margin-bottom:16px;">📱</div>
+        <div style="font-size:11px;font-weight:700;color:var(--teal);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Step 1</div>
+        <h3 class="h3" style="margin-bottom:12px;">Client logs in real time</h3>
+        <p style="color:var(--text2);font-size:15px;">Episodes are logged within seconds of occurrence using condition-specific fields. All data stays on their device, encrypted.</p>
+      </div>
+      <div class="card fade-up fade-up-delay-2" style="text-align:center;">
+        <div style="font-size:48px;margin-bottom:16px;">📤</div>
+        <div style="font-size:11px;font-weight:700;color:var(--teal);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Step 2</div>
+        <h3 class="h3" style="margin-bottom:12px;">Client exports a session file</h3>
+        <p style="color:var(--text2);font-size:15px;">Before the appointment, they export a password-protected HTML file covering whatever date range they choose. They share it via any method they prefer.</p>
+      </div>
+      <div class="card fade-up fade-up-delay-3" style="text-align:center;">
+        <div style="font-size:48px;margin-bottom:16px;">💻</div>
+        <div style="font-size:11px;font-weight:700;color:var(--teal);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Step 3</div>
+        <h3 class="h3" style="margin-bottom:12px;">You review it in any browser</h3>
+        <p style="color:var(--text2);font-size:15px;">Open the file locally in any browser on your HIPAA-compliant workstation. Enter the client's password — the data decrypts entirely on your machine. You see a full, filterable, chartable view of their episode history. No internet, no app, no account, no PHI stored on external servers.</p>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:32px;" class="fade-up">
+      <h4>⚠️ Important: The clinician never stores PHI</h4>
+      <p>The export file is encrypted and password-protected. If you do not save it locally (and you don't need to), no PHI ever passes through your systems. The data lives on the client's phone, shared peer-to-peer. This is the core HIPAA advantage — review <a href="hipaa.html">our full compliance documentation.</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact ────────────────────────────────────────────────────────────────── -->
+<section id="contact" style="background:var(--surface);border-top:1px solid var(--border);">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="label">Partner With Us</div>
+      <h2 class="h2">Integrate Surfacing into your practice</h2>
+      <p class="lead">We work with private practitioners, group practices, and outpatient programs to onboard Surfacing as a between-session tool. Get in touch to discuss your setup.</p>
+    </div>
+    <div style="max-width:600px;margin:0 auto;" class="fade-up">
+      <div id="form-success" class="form-success">✓ Message received! We'll be in touch within 48 hours.</div>
+      <form class="form" id="contact-form" action="https://formspree.io/f/mjgjdewa" method="POST">
+        <div class="form-row">
+          <div class="form-group"><label>First name</label><input type="text" name="first_name" placeholder="Dr. Jane" required></div>
+          <div class="form-group"><label>Last name</label><input type="text" name="last_name" placeholder="Smith" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Email</label><input type="email" name="email" placeholder="jane@practice.com" required></div>
+          <div class="form-group"><label>Practice / Organization</label><input type="text" name="organization" placeholder="Smith Therapy Group"></div>
+        </div>
+        <div class="form-group">
+          <label>Primary clinical area</label>
+          <select name="specialty">
+            <option value="">Select specialty</option>
+            <option>Trauma &amp; PTSD</option><option>Anxiety Disorders</option>
+            <option>Mood Disorders</option><option>DBT Program</option>
+            <option>Eating Disorders</option><option>Substance Use</option>
+            <option>Neurodevelopmental</option><option>General Outpatient</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group"><label>How can we help?</label><textarea name="message" placeholder="Tell us about your practice and how you'd like to use Surfacing…" required></textarea></div>
+        <input type="hidden" name="role" value="clinician">
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Send to Clinical Team</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="nav-logo" style="font-size:18px;"><img src="assets/icon.png" alt="Surfacing" style="width:30px;height:30px;">Sur<span>facing</span></a><p>A private, offline-first mental health symptom and episode tracker. All data stays on the device.</p></div>
+      <div class="footer-col"><h5>App</h5><ul><li><a href="patients.html">For Patients</a></li><li><a href="clinicians.html">For Clinicians</a></li><li><a href="research.html">For Research</a></li></ul></div>
+      <div class="footer-col"><h5>Compliance</h5><ul><li><a href="hipaa.html">HIPAA Overview</a></li><li><a href="hipaa.html#architecture">Architecture</a></li><li><a href="hipaa.html#faq">FAQ</a></li></ul></div>
+      <div class="footer-col"><h5>Contact</h5><ul><li><a href="index.html#contact">General Inquiry</a></li><li><a href="clinicians.html#contact">Clinical Partners</a></li><li><a href="research.html#contact">Research Collab</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Surfacing. All rights reserved.</span><span>Built with privacy by design · No data collected · Ever.</span></div>
+  </div>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encrypted Mental Health Clinical Reports — How Surfacing Reporting Works</title>
+<meta name="description" content="Surfacing generates AES-256 encrypted, self-contained HTML clinical reports for your therapist. Zero network activity, works offline in any browser, HIPAA-compliant design. DBT/CBT/ACT skill data included.">
+<meta name="keywords" content="encrypted mental health report, clinical HTML report therapy, HIPAA compliant mental health report, therapist patient report app, AES-256 mental health export, offline clinical report, DBT skill report, CBT session report, symptom report therapist">
+<link rel="canonical" href="https://surfacingapp.com/reporting.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://surfacingapp.com/reporting.html">
+<meta property="og:title" content="Encrypted Clinical Mental Health Reports — Surfacing">
+<meta property="og:description" content="AES-256 encrypted, self-contained HTML reports. Zero network activity. Works offline. HIPAA-compliant design. Share directly with your therapist.">
+<meta property="og:image" content="https://surfacingapp.com/assets/main-graphic.png">
+<meta property="og:site_name" content="Surfacing">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Encrypted Clinical Reports — Surfacing">
+<meta name="twitter:description" content="Self-contained encrypted HTML reports for your therapist. Opens offline. No account, no upload, no cloud.">
+<meta name="twitter:image" content="https://surfacingapp.com/assets/main-graphic.png">
+<link rel="icon" href="assets/icon.png?v=2" type="image/png">
+<link rel="apple-touch-icon" href="assets/icon.png?v=2">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.step-pill {
+  display: flex; align-items: center; gap: 20px;
+  padding: 24px 28px; background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+.step-pill-num {
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+  background: var(--blue-dim); border: 2px solid var(--blue);
+  color: var(--blue); font-size: 16px; font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+}
+.step-pill h4 { font-weight: 700; margin-bottom: 4px; }
+.step-pill p  { color: var(--text2); font-size: 14px; }
+
+.report-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.report-card-header {
+  display: flex; align-items: center; gap: 14px;
+  padding: 18px 24px; border-bottom: 1px solid var(--border);
+  background: var(--surface2);
+}
+.report-card-header .icon { font-size: 20px; }
+.report-card-header h4 { font-weight: 700; font-size: 15px; margin-bottom: 2px; }
+.report-card-header p { font-size: 12px; color: var(--text3); }
+.report-card-body { padding: 16px 24px; }
+.rf { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--border2); font-size: 14px; }
+.rf:last-child { border-bottom: none; }
+.rf .k { color: var(--text2); }
+.rf .v { font-weight: 600; }
+.rf .v.g { color: #4ade80; }
+.rf .v.w { color: var(--amber); }
+
+.disclaimer-box {
+  background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25);
+  border-radius: var(--radius); padding: 16px 20px;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.disclaimer-box .icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.disclaimer-box p { font-size: 13px; color: var(--text2); line-height: 1.7; }
+.disclaimer-box strong { color: var(--amber); }
+
+.ai-highlight {
+  background: linear-gradient(135deg, rgba(139,92,246,0.08) 0%, rgba(59,142,240,0.06) 100%);
+  border: 1px solid rgba(139,92,246,0.2); border-radius: var(--radius-lg);
+  padding: 28px 32px;
+}
+
+/* ── Isometric report graphic ─────────────────────────── */
+.iso-wrapper { perspective: 1200px; display: flex; justify-content: center; margin: 48px 0 16px; }
+.iso-box {
+  width: 580px; max-width: 100%;
+  background: #0C1F36; border: 1px solid rgba(59,142,240,0.25);
+  border-radius: 10px; overflow: hidden;
+  transform: rotateX(18deg) rotateY(-16deg);
+  box-shadow: -52px 52px 110px rgba(0,0,0,0.75);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 9px; line-height: 1.4; color: #cdd6e0;
+}
+.iso-chrome {
+  background: #0A1628; padding: 9px 14px;
+  display: flex; align-items: center; gap: 10px;
+  border-bottom: 1px solid rgba(59,142,240,0.2);
+}
+.iso-dot { width: 8px; height: 8px; border-radius: 50%; }
+.iso-url {
+  background: #0D1F35; border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 4px; padding: 3px 10px; font-size: 8px;
+  color: #6b7a8d; flex: 1;
+}
+.iso-filters {
+  display: flex; gap: 6px; padding: 8px 14px;
+  background: rgba(59,142,240,0.06);
+  border-bottom: 1px solid rgba(59,142,240,0.12);
+  flex-wrap: wrap;
+}
+.iso-chip {
+  background: rgba(59,142,240,0.18); border: 1px solid rgba(59,142,240,0.35);
+  border-radius: 20px; padding: 2px 8px; font-size: 8px; color: #3B8EF0;
+}
+.iso-chip.active { background: #3B8EF0; color: #fff; }
+.iso-stats { display: flex; border-bottom: 1px solid rgba(59,142,240,0.12); }
+.iso-stat {
+  flex: 1; padding: 8px 12px;
+  border-right: 1px solid rgba(59,142,240,0.12);
+}
+.iso-stat:last-child { border-right: none; }
+.iso-stat-num { font-size: 14px; font-weight: 700; color: #3B8EF0; }
+.iso-stat-lbl { font-size: 7px; color: #6b7a8d; margin-top: 1px; }
+.iso-chart { padding: 10px 14px; border-bottom: 1px solid rgba(59,142,240,0.12); }
+.iso-chart-lbl { font-size: 7px; color: #6b7a8d; margin-bottom: 6px; text-transform: uppercase; letter-spacing: .5px; }
+.iso-bars { display: flex; align-items: flex-end; gap: 3px; height: 44px; }
+.iso-bar { flex: 1; background: rgba(59,142,240,0.22); border-radius: 2px 2px 0 0; }
+.iso-bar.hi { background: rgba(59,142,240,0.6); }
+.iso-bar.peak { background: #3B8EF0; }
+.iso-entries { padding: 4px 0; }
+.iso-entry {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 14px; border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 8px;
+}
+.iso-entry:last-child { border-bottom: none; }
+.iso-badge {
+  width: 20px; height: 20px; border-radius: 4px; flex-shrink: 0;
+  font-size: 9px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+}
+.iso-badge.red   { background: rgba(239,68,68,0.2);  color: #f87171; }
+.iso-badge.amber { background: rgba(245,158,11,0.2); color: #fbbf24; }
+.iso-badge.green { background: rgba(74,222,128,0.15);color: #4ade80; }
+.iso-entry-detail { flex: 1; color: #8a99a8; }
+.iso-entry-skill { color: #4ECDC4; font-size: 7px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="assets/icon.png" alt="Surfacing">Sur<span>facing</span></a>
+    <ul class="nav-links">
+      <li><a href="patients.html">Patients</a></li>
+      <li><a href="clinicians.html">Clinicians</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="reporting.html" class="active">Reports</a></li>
+      <li><a href="ai-analytics.html">AI Analytics</a></li>
+      <li><a href="hipaa.html">HIPAA</a></li>
+      <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+    </ul>
+    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="index.html">Home</a><a href="patients.html">Patients</a><a href="clinicians.html">Clinicians</a>
+  <a href="research.html">Research</a><a href="reporting.html">Reports</a><a href="ai-analytics.html">AI Analytics</a><a href="hipaa.html">HIPAA</a><a href="#contact">Contact Us</a>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════════
+     TOP — BRIEF SUMMARY
+     ══════════════════════════════════════════════════════════════════════════ -->
+
+<div class="page-hero">
+  <div class="container-sm">
+    <span class="badge badge-blue" style="margin-bottom:20px;">📊 Reporting</span>
+    <h1 class="h1">Your data, made readable.<br>Your way.</h1>
+    <p class="lead" style="margin-top:16px;">Surfacing turns your logs into a fully encrypted clinical report — one file, opened locally, readable by any clinician in any browser. Optionally, export raw JSON to explore your patterns with AI tools on your own terms.</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:28px;">
+      <span class="free-badge"><span class="check">✓</span> No internet required to view</span>
+      <span class="free-badge"><span class="check">✓</span> Works in any browser</span>
+      <span class="free-badge"><span class="check">✓</span> Designed with HIPAA compliance in mind</span>
+    </div>
+  </div>
+</div>
+
+<!-- Quick 3-step -->
+<section class="tight" style="background:var(--surface);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="grid-3" style="gap:16px;">
+      <div class="step-pill fade-up fade-up-delay-1">
+        <div class="step-pill-num">1</div>
+        <div>
+          <h4>Log in real time</h4>
+          <p>30-second entries captured the moment they happen, stored encrypted on your device.</p>
+        </div>
+      </div>
+      <div class="step-pill fade-up fade-up-delay-2">
+        <div class="step-pill-num">2</div>
+        <div>
+          <h4>Export &amp; password-protect</h4>
+          <p>Generate a self-contained encrypted HTML file. You set the password — Surfacing never knows it.</p>
+        </div>
+      </div>
+      <div class="step-pill fade-up fade-up-delay-3">
+        <div class="step-pill-num">3</div>
+        <div>
+          <h4>Opened in a HIPAA-compliant environment</h4>
+          <p>The encrypted file is opened locally — zero network activity, zero upload. Options include transfer through a HIPAA-secure messaging terminal directly into a clinical inbox, encrypted email within an EHR system, or secure file transfer — every step maintains confidentiality and safety within the clinician's HIPAA-compliant ecosystem. <em style="color:var(--text3);font-size:12px;">Disclosure: Surfacing does not control the transfer channel. Patients and clinicians should use a secure, HIPAA-compliant method appropriate to their organization's policies.</em></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════════════
+     MIDDLE — IN DEPTH
+     ══════════════════════════════════════════════════════════════════════════ -->
+
+<!-- What's in the report -->
+<section>
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="label">The Clinical Report</div>
+      <h2 class="h2">What your clinician actually sees</h2>
+      <p class="lead">An interactive dashboard — not a static PDF. Clinicians can filter by date, drill into individual entries, and interact with charts. All from a single local file.</p>
+    </div>
+    <div class="grid-2" style="gap:24px;">
+
+      <div class="report-card fade-up fade-up-delay-1">
+        <div class="report-card-header">
+          <div class="icon">📈</div>
+          <div><h4>Overview Dashboard</h4><p>At-a-glance summary of the reporting period</p></div>
+        </div>
+        <div class="report-card-body">
+          <div class="rf"><span class="k">Total episodes logged</span><span class="v">42</span></div>
+          <div class="rf"><span class="k">Reporting period</span><span class="v">6 weeks</span></div>
+          <div class="rf"><span class="k">Peak episode day</span><span class="v w">Sunday</span></div>
+          <div class="rf"><span class="k">Peak episode time</span><span class="v w">4 – 7 PM</span></div>
+          <div class="rf"><span class="k">Skills used</span><span class="v">18 entries</span></div>
+          <div class="rf"><span class="k">Avg skill effectiveness</span><span class="v g">7.2 / 10</span></div>
+        </div>
+      </div>
+
+      <div class="report-card fade-up fade-up-delay-2">
+        <div class="report-card-header">
+          <div class="icon">🧠</div>
+          <div><h4>Condition-Specific Data</h4><p>Every field logged, exactly as entered</p></div>
+        </div>
+        <div class="report-card-body">
+          <div class="rf"><span class="k">Condition</span><span class="v">GAD</span></div>
+          <div class="rf"><span class="k">Intensity (avg)</span><span class="v w">6.8 / 10</span></div>
+          <div class="rf"><span class="k">Top worry topic</span><span class="v">Work / performance</span></div>
+          <div class="rf"><span class="k">Social context</span><span class="v">Alone: 61%</span></div>
+          <div class="rf"><span class="k">Duration range</span><span class="v">15 – 90 min</span></div>
+          <div class="rf"><span class="k">Relief achieved</span><span class="v g">Partial: 48%</span></div>
+        </div>
+      </div>
+
+      <div class="report-card fade-up fade-up-delay-3">
+        <div class="report-card-header">
+          <div class="icon">🧰</div>
+          <div><h4>Skill Effectiveness Table</h4><p>What the patient tried and how well it worked</p></div>
+        </div>
+        <div class="report-card-body">
+          <div class="rf"><span class="k">Paced breathing</span><span class="v g">8.1 / 10 · 11 uses</span></div>
+          <div class="rf"><span class="k">Grounding (5-4-3-2-1)</span><span class="v g">7.4 / 10 · 6 uses</span></div>
+          <div class="rf"><span class="k">Cognitive restructuring</span><span class="v w">5.2 / 10 · 4 uses</span></div>
+          <div class="rf"><span class="k">TIPP</span><span class="v">6.8 / 10 · 3 uses</span></div>
+          <div class="rf"><span class="k">Self-soothing</span><span class="v w">4.0 / 10 · 2 uses</span></div>
+          <div class="rf"><span class="k">Radical acceptance</span><span class="v">7.0 / 10 · 1 use</span></div>
+        </div>
+      </div>
+
+      <div class="report-card fade-up fade-up-delay-4">
+        <div class="report-card-header">
+          <div class="icon">📅</div>
+          <div><h4>Full Entry Timeline</h4><p>Every log, in chronological order</p></div>
+        </div>
+        <div class="report-card-body">
+          <div class="rf"><span class="k">Nov 3 · 5:12 PM</span><span class="v w">Intensity 8 — work trigger</span></div>
+          <div class="rf"><span class="k">Nov 4 · 2:30 PM</span><span class="v">Intensity 4 — breathing used</span></div>
+          <div class="rf"><span class="k">Nov 6 · 6:00 PM</span><span class="v w">Intensity 9 — Sunday onset</span></div>
+          <div class="rf"><span class="k">Nov 8 · 10:15 AM</span><span class="v g">Intensity 3 — skill effective</span></div>
+          <div class="rf"><span class="k">Nov 9 · 4:45 PM</span><span class="v w">Intensity 7 — meeting trigger</span></div>
+          <div class="rf" style="justify-content:center;color:var(--text3);font-size:13px;border-bottom:none;">+ 37 more entries</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="callout" style="margin-top:28px;" class="fade-up">
+      <h4>📊 Custom charts embedded</h4>
+      <p>Any charts you build in the app's Chart Builder are included in the report. Clinicians can hover data points, zoom into date ranges, and read exact values — all offline, inside the file.</p>
+    </div>
+    <div class="disclaimer-box" style="margin-top:16px;">
+      <div class="icon">ℹ️</div>
+      <p><strong>For informational use only.</strong> Surfacing reports are clinical reference tools intended to support — not replace — professional assessment. Data in the report reflects patient self-report and should be interpreted within the context of a therapeutic relationship. Surfacing is not a medical device and does not provide diagnosis or treatment recommendations.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Isometric Report Visual -->
+<section style="background:var(--bg);border-top:1px solid var(--border);overflow:hidden;">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="label">See It In Action</div>
+      <h2 class="h2">What the report actually looks like</h2>
+      <p class="lead">An interactive, filterable dashboard — not a flat PDF. Every data point is live, hoverable, and exportable from a single self-contained file.</p>
+    </div>
+    <div class="iso-wrapper fade-up">
+      <div class="iso-box">
+        <div class="iso-chrome">
+          <div class="iso-dot" style="background:#f87171;"></div>
+          <div class="iso-dot" style="background:#fbbf24;"></div>
+          <div class="iso-dot" style="background:#4ade80;"></div>
+          <div class="iso-url">surfacing-report_nov2026.html — 🔓 Decrypted · Local · No Network</div>
+        </div>
+        <div class="iso-filters">
+          <span class="iso-chip active">Last 6 Weeks</span>
+          <span class="iso-chip">GAD</span>
+          <span class="iso-chip">All Skills</span>
+          <span class="iso-chip">Intensity ≥ 5</span>
+          <span class="iso-chip">Sort: Date ↓</span>
+        </div>
+        <div class="iso-stats">
+          <div class="iso-stat">
+            <div class="iso-stat-num">42</div>
+            <div class="iso-stat-lbl">Episodes</div>
+          </div>
+          <div class="iso-stat">
+            <div class="iso-stat-num" style="color:#fbbf24;">6.8</div>
+            <div class="iso-stat-lbl">Avg Intensity</div>
+          </div>
+          <div class="iso-stat">
+            <div class="iso-stat-num" style="color:#4ade80;">8.1</div>
+            <div class="iso-stat-lbl">Best Skill Score</div>
+          </div>
+          <div class="iso-stat">
+            <div class="iso-stat-num" style="color:#4ECDC4;">18</div>
+            <div class="iso-stat-lbl">Skills Used</div>
+          </div>
+          <div class="iso-stat">
+            <div class="iso-stat-num" style="color:#f87171;">Sun</div>
+            <div class="iso-stat-lbl">Peak Day</div>
+          </div>
+        </div>
+        <div class="iso-chart">
+          <div class="iso-chart-lbl">Episode Frequency — Past 6 Weeks by Day</div>
+          <div class="iso-bars">
+            <div class="iso-bar" style="height:28%;"></div>
+            <div class="iso-bar" style="height:42%;"></div>
+            <div class="iso-bar hi" style="height:58%;"></div>
+            <div class="iso-bar" style="height:32%;"></div>
+            <div class="iso-bar" style="height:48%;"></div>
+            <div class="iso-bar hi" style="height:72%;"></div>
+            <div class="iso-bar peak" style="height:100%;"></div>
+            <div class="iso-bar" style="height:38%;"></div>
+            <div class="iso-bar hi" style="height:64%;"></div>
+            <div class="iso-bar" style="height:30%;"></div>
+            <div class="iso-bar" style="height:52%;"></div>
+            <div class="iso-bar peak" style="height:88%;"></div>
+            <div class="iso-bar" style="height:44%;"></div>
+            <div class="iso-bar hi" style="height:76%;"></div>
+          </div>
+        </div>
+        <div class="iso-entries">
+          <div class="iso-entry">
+            <div class="iso-badge red">8</div>
+            <div class="iso-entry-detail">Nov 6 · 6:00 PM · GAD · Work rumination · Alone at home · 90 min · Paced breathing attempted</div>
+            <div class="iso-entry-skill">Paced Breathing ✓ 8.5</div>
+          </div>
+          <div class="iso-entry">
+            <div class="iso-badge amber">6</div>
+            <div class="iso-entry-detail">Nov 8 · 2:15 PM · GAD · Performance worry · Office · Coworkers present · 45 min</div>
+            <div class="iso-entry-skill">Grounding ✓ 7.0</div>
+          </div>
+          <div class="iso-entry">
+            <div class="iso-badge red">9</div>
+            <div class="iso-entry-detail">Nov 10 · 5:45 PM · GAD · Sunday onset · Finances + work · Home alone · 120 min</div>
+            <div class="iso-entry-skill">TIPP ✓ 6.8</div>
+          </div>
+          <div class="iso-entry">
+            <div class="iso-badge green">3</div>
+            <div class="iso-entry-detail">Nov 12 · 10:00 AM · GAD · Mild ambient anxiety · Home · 15 min · Caught early</div>
+            <div class="iso-entry-skill">Radical Accept. ✓ 7.0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center;color:var(--text3);font-size:12px;margin-top:20px;" class="fade-up">Sample report — illustrative data only. Opened locally with no internet connection. HIPAA-compliant by design.</p>
+  </div>
+</section>
+
+<!-- AI Section -->
+<section style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="label">Optional — Patient Use Only</div>
+      <h2 class="h2">AI-assisted interpretation</h2>
+      <p class="lead">Numbers tell you what happened. AI can tell you what it looks like — in plain language. Surfacing lets you export a raw JSON file of your data to use however you choose.</p>
+    </div>
+
+    <div class="grid-2" style="gap:32px;align-items:start;">
+      <div class="fade-up fade-up-delay-1">
+        <div class="ai-highlight" style="margin-bottom:24px;">
+          <div class="label" style="margin-bottom:12px;">What AI can do with your data</div>
+          <p style="color:var(--text2);font-size:15px;line-height:1.8;margin-bottom:16px;">Upload your JSON export to any AI assistant — ChatGPT, Claude, Gemini — and ask it to make sense of your logs in plain language. For example:</p>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="background:var(--surface);border-radius:var(--radius);padding:14px 18px;font-size:14px;color:var(--text2);border-left:3px solid var(--purple);">
+              "Summarize my anxiety patterns over the past six weeks"
+            </div>
+            <div style="background:var(--surface);border-radius:var(--radius);padding:14px 18px;font-size:14px;color:var(--text2);border-left:3px solid var(--blue);">
+              "Which coping skills have worked best for me and when?"
+            </div>
+            <div style="background:var(--surface);border-radius:var(--radius);padding:14px 18px;font-size:14px;color:var(--text2);border-left:3px solid var(--teal);">
+              "Write a short summary I can bring to my next therapy session"
+            </div>
+            <div style="background:var(--surface);border-radius:var(--radius);padding:14px 18px;font-size:14px;color:var(--text2);border-left:3px solid var(--amber);">
+              "Are there any patterns in my worst episodes I might be missing?"
+            </div>
+          </div>
+        </div>
+
+        <div class="callout teal">
+          <h4>From numbers to narrative</h4>
+          <p>Your logged data — intensity ratings, triggers, timestamps, skill scores — can become a readable story. "You've logged 9 high-intensity episodes over six weeks, 7 of them on Sunday evenings, almost always tied to work. Your best results came from paced breathing, used 11 times with an average effectiveness of 8.1." That kind of plain-language insight is hard to see from a table of numbers alone.</p>
+        </div>
+      </div>
+
+      <div class="fade-up fade-up-delay-2">
+        <div style="display:flex;flex-direction:column;gap:16px;">
+
+          <div class="disclaimer-box">
+            <div class="icon">⚠️</div>
+            <p><strong>This is NOT a HIPAA-compliant data transfer.</strong> When you upload your JSON to a third-party AI service (ChatGPT, Claude, Gemini, etc.), your data is transmitted to and processed by that company's servers under their own privacy policies — not Surfacing's, and not your clinician's HIPAA agreement. This is entirely your choice to make.</p>
+          </div>
+
+          <div class="disclaimer-box">
+            <div class="icon">ℹ️</div>
+            <p><strong>This is a personal tool, not a clinical one.</strong> AI-generated summaries are not clinical assessments. They are not reviewed by a licensed professional and should not be used to make clinical decisions. Use them to understand your own data and prepare for sessions — not as a substitute for clinical judgment.</p>
+          </div>
+
+          <div class="card" style="border-color:var(--border);">
+            <h4 style="margin-bottom:16px;font-size:15px;">What the JSON export contains</h4>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div class="rf" style="padding:6px 0;"><span class="k">Condition entries</span><span class="v g">✓ Included</span></div>
+              <div class="rf" style="padding:6px 0;"><span class="k">Timestamps &amp; durations</span><span class="v g">✓ Included</span></div>
+              <div class="rf" style="padding:6px 0;"><span class="k">Intensity ratings</span><span class="v g">✓ Included</span></div>
+              <div class="rf" style="padding:6px 0;"><span class="k">Skill logs &amp; scores</span><span class="v g">✓ Included</span></div>
+              <div class="rf" style="padding:6px 0;"><span class="k">Trigger &amp; context fields</span><span class="v g">✓ Included</span></div>
+              <div class="rf" style="padding:6px 0;"><span class="k">Name or personal identifiers</span><span class="v g">✗ Not collected</span></div>
+              <div class="rf" style="padding:6px 0;border-bottom:none;"><span class="k">Account / email</span><span class="v g">✗ Not collected</span></div>
+            </div>
+          </div>
+
+          <div class="card" style="border-color:var(--border);">
+            <h4 style="margin-bottom:10px;font-size:15px;">Your choice, entirely</h4>
+            <p style="color:var(--text2);font-size:14px;line-height:1.75;">Surfacing does not send your data to any AI service. The JSON export is a file on your device — what you do with it is up to you. If you're not comfortable sharing mental health data with a third-party AI, don't. The clinical HTML report is the privacy-safe path.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════════════
+     BOTTOM — TECHNICAL / COMPLIANCE (BRIEF)
+     ══════════════════════════════════════════════════════════════════════════ -->
+
+<section>
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="label">Privacy &amp; Compliance</div>
+      <h2 class="h2">Built with compliance in mind from day one</h2>
+      <p class="lead">The clinical report was designed to work within existing HIPAA-compliant ecosystems without creating new compliance obligations. No new infrastructure. No new risk surface.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card fade-up fade-up-delay-1">
+        <div class="card-icon">🔐</div>
+        <h3 class="h3" style="margin-bottom:10px;">AES-256 encrypted</h3>
+        <p style="color:var(--text2);font-size:15px;">The report payload is encrypted before the file is written. Without the password, the file is unreadable ciphertext.</p>
+      </div>
+      <div class="card fade-up fade-up-delay-2">
+        <div class="card-icon" style="background:rgba(34,197,94,0.12);">📵</div>
+        <h3 class="h3" style="margin-bottom:10px;">Zero network activity</h3>
+        <p style="color:var(--text2);font-size:15px;">The report file makes no network requests when opened. All libraries are inlined. Works fully on air-gapped clinical systems.</p>
+      </div>
+      <div class="card fade-up fade-up-delay-3">
+        <div class="card-icon" style="background:rgba(139,92,246,0.15);">🏥</div>
+        <h3 class="h3" style="margin-bottom:10px;">Fits existing workflows</h3>
+        <p style="color:var(--text2);font-size:15px;">Attach it to an EHR, send via secure message, or hand it over in person. Works universally within their HIPAA-compliant ecosystem.</p>
+      </div>
+    </div>
+    <div class="callout amber" style="margin-top:32px;">
+      <h4>Compliance note</h4>
+      <p>Surfacing is not a covered entity and the app itself does not transmit PHI. The clinical HTML report is designed for use within your existing HIPAA-compliant communication channels. The optional AI JSON export is outside this framework — see the disclaimer above. For detailed technical compliance information, see our <a href="hipaa.html" style="color:var(--amber);">HIPAA overview</a>. This page does not constitute legal or compliance advice; consult your privacy officer or legal counsel for jurisdiction-specific requirements.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container-sm">
+    <div class="section-head fade-up">
+      <div class="label">FAQ</div>
+      <h2 class="h2">Common questions</h2>
+    </div>
+    <div class="accordion fade-up">
+      <div class="accordion-item">
+        <div class="accordion-header">What file format is the clinical report?<span class="icon">+</span></div>
+        <div class="accordion-body">A standard .html file — the same format as any webpage. Clinicians open it by double-clicking or dragging it into a browser window. No special viewer, no proprietary format, no software to install.</div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">What if the clinician forgets the password?<span class="icon">+</span></div>
+        <div class="accordion-body">The password cannot be recovered — there is no server that holds it, no reset mechanism, and no backdoor. If the password is lost, export a new report with a new password. This is by design: security depends on Surfacing having zero knowledge of the decryption key.</div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">Can the report be attached to an EHR?<span class="icon">+</span></div>
+        <div class="accordion-body">Yes. The .html file is a single attachment, the same as a PDF. Any EHR that supports file attachments can store it. When a clinician opens it later, they enter the password and the full interactive report loads — no internet required.</div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">Is the AI JSON export safe to use?<span class="icon">+</span></div>
+        <div class="accordion-body">That depends on your definition of "safe." The JSON data itself contains no personal identifiers — Surfacing never collects your name, email, or demographic information. However, uploading mental health data to any third-party AI service is inherently outside HIPAA protection and subject to that service's terms. Whether that tradeoff is acceptable is entirely your decision. Your clinician should not be involved in this process.</div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">Can I share a report covering only a specific date range?<span class="icon">+</span></div>
+        <div class="accordion-body">Yes. When generating an export, you select a date range. Only entries within that range are included. This lets you share only the data since your last session, rather than your full history.</div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">How large is the report file?<span class="icon">+</span></div>
+        <div class="accordion-body">Typically 450–700 KB regardless of how many entries it contains, because the largest component is the inlined JavaScript (fixed overhead). Entry data itself is small. A 6-month report with daily entries is roughly the size of a high-resolution photo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="container">
+    <div class="cta-section fade-up">
+      <div class="label" style="margin-bottom:16px;">Get Notified</div>
+      <h2 class="h2" style="margin-bottom:16px;">Be first to see it in action</h2>
+      <p class="lead" style="margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto;">Surfacing is coming to iOS and Android. Drop your email and we'll reach out when it's live.</p>
+      <div style="max-width:480px;margin:0 auto;">
+        <div id="form-success" class="form-success">✓ You're on the list! We'll be in touch.</div>
+        <form class="form" id="contact-form" action="https://formspree.io/f/mjgjdewa" method="POST">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">First name</label>
+              <input type="text" id="fname" name="first_name" placeholder="Jane" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="jane@example.com" required>
+            </div>
+          </div>
+          <input type="hidden" name="role" value="reporting-interest">
+          <div class="form-group">
+            <label for="message">Questions about the report format?</label>
+            <textarea id="message" name="message" placeholder="Optional…" style="min-height:80px;"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Join the Waitlist</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" style="font-size:18px;"><img src="assets/icon.png" alt="Surfacing" style="width:30px;height:30px;">Sur<span>facing</span></a>
+        <p>A private, offline-first mental health symptom and episode tracker. All data stays on the device.</p>
+      </div>
+      <div class="footer-col"><h5>App</h5><ul><li><a href="patients.html">For Patients</a></li><li><a href="clinicians.html">For Clinicians</a></li><li><a href="research.html">For Research</a></li></ul></div>
+      <div class="footer-col"><h5>Reports</h5><ul><li><a href="reporting.html">How It Works</a></li><li><a href="reporting.html#contact">Get Notified</a></li><li><a href="hipaa.html">HIPAA Overview</a></li></ul></div>
+      <div class="footer-col"><h5>Contact</h5><ul><li><a href="index.html#contact">General Inquiry</a></li><li><a href="clinicians.html#contact">Clinical Partners</a></li><li><a href="research.html#contact">Research Collab</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Surfacing. All rights reserved.</span>
+      <span>Surfacing is not a medical device · Not a substitute for professional care</span>
+    </div>
+  </div>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>

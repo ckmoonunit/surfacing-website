@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMA Mental Health Research Tool — Ecological Momentary Assessment App | Surfacing</title>
+<meta name="description" content="Use Surfacing for structured EMA mental health research. IRB-friendly, no PII collected, JSON export, custom condition builder. Supports IRB 45 CFR 46, HIPAA research, FDA 21 CFR Part 11, GDPR, ICH GCP.">
+<meta name="keywords" content="EMA mental health research, ecological momentary assessment app, mental health research tool, IRB approved mental health study, DBT research tool, CBT outcome research, anxiety research app, PTSD research data collection, psychiatric EMA, free research tool mental health, no server research app">
+<link rel="canonical" href="https://surfacingapp.com/research.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://surfacingapp.com/research.html">
+<meta property="og:title" content="EMA Mental Health Research Tool — Surfacing">
+<meta property="og:description" content="IRB-friendly ecological momentary assessment. No PII collected. JSON export. Custom condition builder. Zero infrastructure cost.">
+<meta property="og:image" content="https://surfacingapp.com/assets/main-graphic.png">
+<meta property="og:site_name" content="Surfacing">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="EMA Mental Health Research — Surfacing">
+<meta name="twitter:description" content="Structured ecological momentary assessment. No server. IRB-friendly. JSON export for any analysis pipeline.">
+<meta name="twitter:image" content="https://surfacingapp.com/assets/main-graphic.png">
+<link rel="icon" href="assets/icon.png?v=2" type="image/png">
+<link rel="apple-touch-icon" href="assets/icon.png?v=2">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="assets/icon.png" alt="Surfacing">Sur<span>facing</span></a>
+    <ul class="nav-links">
+      <li><a href="patients.html">Patients</a></li>
+      <li><a href="clinicians.html">Clinicians</a></li>
+      <li><a href="research.html" class="active">Research</a></li>
+      <li><a href="reporting.html">Reports</a></li>
+      <li><a href="ai-analytics.html">AI Analytics</a></li>
+      <li><a href="hipaa.html">HIPAA</a></li>
+      <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+    </ul>
+    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="index.html">Home</a><a href="patients.html">Patients</a><a href="clinicians.html">Clinicians</a>
+  <a href="research.html">Research</a><a href="reporting.html">Reports</a><a href="ai-analytics.html">AI Analytics</a><a href="hipaa.html">HIPAA</a><a href="#contact">Contact Us</a>
+</div>
+
+<!-- ── Hero ──────────────────────────────────────────────────────────────────── -->
+<div class="page-hero">
+  <div class="container-sm">
+    <span class="badge badge-amber" style="margin-bottom:20px;">🔬 For Researchers &amp; Students</span>
+    <h1 class="h1">EMA-grade data.<br>Zero infrastructure cost.</h1>
+    <p class="lead" style="margin-top:16px;">Surfacing delivers ecological momentary assessment in a mobile app that participants actually use. No custom development. No server costs. No PII exposure. Just structured, exportable, condition-specific behavioral data.</p>
+  </div>
+</div>
+
+<!-- ── Research value props ───────────────────────────────────────────────────── -->
+<section>
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="label">Why Surfacing for Research</div>
+      <h2 class="h2">The EMA tool researchers have been waiting for</h2>
+    </div>
+    <div class="grid-2" style="gap:32px;">
+      <div class="fade-up fade-up-delay-1">
+        <div class="card" style="height:100%;">
+          <div class="card-icon">📱</div>
+          <h3 class="h3" style="margin-bottom:12px;">Real-time ecological capture</h3>
+          <p style="color:var(--text2);font-size:15px;line-height:1.75;">EMA is the gold standard for behavioral data collection precisely because it eliminates retrospective bias. Surfacing prompts participants to log episodes as they occur — in the natural environment, at the moment of occurrence.</p>
+          <div style="margin-top:20px;" class="callout">
+            <h4>Versus retrospective daily diaries</h4>
+            <p>EMA studies consistently show 40–60% divergence between real-time and retrospective self-report for high-affect states. Surfacing closes that gap.</p>
+          </div>
+        </div>
+      </div>
+      <div class="fade-up fade-up-delay-2">
+        <div class="card" style="height:100%;">
+          <div class="card-icon" style="background:rgba(245,158,11,0.15);">🔒</div>
+          <h3 class="h3" style="margin-bottom:12px;">Privacy architecture that IRBs love</h3>
+          <p style="color:var(--text2);font-size:15px;line-height:1.75;">No server receives participant data. No account stores PII. The app collects nothing Surfacing can access. Data lives on the participant's device and is exported only when they choose, to whom they choose.</p>
+          <div style="margin-top:20px;" class="callout amber">
+            <h4>IRB data security statement</h4>
+            <p>Participant data is encrypted at rest (AES-256) on the participant's personal device. No data is transmitted to any server. The research team receives exports directly from participants, with no third-party intermediary.</p>
+          </div>
+        </div>
+      </div>
+      <div class="fade-up fade-up-delay-3">
+        <div class="card" style="height:100%;">
+          <div class="card-icon" style="background:rgba(139,92,246,0.15);">⚙️</div>
+          <h3 class="h3" style="margin-bottom:12px;">Custom condition &amp; field builder</h3>
+          <p style="color:var(--text2);font-size:15px;line-height:1.75;">Define exactly the fields you need for your study. Rating scales, categorical selects, numeric wheels, free text — any combination. Build a condition that matches your protocol, not a default clinical set.</p>
+          <p style="color:var(--text2);font-size:15px;line-height:1.75;margin-top:12px;">Custom conditions appear alongside standard clinical conditions. Participants can track multiple conditions simultaneously — useful for comorbidity research.</p>
+        </div>
+      </div>
+      <div class="fade-up fade-up-delay-4">
+        <div class="card" style="height:100%;">
+          <div class="card-icon" style="background:rgba(34,197,94,0.12);">📊</div>
+          <h3 class="h3" style="margin-bottom:12px;">Structured JSON export</h3>
+          <p style="color:var(--text2);font-size:15px;line-height:1.75;">Every export contains structured JSON — no parsing HTML tables or PDF scraping. Each entry includes timestamp, condition type, all field values, skill data, and environmental context. Ready for R, Python, SPSS, or any analysis pipeline.</p>
+          <p style="color:var(--text2);font-size:15px;line-height:1.75;margin-top:12px;">The encrypted HTML export file's payload is standard JSON embedded in the file — extractable with a single decryption call if you have the participant's password.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Data schema ────────────────────────────────────────────────────────────── -->
+<section style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="label">Data Structure</div>
+      <h2 class="h2">What you get in the export</h2>
+      <p class="lead">Every participant export is a self-contained, encrypted HTML file. The payload inside is structured JSON — reproducible, versioned, and analysis-ready.</p>
+    </div>
+    <div class="fade-up">
+      <div class="code-block">
+<span class="c-comment">// Entry object — one per logged episode</span>
+{
+  <span class="c-teal">"id"</span>:               <span class="c-amber">1</span>,
+  <span class="c-teal">"created_at"</span>:       <span class="c-green">"2026-04-14T14:32:07.000Z"</span>,
+  <span class="c-teal">"condition_type"</span>:   <span class="c-green">"ptsd"</span>,
+  <span class="c-teal">"intensity_rating"</span>: <span class="c-amber">8</span>,
+  <span class="c-teal">"urge_intensity"</span>:   <span class="c-amber">6</span>,
+  <span class="c-teal">"environment"</span>:      <span class="c-green">"Car"</span>,
+  <span class="c-teal">"description"</span>:     <span class="c-green">"Triggered by news radio. Left the situation."</span>,
+  <span class="c-teal">"feelings"</span>:         <span class="c-green">"Fear, Shame, Anger"</span>,
+  <span class="c-teal">"skill_attempted"</span>: <span class="c-amber">true</span>,
+  <span class="c-teal">"skill_name"</span>:       <span class="c-green">"Grounding 5-4-3-2-1"</span>,
+  <span class="c-teal">"skill_success"</span>:    <span class="c-amber">6</span>,
+  <span class="c-teal">"condition_data"</span>: {
+    <span class="c-teal">"known_trigger"</span>:  <span class="c-amber">true</span>,
+    <span class="c-teal">"flashback_type"</span>: <span class="c-green">"Intrusive memory"</span>
+  }
+}
+      </div>
+    </div>
+    <div class="grid-3" style="margin-top:32px;">
+      <div class="card fade-up fade-up-delay-1">
+        <div class="label" style="margin-bottom:10px;">Standard fields</div>
+        <ul class="checklist" style="font-size:14px;">
+          <li>ISO timestamp</li>
+          <li>Condition type</li>
+          <li>Intensity rating (1–10)</li>
+          <li>Urge intensity (1–10)</li>
+          <li>Location / environment</li>
+          <li>Qualitative description</li>
+          <li>Feelings (multi-select)</li>
+          <li>Physical symptoms</li>
+          <li>Skill name &amp; success rating</li>
+        </ul>
+      </div>
+      <div class="card fade-up fade-up-delay-2">
+        <div class="label" style="margin-bottom:10px;">Condition-specific fields</div>
+        <ul class="checklist" style="font-size:14px;">
+          <li>All fields in <span class="mono" style="font-size:12px;">condition_data</span></li>
+          <li>Rating fields (1–10)</li>
+          <li>Numeric fields (e.g. hours)</li>
+          <li>Boolean fields</li>
+          <li>Single-select categorical</li>
+          <li>Multi-select arrays</li>
+          <li>Free text fields</li>
+          <li>Custom researcher-defined fields</li>
+        </ul>
+      </div>
+      <div class="card fade-up fade-up-delay-3">
+        <div class="label" style="margin-bottom:10px;">Export metadata</div>
+        <ul class="checklist" style="font-size:14px;">
+          <li>Export timestamp</li>
+          <li>Selected conditions list</li>
+          <li>Custom condition definitions</li>
+          <li>Custom chart configurations</li>
+          <li>Full entry array</li>
+          <li>AES-256 encrypted wrapper</li>
+          <li>Password-protected payload</li>
+          <li>Self-contained HTML file</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Use cases ──────────────────────────────────────────────────────────────── -->
+<section>
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="label">Research Applications</div>
+      <h2 class="h2">What you can study with Surfacing</h2>
+    </div>
+    <div class="grid-2" style="gap:24px;">
+      <div class="card fade-up fade-up-delay-1">
+        <div class="badge badge-teal" style="margin-bottom:14px;">Treatment Outcome Research</div>
+        <h3 class="h3" style="margin-bottom:10px;">Pre/post intervention tracking</h3>
+        <p style="color:var(--text2);font-size:15px;line-height:1.7;">Use Surfacing as the daily measurement instrument across intervention phases. Episode frequency, intensity, and skill success data provide continuous outcome metrics beyond snapshot assessments like PHQ-9 or GAD-7.</p>
+      </div>
+      <div class="card fade-up fade-up-delay-2">
+        <div class="badge badge-purple" style="margin-bottom:14px;">DBT Effectiveness Studies</div>
+        <h3 class="h3" style="margin-bottom:10px;">Skill utility in natural environment</h3>
+        <p style="color:var(--text2);font-size:15px;line-height:1.7;">Surfacing's skill logging captures which DBT, CBT, and ACT skills participants actually deploy, in what contexts, and with what self-rated success. Directly supports between-session skill generalization research.</p>
+      </div>
+      <div class="card fade-up fade-up-delay-3">
+        <div class="badge badge-amber" style="margin-bottom:14px;">Comorbidity Research</div>
+        <h3 class="h3" style="margin-bottom:10px;">Multi-condition temporal patterns</h3>
+        <p style="color:var(--text2);font-size:15px;line-height:1.7;">Participants can track multiple conditions simultaneously. Study how PTSD and BPD episodes co-occur, or how ADHD symptoms interact with anxiety — with timestamped precision across weeks and months.</p>
+      </div>
+      <div class="card fade-up fade-up-delay-4">
+        <div class="badge badge-green" style="margin-bottom:14px;">Digital Phenotyping</div>
+        <h3 class="h3" style="margin-bottom:10px;">Passive + active data collection</h3>
+        <p style="color:var(--text2);font-size:15px;line-height:1.7;">Surfacing captures environmental context (location type, social context, time of day) alongside symptom data — enabling correlational analysis between situational factors and episode severity without device sensor access.</p>
+      </div>
+      <div class="card fade-up fade-up-delay-1">
+        <div class="badge badge-teal" style="margin-bottom:14px;">Longitudinal Studies</div>
+        <h3 class="h3" style="margin-bottom:10px;">Months of granular data per participant</h3>
+        <p style="color:var(--text2);font-size:15px;line-height:1.7;">Participants accumulate structured episode data over time with no app subscription cost. The app stores indefinitely on-device. Exports can be collected at any interval — weekly, monthly, at study end.</p>
+      </div>
+      <div class="card fade-up fade-up-delay-2">
+        <div class="badge badge-amber" style="margin-bottom:14px;">Thesis &amp; Dissertation Research</div>
+        <h3 class="h3" style="margin-bottom:10px;">Zero-cost EMA for student researchers</h3>
+        <p style="color:var(--text2);font-size:15px;line-height:1.7;">Commercial EMA platforms can cost thousands per study. Surfacing is free for participants and generates exportable structured data without any researcher-side server infrastructure — ideal for thesis-level research budgets.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── IRB / Ethics section ───────────────────────────────────────────────────── -->
+<section style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container-sm">
+    <div class="section-head fade-up">
+      <div class="label">IRB &amp; Ethics Considerations</div>
+      <h2 class="h2">What to know before your IRB submission</h2>
+    </div>
+    <div class="accordion fade-up">
+      <div class="accordion-item open">
+        <div class="accordion-header">Does Surfacing collect any identifiable information? <span class="icon">+</span></div>
+        <div class="accordion-body">No. Surfacing has no account system, no login, and no network connection. It collects zero data on behalf of the developer. All data is stored locally on the participant's device in an AES-256 encrypted database. No PII is ever transmitted anywhere. In an IRB submission, you can state that no participant data passes through any third-party server.</div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">How do participants share data with the research team? <span class="icon">+</span></div>
+        <div class="accordion-body">Participants export a password-protected HTML file from the app. This file contains all of their logged data encrypted with a password they set. They share this file with the research team directly — via email, secure file transfer, or any channel your IRB approves. The research team provides the password (or the participant shares it separately). There is no Surfacing intermediary involved in this transfer.</div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">Can we use a custom condition for our protocol? <span class="icon">+</span></div>
+        <div class="accordion-body">Yes. Surfacing includes a Custom Condition Builder that allows you to define your own field set. You can create rating scales, numeric wheels, categorical selects, boolean checkboxes, and free-text fields. Contact us to discuss building a protocol-specific condition configuration that participants can enable in the app.</div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">How do we verify participant compliance? <span class="icon">+</span></div>
+        <div class="accordion-body">The exported JSON payload includes an ISO timestamp for every entry. You can verify entry count, entry distribution over time, and check that the number of entries meets your minimum logging requirements. You could also use the export's date range to confirm the participant covered the study window.</div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">Is there a way to prevent participants from editing past entries? <span class="icon">+</span></div>
+        <div class="accordion-body">Surfacing allows editing of past entries. For research purposes, we recommend in your protocol that participants understand editing undermines data quality, and you may consider using the export timestamps to identify edits relative to original entry timestamps (the app retains original created_at values). If entry immutability is a hard requirement, contact us to discuss a research-specific build.</div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">Can we get support for our IRB application? <span class="icon">+</span></div>
+        <div class="accordion-body">Yes. Contact us using the form below and describe your study. We can provide a technical summary of Surfacing's data architecture, privacy model, and encryption specifications suitable for inclusion in an IRB application.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Researcher compliance standards ───────────────────────────────────────── -->
+<section>
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="label">Customizable Compliance</div>
+      <h2 class="h2">We meet your research standard — not the other way around</h2>
+      <p class="lead">Every research context carries its own regulatory and ethical requirements. We offer customizable ways to work with researchers to conform to and apply across the specific standards that govern your study. Below are the frameworks we can help you align with.</p>
+    </div>
+
+    <div class="grid-2" style="gap:24px;">
+
+      <div class="card fade-up fade-up-delay-1">
+        <div class="badge badge-amber" style="margin-bottom:14px;">45 CFR § 46 — The Common Rule</div>
+        <h3 class="h3" style="margin-bottom:10px;">Federal human subjects protections</h3>
+        <p style="color:var(--text2);font-size:15px;line-height:1.7;">The Common Rule governs federally funded research involving human subjects. Because Surfacing collects no PII and stores data solely on participant devices, IRB applications can accurately state that no data passes through a third-party server. We can provide a technical summary document suitable for inclusion in your IRB submission.</p>
+      </div>
+
+      <div class="card fade-up fade-up-delay-2">
+        <div class="badge badge-teal" style="margin-bottom:14px;">HIPAA § 164.512(i) — Research Exception</div>
+        <h3 class="h3" style="margin-bottom:10px;">Using PHI without individual authorization</h3>
+        <p style="color:var(--text2);font-size:15px;line-height:1.7;">The HIPAA Research Exception permits covered entities to use or disclose PHI for research under specific conditions, including IRB waiver or preparation documentation. Because Surfacing exports are participant-controlled and peer-to-peer, the standard covered entity / business associate framework is simplified — we can help you document this correctly.</p>
+      </div>
+
+      <div class="card fade-up fade-up-delay-3">
+        <div class="badge badge-purple" style="margin-bottom:14px;">FDA 21 CFR Part 11 — Electronic Records</div>
+        <h3 class="h3" style="margin-bottom:10px;">Clinical trial data integrity requirements</h3>
+        <p style="color:var(--text2);font-size:15px;line-height:1.7;">FDA-regulated studies require that electronic records be trustworthy, reliable, and audit-trailed. Surfacing's on-device audit log captures all entry creation, modification, and export events with ISO timestamps. For studies requiring strict Part 11 conformance, we offer a research-specific build with enhanced immutability and audit features.</p>
+      </div>
+
+      <div class="card fade-up fade-up-delay-4">
+        <div class="badge badge-green" style="margin-bottom:14px;">NIH Data Sharing Policy</div>
+        <h3 class="h3" style="margin-bottom:10px;">Structured data for repository submission</h3>
+        <p style="color:var(--text2);font-size:15px;line-height:1.7;">NIH's 2023 Data Management and Sharing Policy requires that scientific data from NIH-funded research be made available. Surfacing exports structured JSON compatible with data dictionary documentation, and we can help you prepare de-identified datasets conforming to NIMH Data Archive or similar repository requirements.</p>
+      </div>
+
+      <div class="card fade-up fade-up-delay-1">
+        <div class="badge badge-teal" style="margin-bottom:14px;">GDPR — EU General Data Protection Regulation</div>
+        <h3 class="h3" style="margin-bottom:10px;">International research participant protections</h3>
+        <p style="color:var(--text2);font-size:15px;line-height:1.7;">For studies that include EU participants, GDPR's research exemptions (Art. 89) apply to processing personal data for scientific research under appropriate safeguards. Surfacing's architecture — no server, no collection, all data on participant device — is well-suited for GDPR-compliant research designs. We can advise on data minimization and participant rights documentation.</p>
+      </div>
+
+      <div class="card fade-up fade-up-delay-2">
+        <div class="badge badge-amber" style="margin-bottom:14px;">ICH E6(R2) — Good Clinical Practice</div>
+        <h3 class="h3" style="margin-bottom:10px;">International standard for clinical trials</h3>
+        <p style="color:var(--text2);font-size:15px;line-height:1.7;">ICH GCP establishes standards for the design, conduct, recording, and reporting of clinical trials to ensure data integrity and participant protection. For clinical trial use cases, we offer enhanced audit trail exports, investigator site documentation, and can work with your sponsor or CRO to validate the Surfacing data collection instrument for trial use.</p>
+      </div>
+
+      <div class="card fade-up fade-up-delay-3">
+        <div class="badge badge-purple" style="margin-bottom:14px;">APA Ethics Code § 8 — Research &amp; Publication</div>
+        <h3 class="h3" style="margin-bottom:10px;">Ethical standards for psychological research</h3>
+        <p style="color:var(--text2);font-size:15px;line-height:1.7;">APA's ethics standards for research require appropriate informed consent, data protection, and participant welfare safeguards. Surfacing supports these standards by collecting no identifiable information without participant initiation, giving participants complete control over their data, and never transmitting psychological data to any third party without explicit user action.</p>
+      </div>
+
+      <div class="card fade-up fade-up-delay-4">
+        <div class="badge badge-green" style="margin-bottom:14px;">PCORI Methodology Standards</div>
+        <h3 class="h3" style="margin-bottom:10px;">Patient-centered outcomes research</h3>
+        <p style="color:var(--text2);font-size:15px;line-height:1.7;">PCORI-funded comparative effectiveness research requires patient engagement and rigorous methodology. Surfacing's EMA approach aligns with PCORI standards for capturing patient-reported outcomes in naturalistic settings. We can help customize condition-specific field sets to match PCORI-approved outcome measures and facilitate patient-engaged study design.</p>
+      </div>
+
+    </div>
+
+    <div class="callout teal" style="margin-top:32px;" class="fade-up">
+      <h4>Not sure which standards apply to your study?</h4>
+      <p>Regulatory requirements vary depending on your funding source, participant population, institution, and country of operation. Use the contact form below to describe your study and we'll help you identify the relevant frameworks and how Surfacing can be configured to meet them. We've worked with protocols under multiple simultaneous standards and can navigate the overlap.</p>
+    </div>
+    <div style="text-align:center;margin-top:24px;" class="fade-up">
+      <p style="color:var(--text3);font-size:13px;"><em>Nothing on this page constitutes legal, compliance, or IRB advice. Regulatory determinations are the responsibility of the researcher, their institution, and qualified counsel. Contact us to discuss your specific protocol requirements.</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact ────────────────────────────────────────────────────────────────── -->
+<section id="contact">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="label">Research Collaboration</div>
+      <h2 class="h2">Let's design your study together</h2>
+      <p class="lead">Whether you're a graduate student writing your first protocol or a faculty PI with an active grant, we want to help you use Surfacing effectively.</p>
+    </div>
+    <div style="max-width:600px;margin:0 auto;" class="fade-up">
+      <div id="form-success" class="form-success">✓ Message received! Our research team will be in touch.</div>
+      <form class="form" id="contact-form">
+        <div class="form-row">
+          <div class="form-group"><label>First name</label><input type="text" name="first_name" placeholder="Jane" required></div>
+          <div class="form-group"><label>Last name</label><input type="text" name="last_name" placeholder="Smith" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Email</label><input type="email" name="email" placeholder="j.smith@university.edu" required></div>
+          <div class="form-group"><label>Institution</label><input type="text" name="institution" placeholder="State University"></div>
+        </div>
+        <div class="form-group">
+          <label>Role</label>
+          <select name="role">
+            <option value="">Select…</option>
+            <option>Undergraduate student</option>
+            <option>Graduate student (MS/MA)</option>
+            <option>PhD candidate</option>
+            <option>Postdoctoral researcher</option>
+            <option>Faculty / PI</option>
+            <option>Industry researcher</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Tell us about your study</label><textarea name="message" placeholder="Study design, target population, conditions of interest, timeline, whether you have IRB approval yet…" required></textarea></div>
+        <input type="hidden" name="source" value="research_page">
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Contact Research Team</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="nav-logo" style="font-size:18px;"><img src="assets/icon.png" alt="Surfacing" style="width:30px;height:30px;">Sur<span>facing</span></a><p>A private, offline-first mental health symptom and episode tracker. All data stays on the device.</p></div>
+      <div class="footer-col"><h5>App</h5><ul><li><a href="patients.html">For Patients</a></li><li><a href="clinicians.html">For Clinicians</a></li><li><a href="research.html">For Research</a></li></ul></div>
+      <div class="footer-col"><h5>Compliance</h5><ul><li><a href="hipaa.html">HIPAA Overview</a></li><li><a href="hipaa.html#architecture">Architecture</a></li><li><a href="hipaa.html#faq">FAQ</a></li></ul></div>
+      <div class="footer-col"><h5>Contact</h5><ul><li><a href="index.html#contact">General Inquiry</a></li><li><a href="clinicians.html#contact">Clinical Partners</a></li><li><a href="research.html#contact">Research Collab</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Surfacing. All rights reserved.</span><span>Built with privacy by design · No data collected · Ever.</span></div>
+  </div>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>

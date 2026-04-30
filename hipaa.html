@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIPAA-Compliant Mental Health App Architecture — Privacy & Security | Surfacing</title>
+<meta name="description" content="Surfacing's serverless AES-256 encrypted architecture meets HIPAA technical safeguards by design. No PHI on servers. Rule-by-rule breakdown of 45 CFR § 164.312. No BAA required in most cases.">
+<meta name="keywords" content="HIPAA compliant mental health app, HIPAA mental health tracker, AES-256 mental health encryption, PHI mental health app, HIPAA technical safeguards, mental health app no server, BAA mental health software, 45 CFR 164.312, HIPAA therapy app, mental health data privacy">
+<link rel="canonical" href="https://surfacingapp.com/hipaa.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://surfacingapp.com/hipaa.html">
+<meta property="og:title" content="HIPAA-Compliant Mental Health App — Surfacing Privacy Architecture">
+<meta property="og:description" content="No PHI on servers. AES-256 encrypted. Rule-by-rule 45 CFR § 164.312 breakdown. Privacy by design, not by policy.">
+<meta property="og:image" content="https://surfacingapp.com/assets/main-graphic.png">
+<meta property="og:site_name" content="Surfacing">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HIPAA-Compliant Mental Health App — Surfacing">
+<meta name="twitter:description" content="Serverless, AES-256 encrypted mental health symptom and episode tracker. No PHI ever reaches a server. Privacy by architecture.">
+<meta name="twitter:image" content="https://surfacingapp.com/assets/main-graphic.png">
+<link rel="icon" href="assets/icon.png?v=2" type="image/png">
+<link rel="apple-touch-icon" href="assets/icon.png?v=2">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.compliance-badge {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 20px; border-radius: var(--radius); border: 1px solid var(--border);
+  background: var(--surface2);
+}
+.compliance-badge .dot {
+  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+  background: #4ade80; box-shadow: 0 0 8px rgba(74,222,128,0.5);
+}
+.compliance-badge .dot.na { background: var(--text3); box-shadow: none; }
+.compliance-badge h5 { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+.compliance-badge p  { font-size: 12px; color: var(--text3); }
+.rule-section { border-top: 1px solid var(--border); padding-top: 48px; margin-top: 48px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="assets/icon.png" alt="Surfacing">Sur<span>facing</span></a>
+    <ul class="nav-links">
+      <li><a href="patients.html">Patients</a></li>
+      <li><a href="clinicians.html">Clinicians</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="reporting.html">Reports</a></li>
+      <li><a href="ai-analytics.html">AI Analytics</a></li>
+      <li><a href="hipaa.html" class="active">HIPAA</a></li>
+      <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+    </ul>
+    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="index.html">Home</a><a href="patients.html">Patients</a><a href="clinicians.html">Clinicians</a>
+  <a href="research.html">Research</a><a href="reporting.html">Reports</a><a href="ai-analytics.html">AI Analytics</a><a href="hipaa.html">HIPAA</a><a href="#contact">Contact Us</a>
+</div>
+
+<!-- ── Hero ──────────────────────────────────────────────────────────────────── -->
+<div class="page-hero">
+  <div class="container-sm">
+    <span class="badge badge-green" style="margin-bottom:20px;">🛡️ HIPAA Compliance</span>
+    <h1 class="h1">Privacy isn't a feature.<br>It's the architecture.</h1>
+    <p class="lead" style="margin-top:16px;">Surfacing was designed from day one around a single constraint: patient data must never leave the patient's device. This document explains precisely how that works, and what it means for HIPAA compliance.</p>
+  </div>
+</div>
+
+<!-- ── Posture summary ────────────────────────────────────────────────────────── -->
+<section>
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="label">Compliance Posture</div>
+      <h2 class="h2">The short version</h2>
+      <p class="lead">Because Surfacing operates entirely on-device with no server-side component, the vast majority of HIPAA technical safeguard requirements are satisfied by design — not by policy.</p>
+    </div>
+    <div class="grid-2" style="gap:16px;" class="fade-up">
+      <div class="compliance-badge fade-up fade-up-delay-1">
+        <div class="dot"></div>
+        <div><h5>No PHI stored on Surfacing servers</h5><p>We have no servers that receive or store patient data. The app is serverless by design.</p></div>
+      </div>
+      <div class="compliance-badge fade-up fade-up-delay-1">
+        <div class="dot"></div>
+        <div><h5>AES-256 encryption at rest</h5><p>The on-device database is encrypted using AES-256, the standard required by NIST and referenced in HIPAA technical safeguards.</p></div>
+      </div>
+      <div class="compliance-badge fade-up fade-up-delay-2">
+        <div class="dot"></div>
+        <div><h5>No data transmission in normal use</h5><p>The app functions fully offline. No network calls are made during normal logging, viewing, or filtering operations.</p></div>
+      </div>
+      <div class="compliance-badge fade-up fade-up-delay-2">
+        <div class="dot"></div>
+        <div><h5>Export encryption is end-to-end</h5><p>Exported files are AES-256 encrypted with a user-set password before leaving the device. No plaintext PHI is transmitted.</p></div>
+      </div>
+      <div class="compliance-badge fade-up fade-up-delay-3">
+        <div class="dot"></div>
+        <div><h5>No third-party analytics or SDKs</h5><p>The app contains zero third-party analytics, crash reporting, or tracking SDKs that could inadvertently transmit PHI.</p></div>
+      </div>
+      <div class="compliance-badge fade-up fade-up-delay-3">
+        <div class="dot"></div>
+        <div><h5>Export HTML is fully self-contained</h5><p>Exported HTML files contain no external script or resource references. They load entirely from local content — no network requests when opened.</p></div>
+      </div>
+      <div class="compliance-badge fade-up fade-up-delay-4">
+        <div class="dot"></div>
+        <div><h5>Biometric &amp; PIN app lock</h5><p>The app requires biometric authentication or a user-set PIN before access, preventing unauthorized access if the device is lost.</p></div>
+      </div>
+      <div class="compliance-badge fade-up fade-up-delay-4">
+        <div class="dot"></div>
+        <div><h5>Automatic session timeout</h5><p>The app locks after 2 minutes of inactivity and when backgrounded — preventing unauthorized access on an unlocked device.</p></div>
+      </div>
+    </div>
+
+    <div style="margin-top:40px;text-align:center;" class="fade-up">
+      <div style="background:linear-gradient(135deg,rgba(59,142,240,0.08),rgba(78,205,196,0.06));border:1px solid rgba(59,142,240,0.2);border-radius:var(--radius-lg);padding:32px 40px;max-width:640px;margin:0 auto;">
+        <div class="label" style="margin-bottom:12px;">Healthcare Terminal Integration</div>
+        <h3 class="h3" style="margin-bottom:12px;">Need delivery customized to your clinical environment?</h3>
+        <p style="color:var(--text2);font-size:15px;line-height:1.75;margin-bottom:24px;">We offer the ability to customize report delivery workflows for healthcare organizations — configuring export parameters, delivery formats, and integration pathways to meet your specific terminal and compliance requirements.</p>
+        <a href="#contact" class="btn btn-primary">Customize Delivery to Healthcare Terminals — Contact Us</a>
+        <p style="color:var(--text3);font-size:12px;margin-top:16px;">Customization options vary by organization type and clinical workflow. Contact us to discuss your specific requirements.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Architecture deep dive ─────────────────────────────────────────────────── -->
+<section id="architecture" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="label">Technical Architecture</div>
+      <h2 class="h2">How the data flows (and where it doesn't)</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;" class="fade-up">
+      <div>
+        <h3 class="h3" style="margin-bottom:20px;">Data at rest</h3>
+        <div class="code-block" style="margin-bottom:24px;">
+<span class="c-comment">// On-device storage stack</span>
+
+Device Storage
+  └── <span class="c-teal">op-sqlite</span> (encrypted SQLite)
+        ├── Key: <span class="c-green">AES-256</span> via expo-secure-store
+        │         (OS keychain / Android Keystore)
+        ├── DB: <span class="c-amber">entries</span>, settings, audit_log
+        └── Access: requires app unlock
+              (Face ID / Touch ID / PIN)
+
+<span class="c-comment">// Nothing leaves this boundary
+// during normal app operation</span>
+        </div>
+        <ul class="checklist">
+          <li>SQLite database file is encrypted at rest using AES-256</li>
+          <li>Encryption key stored in device OS keychain (not in app bundle)</li>
+          <li>Key protected by biometric/PIN gate — inaccessible while locked</li>
+          <li>No plaintext data ever written to disk</li>
+          <li>Audit log records all auth events, entry creates, and exports</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="h3" style="margin-bottom:20px;">Data in transit (export only)</h3>
+        <div class="code-block" style="margin-bottom:24px;">
+<span class="c-comment">// Export flow — patient-controlled</span>
+
+Patient taps "Export"
+  → App generates <span class="c-teal">JSON payload</span>
+  → <span class="c-green">AES-256</span> encrypt with user password
+  → Write to <span class="c-amber">.html</span> file (self-contained)
+        ↓
+Patient shares file to clinician
+  (email, AirDrop, Signal, etc.)
+        ↓
+Clinician opens in browser
+  → No network requests made
+  → Decrypt with shared password
+  → View data locally
+
+<span class="c-comment">// Surfacing is never in this chain</span>
+        </div>
+        <ul class="checklist">
+          <li>Export is encrypted before leaving the device</li>
+          <li>Password set by patient — not stored by Surfacing</li>
+          <li>File transfer is peer-to-peer — no Surfacing intermediary</li>
+          <li>HTML file contains all libraries inline (no CDN calls)</li>
+          <li>Clinician views data locally — no upload, no cloud</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HIPAA rule-by-rule ─────────────────────────────────────────────────────── -->
+<section>
+  <div class="container-sm">
+    <div class="section-head fade-up">
+      <div class="label">HIPAA Technical Safeguards</div>
+      <h2 class="h2">Rule-by-rule breakdown</h2>
+      <p class="lead">45 CFR § 164.312 establishes the Technical Safeguards required under the HIPAA Security Rule. Here is how Surfacing addresses each requirement.</p>
+    </div>
+
+    <div class="fade-up">
+
+      <div style="margin-bottom:32px;">
+        <div class="label" style="margin-bottom:12px;">§ 164.312(a)(1) — Access Control</div>
+        <div class="card">
+          <p style="color:var(--text2);font-size:15px;line-height:1.75;margin-bottom:16px;"><strong style="color:var(--text);">Requirement:</strong> Implement technical policies that allow only authorized persons or software programs to access ePHI.</p>
+          <ul class="checklist">
+            <li>App requires Face ID, fingerprint, or 4-digit PIN to unlock</li>
+            <li>Automatic lock after 2 minutes of inactivity</li>
+            <li>Immediate lock when app is backgrounded or device locked</li>
+            <li>Encryption key is gated by OS-level biometric access controls</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="margin-bottom:32px;">
+        <div class="label" style="margin-bottom:12px;">§ 164.312(a)(2)(i) — Unique User Identification</div>
+        <div class="card">
+          <p style="color:var(--text2);font-size:15px;line-height:1.75;margin-bottom:16px;"><strong style="color:var(--text);">Requirement:</strong> Assign a unique name/number for identifying and tracking user identity.</p>
+          <ul class="checklist">
+            <li>Single-user device app — no multi-user account system required</li>
+            <li>Each device installation is implicitly a unique user context</li>
+            <li>Audit log captures all access events with timestamps</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="margin-bottom:32px;">
+        <div class="label" style="margin-bottom:12px;">§ 164.312(a)(2)(iii) — Automatic Logoff</div>
+        <div class="card">
+          <p style="color:var(--text2);font-size:15px;line-height:1.75;margin-bottom:16px;"><strong style="color:var(--text);">Requirement:</strong> Implement electronic procedures that terminate an electronic session after a predetermined time of inactivity.</p>
+          <ul class="checklist">
+            <li>App locks automatically after 2 minutes of inactivity</li>
+            <li>App locks immediately when sent to background</li>
+            <li>Re-authentication required after every lock event</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="margin-bottom:32px;">
+        <div class="label" style="margin-bottom:12px;">§ 164.312(a)(2)(iv) — Encryption & Decryption</div>
+        <div class="card">
+          <p style="color:var(--text2);font-size:15px;line-height:1.75;margin-bottom:16px;"><strong style="color:var(--text);">Requirement:</strong> Implement a mechanism to encrypt and decrypt ePHI.</p>
+          <ul class="checklist">
+            <li>SQLite database encrypted at rest with AES-256</li>
+            <li>Encryption key generated from cryptographically secure random bytes</li>
+            <li>Key stored in OS keychain (iOS Secure Enclave / Android Keystore)</li>
+            <li>All exports encrypted with AES-256 before leaving device</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="margin-bottom:32px;">
+        <div class="label" style="margin-bottom:12px;">§ 164.312(b) — Audit Controls</div>
+        <div class="card">
+          <p style="color:var(--text2);font-size:15px;line-height:1.75;margin-bottom:16px;"><strong style="color:var(--text);">Requirement:</strong> Implement hardware, software, or procedural mechanisms that record and examine activity in information systems that contain or use ePHI.</p>
+          <ul class="checklist">
+            <li>On-device audit log records all auth attempts (success/failure)</li>
+            <li>All entry creation, modification, and deletion events logged</li>
+            <li>All export events logged with timestamp</li>
+            <li>Audit log included in exports for review</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="margin-bottom:32px;">
+        <div class="label" style="margin-bottom:12px;">§ 164.312(c)(1) — Integrity</div>
+        <div class="card">
+          <p style="color:var(--text2);font-size:15px;line-height:1.75;margin-bottom:16px;"><strong style="color:var(--text);">Requirement:</strong> Implement policies to protect ePHI from improper alteration or destruction.</p>
+          <ul class="checklist">
+            <li>Database encryption prevents external modification of data</li>
+            <li>No cloud sync means no remote alteration vector</li>
+            <li>Data deletion is explicit user-initiated action, not automatic</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="margin-bottom:32px;">
+        <div class="label" style="margin-bottom:12px;">§ 164.312(e)(1) — Transmission Security</div>
+        <div class="card">
+          <p style="color:var(--text2);font-size:15px;line-height:1.75;margin-bottom:16px;"><strong style="color:var(--text);">Requirement:</strong> Implement technical security measures to guard against unauthorized access to ePHI transmitted over electronic communications networks.</p>
+          <ul class="checklist">
+            <li>App transmits zero data in normal operation — no network calls</li>
+            <li>Exports are AES-256 encrypted before transmission begins</li>
+            <li>Patient controls transmission channel (may choose secure methods)</li>
+            <li>No Surfacing server ever receives exported data</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── BAA section ────────────────────────────────────────────────────────────── -->
+<section style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container-sm">
+    <div class="section-head fade-up">
+      <div class="label">Business Associate Agreements</div>
+      <h2 class="h2">Does Surfacing need to sign a BAA?</h2>
+    </div>
+    <div class="fade-up">
+      <div class="callout amber" style="margin-bottom:28px;">
+        <h4>Short answer: In most cases, no.</h4>
+        <p>A Business Associate Agreement is required when a vendor creates, receives, maintains, or transmits PHI on behalf of a covered entity. Surfacing's serverless architecture means we never receive, maintain, or transmit patient data — so the BAA obligation typically does not apply to our software.</p>
+      </div>
+      <div class="card" style="margin-bottom:20px;">
+        <h4 style="margin-bottom:12px;">When a BAA is not required</h4>
+        <ul class="checklist">
+          <li>Patient uses the app independently to log their own data</li>
+          <li>Clinician recommends the app but does not receive data through Surfacing's systems</li>
+          <li>Research participant exports their own data and shares it directly with the research team</li>
+          <li>Exports are shared peer-to-peer (email, AirDrop) without passing through Surfacing</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4 style="margin-bottom:12px;">When you may want to consult your compliance officer</h4>
+        <ul class="checklist">
+          <li>Your organization has a policy requiring BAAs for all third-party software used by staff</li>
+          <li>You plan to integrate Surfacing into a clinical workflow where the organization manages device or export handling</li>
+          <li>You're operating in a state with additional privacy regulations beyond HIPAA</li>
+        </ul>
+      </div>
+      <p style="color:var(--text3);font-size:13px;margin-top:20px;text-align:center;">We are happy to provide technical architecture documentation to your compliance team. <a href="#contact">Contact us.</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ────────────────────────────────────────────────────────────────────── -->
+<section id="faq">
+  <div class="container-sm">
+    <div class="section-head fade-up">
+      <div class="label">FAQ</div>
+      <h2 class="h2">Common compliance questions</h2>
+    </div>
+    <div class="accordion fade-up">
+      <div class="accordion-item open">
+        <div class="accordion-header">What encryption standard does Surfacing use? <span class="icon">+</span></div>
+        <div class="accordion-body">Surfacing uses AES-256 (Advanced Encryption Standard with 256-bit keys) for both the on-device database and the HTML export file. AES-256 is the encryption standard mandated by NIST for protecting sensitive government data and is widely accepted as the benchmark for HIPAA-compliant encryption. The encryption key for the database is stored in the device's hardware-backed secure enclave (iOS) or Keystore (Android), not in the application bundle.</div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">Does the exported HTML file make any external requests? <span class="icon">+</span></div>
+        <div class="accordion-body">No. As of the current build, all JavaScript libraries (including the decryption library) are inlined directly into the HTML file. The file contains no external script tags, no CDN references, no web fonts loaded from external servers, and no analytics beacons. Opening an exported file is 100% offline — no data is transmitted when the clinician or researcher views it.</div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">What happens if a patient loses their phone? <span class="icon">+</span></div>
+        <div class="accordion-body">The data on the phone remains encrypted and inaccessible without the device PIN/biometric. A factory reset or iOS/Android erase will destroy the data permanently — there is no cloud backup to recover from. This is intentional. Patients should be informed of this limitation: data loss means loss of that journaling history, but it also means a stolen device cannot be used to access their mental health records.</div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">Can a clinician store the exported file in an EHR? <span class="icon">+</span></div>
+        <div class="accordion-body">Yes, with standard EHR security practices. The exported file is an encrypted HTML file — it can be attached to a patient record just like any other document. However, be aware that if the EHR stores the file unencrypted, the PHI protection shifts to the EHR's own security controls. The file itself is encrypted, so if the EHR storage is breached, the exported file remains protected as long as the export password is not also compromised.</div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">Does Surfacing support multi-factor authentication? <span class="icon">+</span></div>
+        <div class="accordion-body">The app uses the device's native biometric authentication (Face ID, Touch ID, or fingerprint) which is a form of inherence-factor authentication. For devices without biometric hardware or enrollment, the app requires a 4-digit PIN. This PIN is stored in the device's hardware-backed secure enclave. Full MFA (two independent factors) is not currently implemented, as the app is designed for single-device personal use.</div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">What logging does Surfacing provide for audit purposes? <span class="icon">+</span></div>
+        <div class="accordion-body">Surfacing maintains an on-device audit log that records: authentication attempts (success and failure with error code), entry creation events, entry modification events, export events with timestamp and count. This log is included in the encrypted export payload and is accessible to the patient and, by extension, any clinician who receives an export. The log does not leave the device except via the patient-controlled export process.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact ────────────────────────────────────────────────────────────────── -->
+<section id="contact" style="background:var(--surface);border-top:1px solid var(--border);">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="label">Compliance Inquiries</div>
+      <h2 class="h2">Talk to our compliance team</h2>
+      <p class="lead">Need a technical architecture summary for your BAA review, IRB submission, or organizational risk assessment? We'll respond within 48 hours.</p>
+    </div>
+    <div style="max-width:600px;margin:0 auto;" class="fade-up">
+      <div id="form-success" class="form-success">✓ Message received! Our compliance team will be in touch within 48 hours.</div>
+      <form class="form" id="contact-form">
+        <div class="form-row">
+          <div class="form-group"><label>Name</label><input type="text" name="first_name" placeholder="Jane Smith" required></div>
+          <div class="form-group"><label>Email</label><input type="email" name="email" placeholder="compliance@org.com" required></div>
+        </div>
+        <div class="form-group">
+          <label>Organization type</label>
+          <select name="org_type">
+            <option value="">Select…</option>
+            <option>Private practice</option>
+            <option>Group practice / clinic</option>
+            <option>Hospital system</option>
+            <option>Research institution</option>
+            <option>Insurance / payer</option>
+            <option>Legal / compliance firm</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group"><label>What do you need?</label><textarea name="message" placeholder="Describe your compliance question, required documentation, or BAA inquiry…" required></textarea></div>
+        <input type="hidden" name="source" value="hipaa_page">
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Send Compliance Inquiry</button>
+      </form>
+    </div>
+    <p style="text-align:center;color:var(--text3);font-size:13px;margin-top:24px;" class="fade-up">
+      <em>Nothing in this document constitutes legal advice. For compliance determinations specific to your organization, consult a qualified HIPAA attorney or compliance officer.</em>
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="nav-logo" style="font-size:18px;"><img src="assets/icon.png" alt="Surfacing" style="width:30px;height:30px;">Sur<span>facing</span></a><p>A private, offline-first mental health symptom and episode tracker. All data stays on the device.</p></div>
+      <div class="footer-col"><h5>App</h5><ul><li><a href="patients.html">For Patients</a></li><li><a href="clinicians.html">For Clinicians</a></li><li><a href="research.html">For Research</a></li></ul></div>
+      <div class="footer-col"><h5>Compliance</h5><ul><li><a href="hipaa.html">HIPAA Overview</a></li><li><a href="hipaa.html#architecture">Architecture</a></li><li><a href="hipaa.html#faq">FAQ</a></li></ul></div>
+      <div class="footer-col"><h5>Contact</h5><ul><li><a href="index.html#contact">General Inquiry</a></li><li><a href="clinicians.html#contact">Clinical Partners</a></li><li><a href="research.html#contact">Research Collab</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Surfacing. All rights reserved.</span><span>Built with privacy by design · No data collected · Ever.</span></div>
+  </div>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>
