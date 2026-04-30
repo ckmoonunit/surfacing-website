@@ -612,6 +612,16 @@ footer {
 
   /* ── Grids ── */
   .grid-3, .grid-2, .grid-4 { grid-template-columns: 1fr; }
+  /* Inline 2-col grids not covered by class-based rules */
+  div[style*="grid-template-columns:1fr 1fr"],
+  div[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+  /* Long CTA buttons — allow wrapping */
+  .btn { white-space: normal; word-break: break-word; }
+  /* Terminal CTA box — tighten padding */
+  .terminal-cta-box { padding: 24px 18px !important; }
 
   /* ── Stats ── */
   .stats-bar { flex-direction: column; border-radius: var(--radius); }
