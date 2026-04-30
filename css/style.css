@@ -616,12 +616,19 @@ footer {
   div[style*="grid-template-columns:1fr 1fr"],
   div[style*="grid-template-columns: 1fr 1fr"] {
     grid-template-columns: 1fr !important;
-    gap: 32px !important;
+    gap: 48px !important;
   }
-  /* Long CTA buttons — allow wrapping */
-  .btn { white-space: normal; word-break: break-word; }
   /* Terminal CTA box — tighten padding */
   .terminal-cta-box { padding: 24px 18px !important; }
+  /* Terminal CTA button — block, full-width, text wraps */
+  .terminal-cta-box .btn {
+    display: block; width: 100%; text-align: center;
+    white-space: normal; word-break: break-word;
+    box-sizing: border-box;
+  }
+  /* Episode entry cards — readable font sizes on mobile */
+  .ep-entries > div { padding: 16px !important; }
+  .ep-entries > div > div { font-size: 14px !important; margin-bottom: 7px !important; line-height: 1.55 !important; }
 
   /* ── Stats ── */
   .stats-bar { flex-direction: column; border-radius: var(--radius); }
