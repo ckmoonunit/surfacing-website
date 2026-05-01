@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surfacing — Privacy Policy</title>
+<meta name="description" content="Surfacing Privacy Policy. All data stays on your device. No accounts, no servers, no tracking.">
+<link rel="canonical" href="https://surfacingapp.com/privacy.html">
+<link rel="icon" href="assets/icon.png?v=2" type="image/png">
+<link rel="apple-touch-icon" href="assets/icon.png?v=2">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .privacy-content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 80px 24px 120px;
+  }
+  .privacy-content h1 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .privacy-content .updated {
+    color: var(--text-muted, #888);
+    font-size: 0.875rem;
+    margin-bottom: 48px;
+  }
+  .privacy-content h2 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin: 40px 0 10px;
+  }
+  .privacy-content p {
+    line-height: 1.8;
+    color: var(--text-secondary, #555);
+    margin-bottom: 12px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/icon.png" alt="Surfacing">
+      Sur<span>facing</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="patients.html">Patients</a></li>
+      <li><a href="clinicians.html">Clinicians</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="reporting.html">Reports</a></li>
+      <li><a href="ai-analytics.html">AI Analytics</a></li>
+      <li><a href="hipaa.html">HIPAA</a></li>
+      <li><a href="index.html#contact" class="nav-cta">Contact Us</a></li>
+    </ul>
+    <button class="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="patients.html">Patients</a>
+  <a href="clinicians.html">Clinicians</a>
+  <a href="research.html">Research</a>
+  <a href="reporting.html">Reports</a>
+  <a href="ai-analytics.html">AI Analytics</a>
+  <a href="hipaa.html">HIPAA</a>
+  <a href="index.html#contact">Contact Us</a>
+</div>
+
+<div class="privacy-content">
+  <h1>Privacy Policy</h1>
+  <p class="updated">Last updated: May 1, 2026</p>
+
+  <h2>1. Data Collection</h2>
+  <p>Surfacing collects no data. There is no analytics, no telemetry, no crash reporting, and no usage tracking of any kind. The app contains no third-party SDKs that capture or transmit information.</p>
+
+  <h2>2. Data Storage</h2>
+  <p>All entries, settings, and logs are stored exclusively on your device in a local SQLite database encrypted with AES-256 via SQLCipher. Nothing is transmitted to any server. Surfacing has no backend and does not require an internet connection to function.</p>
+
+  <h2>3. Exports</h2>
+  <p>When you choose to export, a self-contained HTML file is generated on your device. The file is encrypted with AES-256 using a one-time password generated locally on your device. The file is only shared when you explicitly tap "Send Report." No export occurs automatically.</p>
+
+  <h2>4. Encryption</h2>
+  <p>Your data is protected by a device key stored in the iOS Keychain or Android Keystore, accessible only when the device is unlocked. Biometric or device-PIN authentication is required before any export. All exported files are AES-256 encrypted.</p>
+
+  <h2>5. Device Loss</h2>
+  <p>Because there is no cloud backup, losing or resetting your device will permanently delete your data. Store exports somewhere safe and never together with the decryption password.</p>
+
+  <h2>6. No Account Required</h2>
+  <p>Surfacing does not require an account, email address, name, or any personally identifying information.</p>
+
+  <h2>7. Not a Medical Record</h2>
+  <p>Surfacing is a personal tracking tool. It does not replace clinical care, diagnosis, or treatment. Share exports with your provider to support — not substitute — professional sessions.</p>
+
+  <h2>8. Contact</h2>
+  <p>Questions about this policy can be sent through the Contact Us form inside the app or via the contact section on <a href="index.html#contact">surfacingapp.com</a>.</p>
+</div>
+
+</body>
+</html>
