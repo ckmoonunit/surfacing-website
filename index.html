@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<script>if(location.pathname.endsWith("/index.html")){location.replace(location.href.replace("/index.html","/"));}</script>
+<script>if(location.protocol!=='https:')location.replace('https:'+location.href.slice(location.protocol.length));else if(location.pathname.endsWith("/index.html"))location.replace(location.href.replace("/index.html","/"));</script>
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Surfacing - Clinical-Grade Mental Health Symptom & Episode Tracker | SurfacingApp.com</title>
