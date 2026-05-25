@@ -338,6 +338,50 @@
   </div>
 </section>
 
+<!-- ── Custom research tooling ───────────────────────────────────────────────── -->
+<section style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="label">Custom Research Tooling</div>
+      <h2 class="h2">Built around your protocol, not the other way around</h2>
+      <p class="lead">The consumer app handles individual self-tracking out of the box. For formal studies that need protocol-driven prompting, pseudonymized enrollment, or institution-specific data pipelines, we build custom tooling on top of the Surfacing core. Free for student and small academic studies. Fee-based for larger, industry-funded, or longitudinal work, scoped per project.</p>
+    </div>
+
+    <div class="grid-2" style="gap:24px;">
+
+      <div class="card fade-up fade-up-delay-1">
+        <div class="badge badge-teal" style="margin-bottom:14px;">Pseudonymized Participant IDs</div>
+        <h3 class="h3" style="margin-bottom:10px;">No PHI on the device, ever</h3>
+        <p style="color:var(--text2);font-size:15px;line-height:1.7;">Participants enroll under a study ID (PARTICIPANT_56465, not their name or email). The mapping between study IDs and real identities lives only in the researcher's enrollment record under IRB protocols. Every entry Surfacing exports carries the study ID and nothing else, so de-identification is structural rather than a downstream cleanup step.</p>
+      </div>
+
+      <div class="card fade-up fade-up-delay-2">
+        <div class="badge badge-amber" style="margin-bottom:14px;">Hosted Protocol Configs</div>
+        <h3 class="h3" style="margin-bottom:10px;">Your study definition, your hosting</h3>
+        <p style="color:var(--text2);font-size:15px;line-height:1.7;">Publish a JSON study config to any static URL you control (GitHub Pages, your university web space, S3). The participant pastes the URL or scans a QR code, Surfacing pulls the config, and the app configures itself: prompt schedule, question set, validated scales, study duration, consent text. No Surfacing intermediary, no per-study setup fee on our end.</p>
+      </div>
+
+      <div class="card fade-up fade-up-delay-3">
+        <div class="badge badge-purple" style="margin-bottom:14px;">Direct-to-Researcher Data Flow</div>
+        <h3 class="h3" style="margin-bottom:10px;">We are a conduit, not a custodian</h3>
+        <p style="color:var(--text2);font-size:15px;line-height:1.7;">Encrypted exports go from the participant device directly to your institution's endpoint over HTTPS, with explicit consent at each upload. Surfacing's infrastructure never receives, stores, or processes participant data. Under HIPAA, that positions us as a conduit, so your institution carries the covered-entity responsibilities and we do not require a Business Associate Agreement.</p>
+      </div>
+
+      <div class="card fade-up fade-up-delay-4">
+        <div class="badge badge-green" style="margin-bottom:14px;">Custom Builds for Protocol Needs</div>
+        <h3 class="h3" style="margin-bottom:10px;">Validated scales, immutable entries, pipeline integration</h3>
+        <p style="color:var(--text2);font-size:15px;line-height:1.7;">If your protocol needs standardized scales (PANAS, PHQ-9, GAD-7, Brief Pain Inventory), entry immutability for Part 11 conformance, scheduled multi-prompt EMA sampling, or direct integration with REDCap and similar institutional pipelines, we build research-specific variants of the app. Pricing depends on scope, study size, and whether your work is academic, government-funded, or industry-funded.</p>
+      </div>
+
+    </div>
+
+    <div class="callout teal" style="margin-top:32px;" class="fade-up">
+      <h4>Free for student and small academic studies</h4>
+      <p>If you're a graduate student, dissertation candidate, or a faculty researcher running a small unfunded or thesis-grant-funded study, we build the protocol config and any small customizations at no cost. We ask for an acknowledgment in any resulting publication and, where appropriate, an early look at outcomes that might inform the product. For larger studies, multi-site work, industry-funded research, or pivotal trials, contact us with a scope and we'll send pricing.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ── Contact ────────────────────────────────────────────────────────────────── -->
 <section id="contact">
   <div class="container">
