@@ -234,6 +234,10 @@ body{font-family:-apple-system,Helvetica Neue,Arial,sans-serif;background:var(--
 .builder-fg label{font-size:10px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.4px}
 .builder-fg input[type=text],.builder-fg select{padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:var(--surface2);color:var(--text);font-family:inherit;width:100%}
 .chart-section-lbl{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;margin:0 0 8px;padding:0 2px}
+.sf-anno-label{position:absolute;z-index:51;pointer-events:none;font:700 12.5px/1.3 -apple-system,BlinkMacSystemFont,'Segoe UI',Inter,sans-serif;color:#0b1a2e;background:#f3b44b;padding:6px 11px;border-radius:8px;box-shadow:0 7px 24px rgba(0,0,0,.5);max-width:165px}
+.sf-anno-svg{position:absolute;top:0;left:0;z-index:50;pointer-events:none;overflow:visible}
+.sf-anno-pill{position:fixed;right:14px;bottom:14px;z-index:52;pointer-events:auto;cursor:pointer;font:600 12px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Inter,sans-serif;color:#cfe3ff;background:rgba(16,36,63,.94);border:1px solid rgba(255,255,255,.18);padding:8px 13px;border-radius:100px;box-shadow:0 6px 20px rgba(0,0,0,.5)}
+@media print{.sf-anno-label,.sf-anno-svg,.sf-anno-pill{display:none!important}}
 </style>
 </head>
 <body>
@@ -345,6 +349,40 @@ body{font-family:-apple-system,Helvetica Neue,Arial,sans-serif;background:var(--
   <div id="cfFiltersArea" style="display:none"></div>
 </div>
 
+<div class="builder-section">
+  <div class="builder-hd" onclick="toggleBuilder()">
+    <span class="filters-title">Chart Builder</span>
+    <span id="builderChev" style="color:var(--text3);font-size:12px">&#9660; Build a chart</span>
+  </div>
+  <div id="builderBody" style="display:none">
+    <div class="builder-body">
+      <div class="builder-controls">
+        <div class="builder-fg" style="flex:2;min-width:180px">
+          <label>Title (optional)</label>
+          <input type="text" id="bTitle" placeholder="Auto-generated">
+        </div>
+        <div class="builder-fg">
+          <label>Type</label>
+          <select id="bType"><option value="bar">&#128202; Bar</option><option value="line">&#128200; Line</option><option value="pie">&#960; Pie</option></select>
+        </div>
+        <div class="builder-fg">
+          <label>X Axis &mdash; Group by</label>
+          <select id="bX"></select>
+        </div>
+        <div class="builder-fg">
+          <label>Y Axis &mdash; Show</label>
+          <select id="bY"></select>
+        </div>
+      </div>
+      <button class="btn btn-csv" onclick="addBuilderChart()" style="padding:9px 18px;font-size:13px">+ Add Chart</button>
+    </div>
+  </div>
+</div>
+<div id="builtChartsWrap" style="display:none;margin-bottom:16px">
+  <div class="chart-section-lbl">Built Charts</div>
+  <div class="charts" id="builtCharts"></div>
+</div>
+
 <div class="charts">
   <div class="chart-card">
     <div class="chart-card-hdr">
@@ -410,40 +448,6 @@ body{font-family:-apple-system,Helvetica Neue,Arial,sans-serif;background:var(--
 <div id="customChartsWrap" style="display:none;margin-bottom:16px">
   <div class="chart-section-lbl">Your Custom Charts</div>
   <div class="charts" id="customCharts"></div>
-</div>
-
-<div class="builder-section">
-  <div class="builder-hd" onclick="toggleBuilder()">
-    <span class="filters-title">Chart Builder</span>
-    <span id="builderChev" style="color:var(--text3);font-size:12px">&#9660; Build a chart</span>
-  </div>
-  <div id="builderBody" style="display:none">
-    <div class="builder-body">
-      <div class="builder-controls">
-        <div class="builder-fg" style="flex:2;min-width:180px">
-          <label>Title (optional)</label>
-          <input type="text" id="bTitle" placeholder="Auto-generated">
-        </div>
-        <div class="builder-fg">
-          <label>Type</label>
-          <select id="bType"><option value="bar">&#128202; Bar</option><option value="line">&#128200; Line</option><option value="pie">&#960; Pie</option></select>
-        </div>
-        <div class="builder-fg">
-          <label>X Axis &mdash; Group by</label>
-          <select id="bX"></select>
-        </div>
-        <div class="builder-fg">
-          <label>Y Axis &mdash; Show</label>
-          <select id="bY"></select>
-        </div>
-      </div>
-      <button class="btn btn-csv" onclick="addBuilderChart()" style="padding:9px 18px;font-size:13px">+ Add Chart</button>
-    </div>
-  </div>
-</div>
-<div id="builtChartsWrap" style="display:none;margin-bottom:16px">
-  <div class="chart-section-lbl">Built Charts</div>
-  <div class="charts" id="builtCharts"></div>
 </div>
 
 <div class="cal-section">
@@ -545,6 +549,7 @@ function unlock() {
     initCal();
     renderCfFilters();
     renderAll();
+    if(typeof sfPlaceAnnos==='function') setTimeout(sfPlaceAnnos, 60);
   } catch (err) {
     errEl.textContent = err.message === 'lib'
       ? 'Decryption library failed to initialize. Try opening this file in Chrome, Firefox, Safari, or Edge.'
@@ -1532,6 +1537,67 @@ function renderAll() {
 }
 </script>
 <script>
+(function(){
+  var ANNOS=[
+    {sel:'#themeBtn', text:'Switch between light and dark', side:'left'},
+    {sel:'.export-btns', text:'Export to CSV (Excel), JSON, or PDF', side:'right'},
+    {sel:'#addFilterBtn', text:'Add your own filter', side:'right'},
+    {sel:'#fFlaggedOnly', text:'Show only entries flagged to discuss', side:'left'},
+    {sel:'.builder-hd', text:'Build your own chart, no tools needed', side:'left'},
+    {sel:'.expand-btn', idx:1, text:'Open any chart full-screen', side:'right'},
+    {sel:'.log-table tbody tr', text:'Click a row to read the full entry', side:'left'}
+  ];
+  var svg=null, labels=[], pill=null, off=false;
+  function clear(){ if(svg){svg.remove();svg=null;} labels.forEach(function(l){l.remove();}); labels=[]; }
+  function ah(ex,ey,ang){
+    function pp(da){ return (ex-11*Math.cos(ang-da))+' '+(ey-11*Math.sin(ang-da)); }
+    var h=document.createElementNS('http://www.w3.org/2000/svg','path');
+    h.setAttribute('d','M '+pp(0.5)+' L '+ex+' '+ey+' L '+pp(-0.5));
+    h.setAttribute('fill','none'); h.setAttribute('stroke','#f3b44b'); h.setAttribute('stroke-width','2.4');
+    h.setAttribute('stroke-linecap','round'); h.setAttribute('stroke-linejoin','round'); return h;
+  }
+  function ensurePill(){
+    if(pill) return;
+    pill=document.createElement('button'); pill.className='sf-anno-pill'; pill.textContent='✕ Hide tips';
+    pill.onclick=function(){ off=true; clear(); if(pill){pill.remove();pill=null;} };
+    document.body.appendChild(pill);
+  }
+  function place(){
+    if(off) return; clear();
+    if(window.innerWidth<980) return;
+    var de=document.documentElement;
+    var DW=Math.max(de.scrollWidth,window.innerWidth), DH=Math.max(de.scrollHeight,window.innerHeight);
+    svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.setAttribute('class','sf-anno-svg'); svg.setAttribute('width',DW); svg.setAttribute('height',DH);
+    document.body.appendChild(svg);
+    var drew=0;
+    ANNOS.forEach(function(a){
+      var els=document.querySelectorAll(a.sel); var el=els[a.idx||0]; if(!el) return;
+      var r=el.getBoundingClientRect(); if(!r.width||!r.height) return;
+      var sx=window.scrollX, sy=window.scrollY, ty=r.top+sy+r.height/2;
+      var lab=document.createElement('div'); lab.className='sf-anno-label'; lab.textContent=a.text;
+      lab.style.transform='rotate('+(a.side==='left'?-2:2)+'deg)';
+      document.body.appendChild(lab); labels.push(lab);
+      var lw=lab.offsetWidth, lh=lab.offsetHeight, lx;
+      if(a.side==='left'){ lx=Math.max(8, r.left+sx-lw-72); } else { lx=Math.min(DW-lw-8, r.right+sx+72); }
+      lab.style.left=lx+'px'; lab.style.top=(ty-lh/2)+'px';
+      var ax=(a.side==='left')?lx+lw:lx, ay=ty, ex=(a.side==='left')?r.left+sx:r.right+sx, ey=ty;
+      var mx=(ax+ex)/2, my=(ay+ey)/2-24;
+      var path=document.createElementNS('http://www.w3.org/2000/svg','path');
+      path.setAttribute('d','M '+ax+' '+ay+' Q '+mx+' '+my+' '+ex+' '+ey);
+      path.setAttribute('fill','none'); path.setAttribute('stroke','#f3b44b'); path.setAttribute('stroke-width','2.4'); path.setAttribute('stroke-linecap','round');
+      svg.appendChild(path); svg.appendChild(ah(ex,ey,Math.atan2(ey-my,ex-mx))); drew++;
+    });
+    if(drew) ensurePill();
+  }
+  window.sfPlaceAnnos=place;
+  window.addEventListener('load', function(){ setTimeout(place,750); });
+  var t1,t2;
+  window.addEventListener('resize', function(){ clearTimeout(t1); t1=setTimeout(place,200); });
+  document.addEventListener('click', function(e){ if(pill&&pill.contains(e.target))return; clearTimeout(t2); t2=setTimeout(place,380); });
+})();
+</script>
+<script>
 var SAMPLE_ENTRIES = [{"id":3,"created_at":"2026-04-05T13:26:00.000Z","condition_type":"PTSD","description":"Smelled diesel and got pulled right back there.","environment":"Crowd","intensity_rating":8,"urge_intensity":null,"feelings":"Shame, Irritable","physical_symptoms":"Shaky hands","skill_attempted":true,"skill_name":"Cold water","skill_success":4,"flagged":false,"condition_data":null},{"id":2,"created_at":"2026-04-06T08:13:00.000Z","condition_type":"PTSD","description":"Loud bang in the lot set me off, had to get to the car.","environment":"Nighttime","intensity_rating":9,"urge_intensity":null,"feelings":"Hypervigilance, On edge","physical_symptoms":"Tight chest, Racing heart","skill_attempted":true,"skill_name":"Grounding (5-4-3-2-1)","skill_success":6,"flagged":false,"condition_data":null},{"id":1,"created_at":"2026-04-07T04:00:00.000Z","condition_type":"PTSD","description":"Crowd closed in near the registers and my chest locked up.","environment":"Home alone","intensity_rating":7,"urge_intensity":null,"feelings":"Fear, Hypervigilance","physical_symptoms":"Sweating, Nausea","skill_attempted":true,"skill_name":"Box breathing","skill_success":6,"flagged":false,"condition_data":null},{"id":5,"created_at":"2026-04-09T20:52:00.000Z","condition_type":"PTSD","description":"Someone came up behind me and I froze.","environment":"Waiting room","intensity_rating":8,"urge_intensity":null,"feelings":"On edge, Helpless","physical_symptoms":"Dizziness, Tight chest","skill_attempted":true,"skill_name":"Body scan","skill_success":3,"flagged":true,"condition_data":null},{"id":4,"created_at":"2026-04-11T01:39:00.000Z","condition_type":"PTSD","description":"Felt watched the whole time, could not settle.","environment":"Work meeting","intensity_rating":10,"urge_intensity":null,"feelings":"Dread, Shame","physical_symptoms":"Nausea, Jaw clenched","skill_attempted":true,"skill_name":"Paced breathing","skill_success":5,"flagged":false,"condition_data":null},{"id":7,"created_at":"2026-04-13T09:18:00.000Z","condition_type":"PTSD","description":"Crowd closed in near the registers and my chest locked up.","environment":"Nighttime","intensity_rating":9,"urge_intensity":null,"feelings":"Numb, Dread","physical_symptoms":"Racing heart, Sweating","skill_attempted":false,"skill_name":null,"skill_success":null,"flagged":false,"condition_data":null},{"id":8,"created_at":"2026-04-13T20:31:00.000Z","condition_type":"GAD","description":"Stomach in knots before the meeting, kept checking my phone.","environment":"Crowd","intensity_rating":7,"urge_intensity":null,"feelings":"Irritable, Numb","physical_symptoms":"Sweating, Nausea","skill_attempted":true,"skill_name":"Grounding (5-4-3-2-1)","skill_success":6,"flagged":false,"condition_data":null},{"id":6,"created_at":"2026-04-15T05:05:00.000Z","condition_type":"PTSD","description":"Nightmare woke me up, took a while to know where I was.","environment":"Home alone","intensity_rating":6,"urge_intensity":null,"feelings":"Helpless, Fear","physical_symptoms":"Jaw clenched, Dizziness","skill_attempted":true,"skill_name":"Orienting","skill_success":3,"flagged":false,"condition_data":null},{"id":10,"created_at":"2026-04-17T17:57:00.000Z","condition_type":"GAD","description":"Couldn't stop the what-ifs, felt wired and restless.","environment":"Waiting room","intensity_rating":8,"urge_intensity":null,"feelings":"Hypervigilance, On edge","physical_symptoms":"Shaky hands","skill_attempted":true,"skill_name":"Paced breathing","skill_success":5,"flagged":false,"condition_data":null},{"id":9,"created_at":"2026-04-18T01:44:00.000Z","condition_type":"GAD","description":"Worried something was wrong at home, kept wanting to call.","environment":"Work meeting","intensity_rating":9,"urge_intensity":null,"feelings":"Fear, Hypervigilance","physical_symptoms":"Tight chest, Racing heart","skill_attempted":true,"skill_name":"Cold water","skill_success":4,"flagged":true,"condition_data":null},{"id":13,"created_at":"2026-04-21T20:36:00.000Z","condition_type":"PTSD","description":"Crowd closed in near the registers and my chest locked up.","environment":"Crowd","intensity_rating":7,"urge_intensity":null,"feelings":"On edge, Helpless","physical_symptoms":"Jaw clenched, Dizziness","skill_attempted":true,"skill_name":"Box breathing","skill_success":6,"flagged":false,"condition_data":null},{"id":12,"created_at":"2026-04-22T01:23:00.000Z","condition_type":"PTSD","description":"Nightmare woke me up, took a while to know where I was.","environment":"Nighttime","intensity_rating":8,"urge_intensity":null,"feelings":"Dread, Shame","physical_symptoms":"Dizziness, Tight chest","skill_attempted":true,"skill_name":"Orienting","skill_success":3,"flagged":false,"condition_data":null},{"id":11,"created_at":"2026-04-22T13:10:00.000Z","condition_type":"PTSD","description":"Someone came up behind me and I froze.","environment":"Home alone","intensity_rating":6,"urge_intensity":null,"feelings":"Shame, Irritable","physical_symptoms":"Nausea, Jaw clenched","skill_attempted":true,"skill_name":"Body scan","skill_success":3,"flagged":false,"condition_data":null},{"id":15,"created_at":"2026-04-25T09:02:00.000Z","condition_type":"PTSD","description":"Smelled diesel and got pulled right back there.","environment":"Waiting room","intensity_rating":7,"urge_intensity":null,"feelings":"Numb, Dread","physical_symptoms":"Sweating, Nausea","skill_attempted":true,"skill_name":"Cold water","skill_success":4,"flagged":false,"condition_data":null},{"id":14,"created_at":"2026-04-26T05:49:00.000Z","condition_type":"PTSD","description":"Loud bang in the lot set me off, had to get to the car.","environment":"Work meeting","intensity_rating":9,"urge_intensity":null,"feelings":"Helpless, Fear","physical_symptoms":"Racing heart, Sweating","skill_attempted":false,"skill_name":null,"skill_success":null,"flagged":false,"condition_data":null},{"id":18,"created_at":"2026-04-28T19:41:00.000Z","condition_type":"GAD","description":"Stomach in knots before the meeting, kept checking my phone.","environment":"Crowd","intensity_rating":6,"urge_intensity":null,"feelings":"Hypervigilance, On edge","physical_symptoms":"Nausea, Jaw clenched","skill_attempted":true,"skill_name":"Orienting","skill_success":3,"flagged":false,"condition_data":null},{"id":16,"created_at":"2026-04-30T02:15:00.000Z","condition_type":"PTSD","description":"Felt watched the whole time, could not settle.","environment":"Home alone","intensity_rating":5,"urge_intensity":null,"feelings":"Irritable, Numb","physical_symptoms":"Tight chest, Racing heart","skill_attempted":true,"skill_name":"Paced breathing","skill_success":5,"flagged":false,"condition_data":null},{"id":17,"created_at":"2026-04-30T04:28:00.000Z","condition_type":"PTSD","description":"Someone came up behind me and I froze.","environment":"Nighttime","intensity_rating":8,"urge_intensity":null,"feelings":"Fear, Hypervigilance","physical_symptoms":"Shaky hands","skill_attempted":true,"skill_name":"Body scan","skill_success":3,"flagged":true,"condition_data":null},{"id":19,"created_at":"2026-05-03T15:54:00.000Z","condition_type":"GAD","description":"Worried something was wrong at home, kept wanting to call.","environment":"Work meeting","intensity_rating":8,"urge_intensity":null,"feelings":"Shame, Irritable","physical_symptoms":"Dizziness, Tight chest","skill_attempted":true,"skill_name":"Box breathing","skill_success":6,"flagged":false,"condition_data":null},{"id":20,"created_at":"2026-05-03T20:07:00.000Z","condition_type":"GAD","description":"Couldn't stop the what-ifs, felt wired and restless.","environment":"Waiting room","intensity_rating":7,"urge_intensity":null,"feelings":"Dread, Shame","physical_symptoms":"Jaw clenched, Dizziness","skill_attempted":true,"skill_name":"Grounding (5-4-3-2-1)","skill_success":6,"flagged":false,"condition_data":null},{"id":23,"created_at":"2026-05-06T09:46:00.000Z","condition_type":"PTSD","description":"Someone came up behind me and I froze.","environment":"Crowd","intensity_rating":6,"urge_intensity":null,"feelings":"Numb, Dread","physical_symptoms":"Tight chest, Racing heart","skill_attempted":true,"skill_name":"Body scan","skill_success":3,"flagged":false,"condition_data":null},{"id":21,"created_at":"2026-05-07T20:20:00.000Z","condition_type":"PTSD","description":"Smelled diesel and got pulled right back there.","environment":"Home alone","intensity_rating":5,"urge_intensity":null,"feelings":"On edge, Helpless","physical_symptoms":"Racing heart, Sweating","skill_attempted":false,"skill_name":null,"skill_success":null,"flagged":false,"condition_data":null},{"id":22,"created_at":"2026-05-08T05:33:00.000Z","condition_type":"PTSD","description":"Felt watched the whole time, could not settle.","environment":"Nighttime","intensity_rating":7,"urge_intensity":null,"feelings":"Helpless, Fear","physical_symptoms":"Sweating, Nausea","skill_attempted":true,"skill_name":"Paced breathing","skill_success":5,"flagged":false,"condition_data":null},{"id":25,"created_at":"2026-05-11T04:12:00.000Z","condition_type":"PTSD","description":"Crowd closed in near the registers and my chest locked up.","environment":"Waiting room","intensity_rating":6,"urge_intensity":null,"feelings":"Fear, Hypervigilance","physical_symptoms":"Nausea, Jaw clenched","skill_attempted":true,"skill_name":"Box breathing","skill_success":6,"flagged":false,"condition_data":null},{"id":24,"created_at":"2026-05-12T02:59:00.000Z","condition_type":"PTSD","description":"Nightmare woke me up, took a while to know where I was.","environment":"Work meeting","intensity_rating":8,"urge_intensity":null,"feelings":"Irritable, Numb","physical_symptoms":"Shaky hands","skill_attempted":true,"skill_name":"Orienting","skill_success":3,"flagged":false,"condition_data":null},{"id":27,"created_at":"2026-05-14T13:38:00.000Z","condition_type":"PTSD","description":"Smelled diesel and got pulled right back there.","environment":"Nighttime","intensity_rating":7,"urge_intensity":null,"feelings":"Shame, Irritable","physical_symptoms":"Jaw clenched, Dizziness","skill_attempted":true,"skill_name":"Cold water","skill_success":4,"flagged":false,"condition_data":null},{"id":28,"created_at":"2026-05-14T17:51:00.000Z","condition_type":"GAD","description":"Stomach in knots before the meeting, kept checking my phone.","environment":"Crowd","intensity_rating":5,"urge_intensity":null,"feelings":"Dread, Shame","physical_symptoms":"Racing heart, Sweating","skill_attempted":false,"skill_name":null,"skill_success":null,"flagged":false,"condition_data":null},{"id":26,"created_at":"2026-05-15T08:25:00.000Z","condition_type":"PTSD","description":"Loud bang in the lot set me off, had to get to the car.","environment":"Home alone","intensity_rating":4,"urge_intensity":null,"feelings":"Hypervigilance, On edge","physical_symptoms":"Dizziness, Tight chest","skill_attempted":true,"skill_name":"Grounding (5-4-3-2-1)","skill_success":6,"flagged":false,"condition_data":null},{"id":30,"created_at":"2026-05-18T19:17:00.000Z","condition_type":"GAD","description":"Couldn't stop the what-ifs, felt wired and restless.","environment":"Waiting room","intensity_rating":6,"urge_intensity":null,"feelings":"Helpless, Fear","physical_symptoms":"Tight chest, Racing heart","skill_attempted":true,"skill_name":"Orienting","skill_success":3,"flagged":false,"condition_data":null},{"id":29,"created_at":"2026-05-19T22:04:00.000Z","condition_type":"GAD","description":"Worried something was wrong at home, kept wanting to call.","environment":"Work meeting","intensity_rating":7,"urge_intensity":null,"feelings":"On edge, Helpless","physical_symptoms":"Sweating, Nausea","skill_attempted":true,"skill_name":"Body scan","skill_success":3,"flagged":false,"condition_data":null},{"id":32,"created_at":"2026-05-23T02:43:00.000Z","condition_type":"PTSD","description":"Loud bang in the lot set me off, had to get to the car.","environment":"Nighttime","intensity_rating":6,"urge_intensity":null,"feelings":"Irritable, Numb","physical_symptoms":"Nausea, Jaw clenched","skill_attempted":true,"skill_name":"Grounding (5-4-3-2-1)","skill_success":6,"flagged":false,"condition_data":null},{"id":33,"created_at":"2026-05-23T04:56:00.000Z","condition_type":"PTSD","description":"Smelled diesel and got pulled right back there.","environment":"Crowd","intensity_rating":5,"urge_intensity":null,"feelings":"Fear, Hypervigilance","physical_symptoms":"Dizziness, Tight chest","skill_attempted":true,"skill_name":"Cold water","skill_success":4,"flagged":false,"condition_data":null},{"id":31,"created_at":"2026-05-23T09:30:00.000Z","condition_type":"PTSD","description":"Crowd closed in near the registers and my chest locked up.","environment":"Home alone","intensity_rating":4,"urge_intensity":null,"feelings":"Numb, Dread","physical_symptoms":"Shaky hands","skill_attempted":true,"skill_name":"Box breathing","skill_success":6,"flagged":false,"condition_data":null},{"id":34,"created_at":"2026-05-26T08:09:00.000Z","condition_type":"PTSD","description":"Felt watched the whole time, could not settle.","environment":"Work meeting","intensity_rating":7,"urge_intensity":null,"feelings":"Hypervigilance, On edge","physical_symptoms":"Jaw clenched, Dizziness","skill_attempted":true,"skill_name":"Paced breathing","skill_success":5,"flagged":false,"condition_data":null},{"id":35,"created_at":"2026-05-26T13:22:00.000Z","condition_type":"PTSD","description":"Someone came up behind me and I froze.","environment":"Waiting room","intensity_rating":5,"urge_intensity":null,"feelings":"Shame, Irritable","physical_symptoms":"Racing heart, Sweating","skill_attempted":false,"skill_name":null,"skill_success":null,"flagged":false,"condition_data":null},{"id":38,"created_at":"2026-05-30T20:01:00.000Z","condition_type":"GAD","description":"Stomach in knots before the meeting, kept checking my phone.","environment":"Crowd","intensity_rating":4,"urge_intensity":null,"feelings":"Helpless, Fear","physical_symptoms":"Shaky hands","skill_attempted":true,"skill_name":"Grounding (5-4-3-2-1)","skill_success":6,"flagged":false,"condition_data":null},{"id":37,"created_at":"2026-05-30T20:48:00.000Z","condition_type":"PTSD","description":"Crowd closed in near the registers and my chest locked up.","environment":"Nighttime","intensity_rating":6,"urge_intensity":null,"feelings":"On edge, Helpless","physical_symptoms":"Tight chest, Racing heart","skill_attempted":true,"skill_name":"Box breathing","skill_success":6,"flagged":false,"condition_data":null},{"id":36,"created_at":"2026-05-31T01:35:00.000Z","condition_type":"PTSD","description":"Nightmare woke me up, took a while to know where I was.","environment":"Home alone","intensity_rating":3,"urge_intensity":null,"feelings":"Dread, Shame","physical_symptoms":"Sweating, Nausea","skill_attempted":true,"skill_name":"Orienting","skill_success":3,"flagged":false,"condition_data":null},{"id":40,"created_at":"2026-06-03T17:27:00.000Z","condition_type":"GAD","description":"Couldn't stop the what-ifs, felt wired and restless.","environment":"Waiting room","intensity_rating":5,"urge_intensity":null,"feelings":"Irritable, Numb","physical_symptoms":"Dizziness, Tight chest","skill_attempted":true,"skill_name":"Paced breathing","skill_success":5,"flagged":false,"condition_data":null},{"id":39,"created_at":"2026-06-04T01:14:00.000Z","condition_type":"GAD","description":"Worried something was wrong at home, kept wanting to call.","environment":"Work meeting","intensity_rating":6,"urge_intensity":null,"feelings":"Numb, Dread","physical_symptoms":"Nausea, Jaw clenched","skill_attempted":true,"skill_name":"Cold water","skill_success":4,"flagged":false,"condition_data":null},{"id":43,"created_at":"2026-06-06T13:06:00.000Z","condition_type":"PTSD","description":"Crowd closed in near the registers and my chest locked up.","environment":"Crowd","intensity_rating":4,"urge_intensity":null,"feelings":"Shame, Irritable","physical_symptoms":"Sweating, Nausea","skill_attempted":true,"skill_name":"Box breathing","skill_success":6,"flagged":false,"condition_data":null},{"id":42,"created_at":"2026-06-07T08:53:00.000Z","condition_type":"PTSD","description":"Nightmare woke me up, took a while to know where I was.","environment":"Nighttime","intensity_rating":5,"urge_intensity":null,"feelings":"Hypervigilance, On edge","physical_symptoms":"Racing heart, Sweating","skill_attempted":false,"skill_name":null,"skill_success":null,"flagged":false,"condition_data":null},{"id":41,"created_at":"2026-06-08T04:40:00.000Z","condition_type":"PTSD","description":"Someone came up behind me and I froze.","environment":"Home alone","intensity_rating":3,"urge_intensity":null,"feelings":"Fear, Hypervigilance","physical_symptoms":"Jaw clenched, Dizziness","skill_attempted":true,"skill_name":"Body scan","skill_success":3,"flagged":false,"condition_data":null},{"id":45,"created_at":"2026-06-10T20:32:00.000Z","condition_type":"PTSD","description":"Smelled diesel and got pulled right back there.","environment":"Waiting room","intensity_rating":4,"urge_intensity":null,"feelings":"On edge, Helpless","physical_symptoms":"Shaky hands","skill_attempted":true,"skill_name":"Cold water","skill_success":4,"flagged":false,"condition_data":null},{"id":44,"created_at":"2026-06-12T01:19:00.000Z","condition_type":"PTSD","description":"Loud bang in the lot set me off, had to get to the car.","environment":"Work meeting","intensity_rating":6,"urge_intensity":null,"feelings":"Dread, Shame","physical_symptoms":"Tight chest, Racing heart","skill_attempted":true,"skill_name":"Grounding (5-4-3-2-1)","skill_success":6,"flagged":false,"condition_data":null},{"id":46,"created_at":"2026-06-14T05:45:00.000Z","condition_type":"PTSD","description":"Felt watched the whole time, could not settle.","environment":"Home alone","intensity_rating":2,"urge_intensity":null,"feelings":"Helpless, Fear","physical_symptoms":"Nausea, Jaw clenched","skill_attempted":true,"skill_name":"Paced breathing","skill_success":5,"flagged":false,"condition_data":null}];
 window.addEventListener('DOMContentLoaded', function(){
   try {
@@ -1543,67 +1609,9 @@ window.addEventListener('DOMContentLoaded', function(){
     if(typeof initCal==='function') initCal();
     if(typeof renderCfFilters==='function') renderCfFilters();
     if(typeof renderAll==='function') renderAll();
+    if(typeof sfPlaceAnnos==='function') setTimeout(sfPlaceAnnos,80);
   } catch(e){ console.error(e); }
 });
-</script>
-<style>
-.sf-anno-label{position:absolute;z-index:51;pointer-events:none;font:700 12.5px/1.3 -apple-system,BlinkMacSystemFont,'Segoe UI',Inter,sans-serif;color:#0b1a2e;background:#f3b44b;padding:6px 11px;border-radius:8px;box-shadow:0 7px 24px rgba(0,0,0,.5);max-width:165px;}
-.sf-anno-svg{position:absolute;top:0;left:0;z-index:50;pointer-events:none;overflow:visible;}
-@media print{.sf-anno-label,.sf-anno-svg{display:none!important;}}
-</style>
-<script>
-(function(){
-  var ANNOS=[
-    {sel:'.export-btns', text:'Export to CSV, AI-ready JSON, or PDF', side:'right'},
-    {sel:'#addFilterBtn', text:'Add your own filter', side:'right'},
-    {sel:'.expand-btn', idx:1, text:'Open any chart full-screen', side:'right'},
-    {sel:'.builder-hd', text:'Build your own chart, no tools needed', side:'left'},
-    {sel:'.log-table th.sortable', idx:1, text:'Click any column to sort', side:'left'}
-  ];
-  var svg=null, labels=[];
-  function clear(){ if(svg){svg.remove();svg=null;} labels.forEach(function(l){l.remove();}); labels=[]; }
-  function arrowhead(ex,ey,ang){
-    function p(da){ return (ex-11*Math.cos(ang-da))+' '+(ey-11*Math.sin(ang-da)); }
-    var h=document.createElementNS('http://www.w3.org/2000/svg','path');
-    h.setAttribute('d','M '+p(0.5)+' L '+ex+' '+ey+' L '+p(-0.5));
-    h.setAttribute('fill','none'); h.setAttribute('stroke','#f3b44b'); h.setAttribute('stroke-width','2.4');
-    h.setAttribute('stroke-linecap','round'); h.setAttribute('stroke-linejoin','round'); return h;
-  }
-  function place(){
-    clear();
-    if(window.innerWidth<980) return;
-    var de=document.documentElement;
-    var DW=Math.max(de.scrollWidth,window.innerWidth), DH=Math.max(de.scrollHeight,window.innerHeight);
-    svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
-    svg.setAttribute('class','sf-anno-svg'); svg.setAttribute('width',DW); svg.setAttribute('height',DH);
-    document.body.appendChild(svg);
-    ANNOS.forEach(function(a){
-      var els=document.querySelectorAll(a.sel); var el=els[a.idx||0]; if(!el) return;
-      var r=el.getBoundingClientRect(); if(!r.width) return;
-      var sx=window.scrollX, sy=window.scrollY;
-      var ty=r.top+sy+r.height/2;
-      var lab=document.createElement('div'); lab.className='sf-anno-label'; lab.textContent=a.text;
-      lab.style.transform='rotate('+(a.side==='left'?-2:2)+'deg)';
-      document.body.appendChild(lab); labels.push(lab);
-      var lw=lab.offsetWidth, lh=lab.offsetHeight, lx;
-      if(a.side==='left'){ lx=Math.max(8, r.left+sx-lw-72); }
-      else { lx=Math.min(DW-lw-8, r.right+sx+72); }
-      lab.style.left=lx+'px'; lab.style.top=(ty-lh/2)+'px';
-      var ax=(a.side==='left')?lx+lw:lx, ay=ty;
-      var ex=(a.side==='left')?r.left+sx:r.right+sx, ey=ty;
-      var mx=(ax+ex)/2, my=(ay+ey)/2-24;
-      var path=document.createElementNS('http://www.w3.org/2000/svg','path');
-      path.setAttribute('d','M '+ax+' '+ay+' Q '+mx+' '+my+' '+ex+' '+ey);
-      path.setAttribute('fill','none'); path.setAttribute('stroke','#f3b44b'); path.setAttribute('stroke-width','2.4'); path.setAttribute('stroke-linecap','round');
-      svg.appendChild(path);
-      svg.appendChild(arrowhead(ex,ey,Math.atan2(ey-my,ex-mx)));
-    });
-  }
-  window.addEventListener('load', function(){ setTimeout(place,750); });
-  var t1,t2;
-  window.addEventListener('resize', function(){ clearTimeout(t1); t1=setTimeout(place,200); });
-  document.addEventListener('click', function(){ clearTimeout(t2); t2=setTimeout(place,380); });
-})();
 </script>
 </body>
 </html>
