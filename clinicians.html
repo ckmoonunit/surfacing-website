@@ -137,7 +137,7 @@
     <div class="section-head fade-up">
       <div class="label">No Install &middot; No Account</div>
       <h2 class="h2">You don't need the app. The data comes to you.</h2>
-      <p class="lead">Your client does the tracking. What reaches you is a single self-contained file: one encrypted HTML report that opens in any browser you already use. Nothing to install, no login, no portal, no new system to learn.</p>
+      <p class="lead">Your client does the tracking. What reaches you is a single self-contained file: one encrypted HTML report that opens in any browser you already use, and never connects to the web. Nothing to install, no login, no portal, no new system to learn.</p>
     </div>
     <div class="grid-3 fade-up" style="gap:24px;">
       <div class="card" style="padding:28px;text-align:center;">
@@ -148,7 +148,7 @@
       <div class="card" style="padding:28px;text-align:center;">
         <div class="card-icon" style="margin:0 auto 16px;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3B8EF0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></div>
         <h4 style="font-weight:700;margin-bottom:10px;">Entirely self-contained</h4>
-        <p style="color:var(--text2);font-size:14px;line-height:1.7;">Charts, filters, and the full entry log are baked into the one file. No internet connection needed to open it. Nothing loads from a server, ever.</p>
+        <p style="color:var(--text2);font-size:14px;line-height:1.7;">Charts, filters, and the full entry log are baked into the one file. No internet connection needed or used, ever. Nothing loads from a server, nothing is sent anywhere.</p>
       </div>
       <div class="card" style="padding:28px;text-align:center;">
         <div class="card-icon purple" style="margin:0 auto 16px;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="17" y1="8" x2="22" y2="13"/><line x1="22" y1="8" x2="17" y2="13"/></svg></div>
@@ -187,8 +187,8 @@
       </div>
     </div>
     <div class="callout" style="margin-top:32px;" class="fade-up">
-      <h4>⚠️ Important: The clinician never stores PHI</h4>
-      <p>The export file is encrypted and password-protected. If you do not save it locally (and you don't need to), no PHI ever passes through your systems. The data lives on the client's phone, shared peer-to-peer. This is the core HIPAA advantage - review <a href="hipaa.html">our full compliance documentation.</a></p>
+      <h4>⚠️ Important: no third party ever touches the data</h4>
+      <p>The report goes directly from your client to you, peer-to-peer, the same as any document a patient hands you in session. It is PHI, and you handle it under the HIPAA obligations you already operate under. But no Surfacing server and no cloud vendor ever receives it, so there is no new business associate and no added breach surface, and you decide whether to retain the file. Review <a href="hipaa.html">our full compliance documentation.</a></p>
     </div>
   </div>
 </section>
@@ -279,7 +279,7 @@
     <div class="section-head fade-up">
       <div class="label">Inside the Report</div>
       <h2 class="h2">Charts that read at a glance</h2>
-      <p class="lead">The same encrypted file carries intensity trends and skill effectiveness, rendered locally the moment it opens.</p>
+      <p class="lead">The same encrypted file carries intensity trends and skill effectiveness, rendered locally the moment it opens. And you are not limited to these: a point-and-click chart builder is built into the report, group by any field, pick any chart type, in seconds.</p>
     </div>
     <div class="iso-grid fade-up">
 
@@ -330,6 +330,19 @@
     <p style="text-align:center;font-size:13px;color:var(--text3);margin-top:48px;">
       <em>Illustrative panels. The live report renders these from the client's actual entries.</em>
     </p>
+  </div>
+</section>
+
+<!-- ── Live sample report CTA ─────────────────────────────────────────────────── -->
+<section class="tight" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="cta-section fade-up">
+      <div class="label" style="margin-bottom:16px;">See It For Yourself</div>
+      <h2 class="h2" style="margin-bottom:14px;">Open a real report and click around</h2>
+      <p class="lead" style="max-width:560px;margin:0 auto 28px;">This is the actual report your clients generate, loaded with sample data. Filter it, sort the log, and build your own chart, right in the browser. Nothing to install.</p>
+      <a href="sample-report.html" target="_blank" rel="noopener" class="btn btn-primary btn-lg">Open the live sample report →</a>
+      <p style="font-size:12.5px;color:var(--text3);margin-top:16px;">Opens in a new tab &middot; illustrative data, not a real person</p>
+    </div>
   </div>
 </section>
 
@@ -631,7 +644,7 @@
       <div class="card" style="padding:28px;">
         <div class="card-icon purple" style="margin-bottom:14px;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></div>
         <h4 style="font-weight:700;margin-bottom:10px;">Clinician review, not clinician storage</h4>
-        <p style="color:var(--text2);font-size:14px;line-height:1.7;">You are reviewing a file, not storing PHI in a new system. If you do not save the file after review, no patient data enters your records system. Always consult your privacy officer for guidance on retention obligations in your jurisdiction.</p>
+        <p style="color:var(--text2);font-size:14px;line-height:1.7;">You receive a file directly from your client, the same as any document they bring to session. It is PHI you handle under your existing HIPAA obligations, but it enters no new system: if you do not save it after review, it is not added to your records. Always consult your privacy officer on retention obligations in your jurisdiction.</p>
       </div>
     </div>
 
