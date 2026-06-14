@@ -169,7 +169,8 @@ nav.scrolled {
   position: relative;
 }
 .hero-right img {
-  width: 100%; max-width: 380px;
+  width: 100%; max-width: 320px; max-height: 70vh;
+  object-fit: contain;
   animation: float-img 7s ease-in-out infinite;
 }
 @keyframes float-img {
