@@ -801,3 +801,15 @@ footer {
   .shot figcaption { font-size: 13px; margin-top: -10px; }
   .shot figcaption span { display: none; }
 }
+
+/* ─── Bright sample-report CTA button ─── */
+.btn-bright {
+  background: linear-gradient(120deg, #37C0FF 0%, #36E0C0 100%);
+  color: #04121f !important; font-weight: 800; border: none;
+  box-shadow: 0 8px 32px rgba(54,224,192,0.45), 0 0 0 1px rgba(54,224,192,0.25);
+}
+.btn-bright:hover {
+  opacity: 1; filter: brightness(1.06);
+  box-shadow: 0 10px 40px rgba(54,224,192,0.6), 0 0 0 1px rgba(54,224,192,0.4);
+  transform: translateY(-1px);
+}
