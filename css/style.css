@@ -203,7 +203,7 @@ nav.scrolled {
   font-size: clamp(1.05rem, 2.1vw, 1.55rem); font-weight: 800; letter-spacing: -0.4px;
   margin-bottom: 14px; color: var(--text);
 }
-.hero-title { margin-bottom: 22px; }
+.hero-title { font-size: clamp(2.2rem, 4.6vw, 3rem); line-height: 1.1; margin-bottom: 22px; }
 .hero-accent {
   background: linear-gradient(120deg, #4FA8FF 0%, #4ECDC4 100%);
   -webkit-background-clip: text; background-clip: text;
