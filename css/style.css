@@ -204,7 +204,11 @@ nav.scrolled {
   margin-bottom: 14px; color: var(--text);
 }
 .hero-title { margin-bottom: 22px; }
-.hero-accent { color: var(--teal); }
+.hero-accent {
+  background: linear-gradient(120deg, #4FA8FF 0%, #4ECDC4 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
 .hero-title .gradient-text,
 .hero-kicker .gradient-text {
   background: linear-gradient(135deg, #64B5F6 0%, #ffffff 45%, #90CAF9 100%);
