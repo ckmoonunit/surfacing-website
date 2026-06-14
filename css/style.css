@@ -13,7 +13,7 @@
   --border2:   #112650;
   --text:      #E2EEFF;
   --text2:     #7AAED5;
-  --text3:     #3A6090;
+  --text3:     #6B93C2;
   --blue:      #3B8EF0;
   --blue2:     #2471DC;
   --blue-dim:  rgba(59,142,240,0.12);
@@ -493,6 +493,20 @@ footer {
 .fade-up-delay-2 { transition-delay: 0.2s; }
 .fade-up-delay-3 { transition-delay: 0.3s; }
 .fade-up-delay-4 { transition-delay: 0.4s; }
+
+/* Above-the-fold reveal: CSS-only auto-animation so the hero renders without waiting on JS */
+.reveal-now {
+  opacity: 0; transform: translateY(28px);
+  animation: revealNow 0.6s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+.reveal-now-2 { animation-delay: 0.15s; }
+@keyframes revealNow { to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-now { animation: none; opacity: 1; transform: none; }
+  .fade-up { transition: none; }
+  .fade-up:not(.visible) { opacity: 1; transform: none; }
+}
 
 /* ── Glow border ─────────────────────────────────────────────────────────────── */
 .glow-border { position: relative; }

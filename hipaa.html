@@ -5,23 +5,25 @@
 <script>if(location.protocol!=='https:')location.replace('https:'+location.href.slice(location.protocol.length));</script>
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HIPAA-Compliant Mental Health App Architecture - Privacy & Security | Surfacing</title>
-<meta name="description" content="Surfacing's serverless AES-256 encrypted architecture meets HIPAA technical safeguards by design. No PHI on servers. Rule-by-rule breakdown of 45 CFR § 164.312. No BAA required in most cases.">
-<meta name="keywords" content="HIPAA compliant mental health app, HIPAA mental health tracker, AES-256 mental health encryption, PHI mental health app, HIPAA technical safeguards, mental health app no server, BAA mental health software, 45 CFR 164.312, HIPAA therapy app, mental health data privacy">
+<title>HIPAA-Aligned Mental Health App Architecture - Surfacing</title>
+<meta name="description" content="Surfacing's serverless, AES-256 encrypted architecture is designed to meet HIPAA technical safeguards: no servers, no accounts, all data on your device.">
 <link rel="canonical" href="https://surfacingapp.com/hipaa.html">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://surfacingapp.com/hipaa.html">
-<meta property="og:title" content="HIPAA-Compliant Mental Health App - Surfacing Privacy Architecture">
+<meta property="og:title" content="HIPAA-Aligned Mental Health App - Surfacing Privacy Architecture">
 <meta property="og:description" content="No PHI on servers. AES-256 encrypted. Rule-by-rule 45 CFR § 164.312 breakdown. Privacy by design, not by policy.">
-<meta property="og:image" content="https://surfacingapp.com/assets/main-graphic.png">
+<meta property="og:image" content="https://surfacingapp.com/assets/og-image.png">
 <meta property="og:site_name" content="Surfacing">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="HIPAA-Compliant Mental Health App - Surfacing">
+<meta name="twitter:title" content="HIPAA-Aligned Mental Health App - Surfacing">
 <meta name="twitter:description" content="Serverless, AES-256 encrypted mental health symptom and episode tracker. No PHI ever reaches a server. Privacy by architecture.">
-<meta name="twitter:image" content="https://surfacingapp.com/assets/main-graphic.png">
-<link rel="icon" href="assets/icon.png?v=2" type="image/png">
-<link rel="apple-touch-icon" href="assets/icon.png?v=2">
+<meta name="twitter:image" content="https://surfacingapp.com/assets/og-image.png">
+<link rel="icon" href="assets/favicon-32.png?v=3" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/favicon.ico?v=3" sizes="any">
+<meta name="theme-color" content="#050D1E">
+<link rel="apple-touch-icon" href="assets/icon-180.png?v=3">
 <link rel="stylesheet" href="css/style.css">
+<noscript><style>.fade-up{opacity:1!important;transform:none!important}</style></noscript>
 <style>
 .compliance-badge {
   display: flex; align-items: center; gap: 12px;
@@ -41,7 +43,7 @@
 {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": "HIPAA-Compliant Mental Health App Architecture - Privacy & Security",
+  "name": "HIPAA-Aligned Mental Health App Architecture - Privacy & Security",
   "description": "Surfacing serverless AES-256 encrypted architecture meets HIPAA technical safeguards by design. No PHI on servers. Rule-by-rule 45 CFR 164.312 breakdown.",
   "url": "https://surfacingapp.com/hipaa.html"
 }
@@ -51,7 +53,7 @@
 
 <nav>
   <div class="nav-inner">
-    <a href="/" class="nav-logo"><img src="assets/icon.png" alt="Surfacing">Sur<span>facing</span></a>
+    <a href="/" class="nav-logo"><img src="assets/icon-180.png" alt="Surfacing" width="180" height="180">Sur<span>facing</span></a>
     <ul class="nav-links">
       <li><a href="patients.html">Patients</a></li>
       <li><a href="clinicians.html">Clinicians</a></li>
@@ -74,7 +76,7 @@
 <div class="page-hero">
   <div class="container-sm">
     <span class="badge badge-green" style="margin-bottom:20px;">🛡️ HIPAA Compliance</span>
-    <h1 class="h1">Privacy isn't a feature.<br>It's the architecture.</h1>
+    <h1 class="h1">Privacy isn't a feature. <br>It's the architecture.</h1>
     <p class="lead" style="margin-top:16px;">Surfacing was designed from day one around a single constraint: patient data must never leave the patient's device. This document explains precisely how that works, and what it means for HIPAA compliance.</p>
   </div>
 </div>
@@ -345,7 +347,7 @@ Clinician opens in browser
     <div class="accordion fade-up">
       <div class="accordion-item open">
         <div class="accordion-header">What encryption standard does Surfacing use? <span class="icon">+</span></div>
-        <div class="accordion-body">Surfacing uses AES-256 (Advanced Encryption Standard with 256-bit keys) for both the on-device database and the HTML export file. AES-256 is the encryption standard mandated by NIST for protecting sensitive government data and is widely accepted as the benchmark for HIPAA-compliant encryption. The encryption key for the database is stored in the device's hardware-backed secure enclave (iOS) or Keystore (Android), not in the application bundle.</div>
+        <div class="accordion-body">Surfacing uses AES-256 (Advanced Encryption Standard with 256-bit keys) for both the on-device database and the HTML export file. AES-256 is the encryption standard mandated by NIST for protecting sensitive government data and is widely accepted as the benchmark for HIPAA-aligned encryption. The encryption key for the database is stored in the device's hardware-backed secure enclave (iOS) or Keystore (Android), not in the application bundle.</div>
       </div>
       <div class="accordion-item">
         <div class="accordion-header">Does the exported HTML file make any external requests? <span class="icon">+</span></div>
@@ -413,7 +415,7 @@ Clinician opens in browser
 <footer>
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand"><a href="/" class="nav-logo" style="font-size:18px;"><img src="assets/icon.png" alt="Surfacing" style="width:30px;height:30px;">Sur<span>facing</span></a><p>A private, offline-first mental health symptom and episode tracker. All data stays on the device.</p></div>
+      <div class="footer-brand"><a href="/" class="nav-logo" style="font-size:18px;"><img src="assets/icon-180.png" alt="Surfacing" width="180" height="180" style="width:30px;height:30px;">Sur<span>facing</span></a><p>A private, offline-first mental health symptom and episode tracker. All data stays on the device.</p></div>
       <div class="footer-col"><h5>App</h5><ul><li><a href="patients.html">For Patients</a></li><li><a href="clinicians.html">For Clinicians</a></li><li><a href="research.html">For Research</a></li></ul></div>
       <div class="footer-col"><h5>Compliance</h5><ul><li><a href="hipaa.html">HIPAA Overview</a></li><li><a href="hipaa.html#architecture">Architecture</a></li><li><a href="hipaa.html#faq">FAQ</a></li></ul></div>
       <div class="footer-col"><h5>Contact</h5><ul><li><a href="/#contact">General Inquiry</a></li><li><a href="clinicians.html#contact">Clinical Partners</a></li><li><a href="research.html#contact">Research Collab</a></li></ul></div>
@@ -434,6 +436,6 @@ Clinician opens in browser
     <div class="footer-bottom"><span>© 2026 Surfacing. All rights reserved.</span><span>Built with privacy by design · No data collected · Ever.</span></div>
   </div>
 </footer>
-<script src="js/main.js"></script>
+<script src="js/main.js" defer></script>
 </body>
 </html>
