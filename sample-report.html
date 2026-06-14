@@ -1546,5 +1546,64 @@ window.addEventListener('DOMContentLoaded', function(){
   } catch(e){ console.error(e); }
 });
 </script>
+<style>
+.sf-anno-label{position:absolute;z-index:51;pointer-events:none;font:700 12.5px/1.3 -apple-system,BlinkMacSystemFont,'Segoe UI',Inter,sans-serif;color:#0b1a2e;background:#f3b44b;padding:6px 11px;border-radius:8px;box-shadow:0 7px 24px rgba(0,0,0,.5);max-width:165px;}
+.sf-anno-svg{position:absolute;top:0;left:0;z-index:50;pointer-events:none;overflow:visible;}
+@media print{.sf-anno-label,.sf-anno-svg{display:none!important;}}
+</style>
+<script>
+(function(){
+  var ANNOS=[
+    {sel:'.export-btns', text:'Export to CSV, AI-ready JSON, or PDF', side:'right'},
+    {sel:'#addFilterBtn', text:'Add your own filter', side:'right'},
+    {sel:'.expand-btn', idx:1, text:'Open any chart full-screen', side:'right'},
+    {sel:'.builder-hd', text:'Build your own chart, no tools needed', side:'left'},
+    {sel:'.log-table th.sortable', idx:1, text:'Click any column to sort', side:'left'}
+  ];
+  var svg=null, labels=[];
+  function clear(){ if(svg){svg.remove();svg=null;} labels.forEach(function(l){l.remove();}); labels=[]; }
+  function arrowhead(ex,ey,ang){
+    function p(da){ return (ex-11*Math.cos(ang-da))+' '+(ey-11*Math.sin(ang-da)); }
+    var h=document.createElementNS('http://www.w3.org/2000/svg','path');
+    h.setAttribute('d','M '+p(0.5)+' L '+ex+' '+ey+' L '+p(-0.5));
+    h.setAttribute('fill','none'); h.setAttribute('stroke','#f3b44b'); h.setAttribute('stroke-width','2.4');
+    h.setAttribute('stroke-linecap','round'); h.setAttribute('stroke-linejoin','round'); return h;
+  }
+  function place(){
+    clear();
+    if(window.innerWidth<980) return;
+    var de=document.documentElement;
+    var DW=Math.max(de.scrollWidth,window.innerWidth), DH=Math.max(de.scrollHeight,window.innerHeight);
+    svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.setAttribute('class','sf-anno-svg'); svg.setAttribute('width',DW); svg.setAttribute('height',DH);
+    document.body.appendChild(svg);
+    ANNOS.forEach(function(a){
+      var els=document.querySelectorAll(a.sel); var el=els[a.idx||0]; if(!el) return;
+      var r=el.getBoundingClientRect(); if(!r.width) return;
+      var sx=window.scrollX, sy=window.scrollY;
+      var ty=r.top+sy+r.height/2;
+      var lab=document.createElement('div'); lab.className='sf-anno-label'; lab.textContent=a.text;
+      lab.style.transform='rotate('+(a.side==='left'?-2:2)+'deg)';
+      document.body.appendChild(lab); labels.push(lab);
+      var lw=lab.offsetWidth, lh=lab.offsetHeight, lx;
+      if(a.side==='left'){ lx=Math.max(8, r.left+sx-lw-72); }
+      else { lx=Math.min(DW-lw-8, r.right+sx+72); }
+      lab.style.left=lx+'px'; lab.style.top=(ty-lh/2)+'px';
+      var ax=(a.side==='left')?lx+lw:lx, ay=ty;
+      var ex=(a.side==='left')?r.left+sx:r.right+sx, ey=ty;
+      var mx=(ax+ex)/2, my=(ay+ey)/2-24;
+      var path=document.createElementNS('http://www.w3.org/2000/svg','path');
+      path.setAttribute('d','M '+ax+' '+ay+' Q '+mx+' '+my+' '+ex+' '+ey);
+      path.setAttribute('fill','none'); path.setAttribute('stroke','#f3b44b'); path.setAttribute('stroke-width','2.4'); path.setAttribute('stroke-linecap','round');
+      svg.appendChild(path);
+      svg.appendChild(arrowhead(ex,ey,Math.atan2(ey-my,ex-mx)));
+    });
+  }
+  window.addEventListener('load', function(){ setTimeout(place,750); });
+  var t1,t2;
+  window.addEventListener('resize', function(){ clearTimeout(t1); t1=setTimeout(place,200); });
+  document.addEventListener('click', function(){ clearTimeout(t2); t2=setTimeout(place,380); });
+})();
+</script>
 </body>
 </html>
