@@ -169,9 +169,7 @@ nav.scrolled {
   position: relative;
 }
 .hero-right img {
-  width: 100%; max-width: 580px;
-  border-radius: 16px;
-  filter: drop-shadow(0 32px 80px rgba(10,60,180,0.6)) drop-shadow(0 0 60px rgba(59,142,240,0.3));
+  width: 100%; max-width: 380px;
   animation: float-img 7s ease-in-out infinite;
 }
 @keyframes float-img {
@@ -552,7 +550,7 @@ footer {
 /* ─── Tablet wide: ≤1100px ─── */
 @media (max-width: 1100px) {
   .hero-split { gap: 40px; }
-  .hero-right img { max-width: 460px; }
+  .hero-right img { max-width: 340px; }
   .nav-links a { padding: 7px 10px; font-size: 13px; }
 }
 
@@ -566,7 +564,7 @@ footer {
   .hero-sub { max-width: 100%; }
   .hero-btns, .free-badges { justify-content: center; }
   .hero-right { justify-content: center; }
-  .hero-right img { max-width: 440px; }
+  .hero-right img { max-width: 320px; }
   .grid-3 { grid-template-columns: repeat(2,1fr); }
   .grid-4 { grid-template-columns: repeat(2,1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
@@ -738,7 +736,7 @@ footer {
 
   /* ── Hero ── */
   .hero-split { padding: 38px 14px 30px; gap: 24px; }
-  .hero-right img { max-width: 220px; width: 84%; }
+  .hero-right img { max-width: 240px; width: 72%; }
   .hero-eyebrow-pill { font-size: 11px; padding: 4px 12px; }
   .hero-title { margin-bottom: 16px; }
   .hero-btns  { max-width: 260px; }
