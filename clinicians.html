@@ -72,6 +72,16 @@
 .iso-entry-time { color:rgba(255,255,255,0.3); width:80px; flex-shrink:0; }
 .iso-entry-text { flex:1; color:rgba(255,255,255,0.7); }
 .iso-entry-score { font-weight:700; color:#3B8EF0; }
+/* extra iso graph panels (same isometric format) */
+.iso-grid { display:grid; grid-template-columns:1fr 1fr; gap:56px; perspective:1700px; max-width:1040px; margin:0 auto; }
+.iso-grid .iso-frame { width:100%; transform:rotateX(15deg) rotateY(-13deg); }
+.iso-chart-title { font-size:9px; color:rgba(255,255,255,0.35); font-weight:700; letter-spacing:.6px; }
+.iso-hbar { display:flex; align-items:center; gap:8px; padding:6px 16px; font-size:10px; }
+.iso-hbar-label { width:78px; flex-shrink:0; color:rgba(255,255,255,0.6); }
+.iso-hbar-track { flex:1; height:9px; background:rgba(255,255,255,0.06); border-radius:100px; overflow:hidden; }
+.iso-hbar-fill { height:100%; border-radius:100px; }
+.iso-hbar-val { width:22px; flex-shrink:0; text-align:right; font-weight:700; color:rgba(255,255,255,0.85); }
+@media (max-width:820px){ .iso-grid{ grid-template-columns:1fr; gap:72px; } .iso-grid .iso-frame{ width:min(440px,100%); margin:0 auto; } }
 </style>
 <script type="application/ld+json">
 {
@@ -112,7 +122,7 @@
   <div class="container-sm">
     <span class="badge badge-purple" style="margin-bottom:20px;">🩺 For Clinicians &amp; Therapists</span>
     <h1 class="h1">Between-session data <br>that actually matters.</h1>
-    <p class="lead" style="margin-top:16px;">Surfacing gives clients a low-friction, effortless way to capture episodes the moment they happen - clinically structured, in real time. When they walk in, you both already know what the week looked like.</p>
+    <p class="lead" style="margin-top:16px;">Clients capture episodes the moment they happen, clinically structured and in real time. By session, you both already know what the week looked like.</p>
     <div style="margin-top:28px;display:inline-flex;gap:10px;flex-wrap:wrap;justify-content:center;">
       <span class="free-badge"><span class="check">✓</span> Completely free</span>
       <span class="free-badge"><span class="check">✓</span> HIPAA Aligned design</span>
@@ -137,14 +147,14 @@
         <div class="label" style="margin-bottom:14px;">The Clinical Gap</div>
         <h2 class="h2" style="margin-bottom:20px;">Your clients are guessing. You're working with a sketch.</h2>
         <p style="color:var(--text2);font-size:15px;line-height:1.8;margin-bottom:24px;">
-          Retrospective self-report - "how was your week?" - is the baseline in most outpatient practice. But memory is reconstructed, trauma compresses timelines, and high-affect states are disproportionately recalled. You make treatment decisions on incomplete data.
+          Retrospective self-report is the outpatient baseline. But memory is reconstructed, trauma compresses timelines, and high-affect states dominate recall. You decide treatment on incomplete data.
         </p>
         <p style="color:var(--text2);font-size:15px;line-height:1.8;margin-bottom:28px;">
-          Surfacing changes the input. Your clients log in real time - intensity, trigger, location, skill used, skill outcome - so when they arrive at session, there's a structured record of what actually happened.
+          Surfacing changes the input. Clients log in real time (intensity, trigger, location, skill, outcome) so session starts with a structured record of what actually happened.
         </p>
         <div class="callout">
           <h4>EMA-grade data without the research setup</h4>
-          <p>Ecological Momentary Assessment is the gold standard for mental health data collection. Surfacing delivers that methodology in a consumer app - no IRB, no study cost, no technical barrier.</p>
+          <p>Ecological Momentary Assessment is the gold standard for mental health data. Surfacing delivers it in a consumer app: no IRB, no study cost, no technical barrier.</p>
         </div>
       </div>
       <div class="fade-up fade-up-delay-2">
@@ -195,10 +205,10 @@
         <div class="label" style="margin-bottom:14px;">Designed for the Hardest Moments</div>
         <h2 class="h2" style="margin-bottom:20px;">Surfacing gives clients a clinically-informed capture tool that works - even when they don't.</h2>
         <p style="color:var(--text2);font-size:15px;line-height:1.8;margin-bottom:20px;">
-          Most journaling tools fail your highest-need clients first. Login screens, blank text fields, and paragraph prompts are barriers - not tools - for someone mid-panic, mid-dissociation, or mid-shutdown. Surfacing was built around one premise: an episode has to be capturable in under 30 seconds, with near-zero cognitive overhead.
+          Most journaling tools fail your highest-need clients first. Login screens and blank text fields are barriers mid-panic or mid-shutdown. Surfacing's premise: an episode has to be capturable in under 30 seconds, near-zero cognitive overhead.
         </p>
         <p style="color:var(--text2);font-size:15px;line-height:1.8;margin-bottom:28px;">
-          A client with ADHD doesn't forget to track because they don't care - they forget because executive function collapses under emotional load. A client mid-flashback can't compose a journal entry. Surfacing meets them with a structured tap-flow that requires less effort than sending a text, and captures more clinically relevant information than any open-ended diary ever could.
+          A client with ADHD forgets because executive function collapses under load, not because they don't care. A structured tap-flow takes less effort than a text and captures more than any open-ended diary.
         </p>
         <div class="callout teal">
           <h4>The data you don't get is the data from the worst moments</h4>
@@ -213,7 +223,7 @@
             <div class="feature-strip-icon">⚡</div>
             <div class="feature-strip-body">
               <h4>Under 30 seconds to log an episode</h4>
-              <p>Condition-specific tap selectors, sliders, and quick-pick fields - minimal typing required. Built for capture speed in high-affect states, not reflective journaling after the fact.</p>
+              <p>Condition-specific taps, sliders, and quick-picks. Built for capture speed in high-affect states.</p>
             </div>
           </div>
 
@@ -221,7 +231,7 @@
             <div class="feature-strip-icon">🧠</div>
             <div class="feature-strip-body">
               <h4>Effortless for clients with ADHD, ASD, and executive function challenges</h4>
-              <p>No blank page. No open-ended prompts. No "where do I start?" Clients open the app and the structure is already there - each field is a specific, answerable question that bypasses the executive demand of unstructured self-reflection entirely.</p>
+              <p>No blank page, no "where do I start?" Each field is a specific, answerable question that bypasses the executive load of open journaling.</p>
             </div>
           </div>
 
@@ -229,7 +239,7 @@
             <div class="feature-strip-icon">📵</div>
             <div class="feature-strip-body">
               <h4>Fully offline - logs anywhere, instantly</h4>
-              <p>No WiFi needed. No data signal. No account to stay logged into. Episodes happen in the car, in a waiting room, in a parking lot at 11 PM - and Surfacing is there for all of them.</p>
+              <p>No WiFi, no signal, no account. Episodes happen in the car or a parking lot at 11 PM, and Surfacing is there for all of them.</p>
             </div>
           </div>
 
@@ -237,7 +247,7 @@
             <div class="feature-strip-icon">🔓</div>
             <div class="feature-strip-body">
               <h4>One biometric tap between distress and data</h4>
-              <p>Face ID or fingerprint opens the app instantly. Clients in active distress aren't navigating a login flow before they can capture what's happening - the moment gets logged while it's still real.</p>
+              <p>Face ID or fingerprint opens the app instantly. No login flow between distress and capture, so the moment gets logged while it's still real.</p>
             </div>
           </div>
 
@@ -245,7 +255,7 @@
             <div class="feature-strip-icon">📋</div>
             <div class="feature-strip-body">
               <h4>Effortless, structured reports - no manual write-up</h4>
-              <p>Every logged episode automatically becomes part of a formatted, filterable clinical report. No narrative needed from the client. No summarizing required from you. The data structure does the documentation.</p>
+              <p>Every episode automatically becomes part of a formatted, filterable report. No narrative from the client, no summarizing from you.</p>
             </div>
           </div>
 
@@ -256,13 +266,38 @@
   </div>
 </section>
 
+<!-- ── Real in-app analytics (screenshots) ───────────────────────────────────── -->
+<section style="overflow:hidden;">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="label">Inside the App</div>
+      <h2 class="h2">The analytics, built from real entries</h2>
+      <p class="lead">No mockups. These are live screens. Every chart updates as your client logs.</p>
+    </div>
+    <div class="shots shots-3 fade-up">
+      <figure class="shot">
+        <img src="assets/shots/shot-dashboard.webp" alt="Surfacing dashboard line chart of symptom intensity over time" width="658" height="1241" loading="lazy">
+        <figcaption>Intensity over time<span>Spot the trend across weeks</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="assets/shots/shot-charts.webp" alt="Surfacing charts: peak intensity, events per day, time of day" width="658" height="1241" loading="lazy">
+        <figcaption>When episodes hit<span>Frequency and time-of-day</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="assets/shots/shot-trends.webp" alt="Surfacing skill success rate and trigger frequency charts" width="658" height="1241" loading="lazy">
+        <figcaption>What's working<span>Skill outcomes and triggers</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
 <!-- ── Patient Safety & Data Integrity ───────────────────────────────────────── -->
 <section style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
   <div class="container">
     <div class="section-head fade-up">
       <div class="label">Patient Safety &amp; Data Integrity</div>
       <h2 class="h2">Symptoms delivered securely within your HIPAA-aligned environment</h2>
-      <p class="lead">Every piece of data your client logs stays on their device until they choose to share it. When they do, it arrives as a password-protected, AES-256 encrypted file - designed to open within your existing secure communication tools, EHR attachments, or direct peer-to-peer transfer. No third party touches it. No Surfacing server receives it.</p>
+      <p class="lead">Data stays on the client's device until they share it. When they do, it arrives as a password-protected, AES-256 encrypted file that opens in your existing secure tools. No third party touches it. No Surfacing server receives it.</p>
     </div>
 
     <div class="grid-3 fade-up" style="gap:24px;margin-bottom:40px;">
@@ -365,6 +400,66 @@
     </div>
     <p style="text-align:center;font-size:13px;color:var(--text3);margin-top:-24px;">
       <em>Illustrative sample. Actual report contains all logged entries, custom charts, and skill effectiveness analysis.</em>
+    </p>
+  </div>
+</section>
+
+<!-- ── More iso graph panels (same isometric format) ─────────────────────────── -->
+<section style="overflow:hidden;">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="label">Inside the Report</div>
+      <h2 class="h2">Charts that read at a glance</h2>
+      <p class="lead">The same encrypted file carries intensity trends and skill effectiveness, rendered locally the moment it opens.</p>
+    </div>
+    <div class="iso-grid fade-up">
+
+      <!-- Panel: intensity over time -->
+      <div class="iso-frame">
+        <div class="iso-chrome">
+          <div class="iso-dot" style="background:#ff5f56"></div><div class="iso-dot" style="background:#ffbd2e"></div><div class="iso-dot" style="background:#27c93f"></div>
+          <div class="iso-url-bar">Intensity over time</div>
+        </div>
+        <div class="iso-chart" style="border-bottom:none;padding:14px 16px 16px;">
+          <div class="iso-chart-title">SYMPTOM INTENSITY · 12 WEEKS</div>
+          <svg viewBox="0 0 280 96" width="100%" style="margin-top:8px;display:block;height:auto;" role="img" aria-label="Line chart of symptom intensity trending downward over twelve weeks">
+            <defs><linearGradient id="isoLine" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#e05555"/><stop offset="0.55" stop-color="#f59e0b"/><stop offset="1" stop-color="#facc15"/>
+            </linearGradient></defs>
+            <line x1="0" y1="22" x2="280" y2="22" stroke="rgba(255,255,255,0.05)"/>
+            <line x1="0" y1="59" x2="280" y2="59" stroke="rgba(255,255,255,0.05)"/>
+            <polyline fill="none" stroke="url(#isoLine)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+              points="6,20 30,12 54,28 78,18 102,40 126,33 150,52 174,45 198,66 222,57 246,76 270,70"/>
+            <g fill="#0C1F3A" stroke="#facc15" stroke-width="2">
+              <circle cx="6" cy="20" r="2.6"/><circle cx="30" cy="12" r="2.6"/><circle cx="54" cy="28" r="2.6"/><circle cx="78" cy="18" r="2.6"/>
+              <circle cx="102" cy="40" r="2.6"/><circle cx="126" cy="33" r="2.6"/><circle cx="150" cy="52" r="2.6"/><circle cx="174" cy="45" r="2.6"/>
+              <circle cx="198" cy="66" r="2.6"/><circle cx="222" cy="57" r="2.6"/><circle cx="246" cy="76" r="2.6"/><circle cx="270" cy="70" r="2.6"/>
+            </g>
+          </svg>
+          <div style="display:flex;justify-content:space-between;font-size:7px;color:rgba(255,255,255,0.25);margin-top:5px;"><span>Wk 1</span><span>Wk 6</span><span>Wk 12</span></div>
+        </div>
+      </div>
+
+      <!-- Panel: skill effectiveness -->
+      <div class="iso-frame">
+        <div class="iso-chrome">
+          <div class="iso-dot" style="background:#ff5f56"></div><div class="iso-dot" style="background:#ffbd2e"></div><div class="iso-dot" style="background:#27c93f"></div>
+          <div class="iso-url-bar">Skill effectiveness</div>
+        </div>
+        <div class="iso-chart" style="border-bottom:none;padding:14px 0 16px;">
+          <div class="iso-chart-title" style="padding:0 16px 6px;">SKILL EFFECTIVENESS · AVG /10</div>
+          <div class="iso-hbar"><div class="iso-hbar-label">Box breathing</div><div class="iso-hbar-track"><div class="iso-hbar-fill" style="width:70%;background:linear-gradient(90deg,#1A5CC0,#4ade80)"></div></div><div class="iso-hbar-val">7.0</div></div>
+          <div class="iso-hbar"><div class="iso-hbar-label">Grounding</div><div class="iso-hbar-track"><div class="iso-hbar-fill" style="width:68%;background:linear-gradient(90deg,#1A5CC0,#4ade80)"></div></div><div class="iso-hbar-val">6.8</div></div>
+          <div class="iso-hbar"><div class="iso-hbar-label">Cold water</div><div class="iso-hbar-track"><div class="iso-hbar-fill" style="width:57%;background:linear-gradient(90deg,#b45309,#f59e0b)"></div></div><div class="iso-hbar-val">5.7</div></div>
+          <div class="iso-hbar"><div class="iso-hbar-label">5-4-3-2-1</div><div class="iso-hbar-track"><div class="iso-hbar-fill" style="width:50%;background:linear-gradient(90deg,#b45309,#f59e0b)"></div></div><div class="iso-hbar-val">5.0</div></div>
+          <div class="iso-hbar"><div class="iso-hbar-label">Body scan</div><div class="iso-hbar-track"><div class="iso-hbar-fill" style="width:48%;background:linear-gradient(90deg,#b45309,#f59e0b)"></div></div><div class="iso-hbar-val">4.8</div></div>
+          <div class="iso-hbar"><div class="iso-hbar-label">Orienting</div><div class="iso-hbar-track"><div class="iso-hbar-fill" style="width:47%;background:linear-gradient(90deg,#b45309,#f59e0b)"></div></div><div class="iso-hbar-val">4.7</div></div>
+        </div>
+      </div>
+
+    </div>
+    <p style="text-align:center;font-size:13px;color:var(--text3);margin-top:48px;">
+      <em>Illustrative panels. The live report renders these from the client's actual entries.</em>
     </p>
   </div>
 </section>
@@ -541,7 +636,7 @@
         <div style="font-size:48px;margin-bottom:16px;">💻</div>
         <div style="font-size:11px;font-weight:700;color:var(--teal);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Step 3</div>
         <h3 class="h3" style="margin-bottom:12px;">You review it in any browser</h3>
-        <p style="color:var(--text2);font-size:15px;">Open the file locally in any browser on your HIPAA-aligned workstation. Enter the client's password - the data decrypts entirely on your machine. You see a full, filterable, chartable view of their episode history. No internet, no app, no account, no PHI stored on external servers.</p>
+        <p style="color:var(--text2);font-size:15px;">Open the file in any browser on your HIPAA-aligned workstation and enter the client's password. It decrypts entirely on your machine into a full, filterable, chartable history. No internet, no app, no PHI on external servers.</p>
       </div>
     </div>
     <div class="callout" style="margin-top:32px;" class="fade-up">
@@ -557,7 +652,7 @@
     <div class="section-head fade-up">
       <div class="label">Partner With Us</div>
       <h2 class="h2">Integrate Surfacing into your practice</h2>
-      <p class="lead">We work with private practitioners, group practices, and outpatient programs to onboard Surfacing as a between-session tool. Get in touch to discuss your setup.</p>
+      <p class="lead">We work with private practitioners, group practices, and outpatient programs. Get in touch to discuss your setup.</p>
     </div>
     <div style="max-width:600px;margin:0 auto;" class="fade-up">
       <div id="form-success" class="form-success">✓ Message received! We'll be in touch within 48 hours.</div>
