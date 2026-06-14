@@ -199,15 +199,28 @@ nav.scrolled {
   color: var(--blue); font-size: 12px; font-weight: 600; letter-spacing: 0.5px;
   padding: 5px 14px; border-radius: 100px;
 }
-.hero-title { margin-bottom: 24px; }
-.hero-title .gradient-text {
+.hero-kicker {
+  font-size: clamp(1.05rem, 2.1vw, 1.55rem); font-weight: 800; letter-spacing: -0.4px;
+  margin-bottom: 14px; color: var(--text);
+}
+.hero-title { margin-bottom: 22px; }
+.hero-accent { color: var(--teal); }
+.hero-title .gradient-text,
+.hero-kicker .gradient-text {
   background: linear-gradient(135deg, #64B5F6 0%, #ffffff 45%, #90CAF9 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   background-size: 200%; animation: shimmer 4s linear infinite;
 }
 @keyframes shimmer { 0%{background-position:0%} 100%{background-position:200%} }
-.hero-sub { max-width: 520px; margin-bottom: 36px; }
+.hero-sub {
+  max-width: 540px; margin-bottom: 28px;
+  color: var(--text); font-size: clamp(1.05rem, 1.9vw, 1.3rem); line-height: 1.6;
+}
 .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 28px; }
+.hero-stores { margin-bottom: 16px; }
+.hero-links { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 24px; }
+.hero-links a { color: var(--text2); font-size: 14px; font-weight: 600; transition: color var(--transition); }
+.hero-links a:hover { color: var(--teal); opacity: 1; }
 
 /* Three free badges */
 .free-badges {
@@ -562,7 +575,7 @@ footer {
   }
   .hero-left { align-items: center; }
   .hero-sub { max-width: 100%; }
-  .hero-btns, .free-badges { justify-content: center; }
+  .hero-btns, .free-badges, .hero-stores, .hero-links { justify-content: center; }
   .hero-right { justify-content: center; }
   .hero-right img { max-height: 60vh; }
   .grid-3 { grid-template-columns: repeat(2,1fr); }
