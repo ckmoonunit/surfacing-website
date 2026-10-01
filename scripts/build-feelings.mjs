@@ -36,7 +36,7 @@ const slug = s => s.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-
 
 // Nav, mobile menu, and footer come from download.html so the site chrome stays in one place.
 const shell = readFileSync(join(SITE, 'download.html'), 'utf8');
-const nav = shell.slice(shell.indexOf('<nav>'), shell.indexOf('</div>', shell.indexOf('<div class="mobile-menu">')) + 6);
+const nav = shell.slice(shell.indexOf('<nav>'), shell.indexOf('</div>', shell.indexOf('<div class="mobile-menu">')) + 6).replace(/ class="active"/g, '');
 const footer = shell.slice(shell.indexOf('<footer>'), shell.indexOf('</footer>') + 9);
 const badges = footer.slice(footer.indexOf('<div class="footer-badges-row">'), footer.indexOf('<div class="footer-bottom">'));
 if (!nav.includes('mobile-menu') || !footer.includes('footer-bottom')) throw new Error('site chrome not found in download.html');
