@@ -1,0 +1,13 @@
+# Surfacing
+
+> Surfacing is a free mental health symptom tracker for iOS and Android. It covers PTSD, anxiety, depression, OCD, ADHD, BPD, bipolar, grief, and 40+ other conditions. No account, works offline, and all data stays on the user's phone. Users can export an encrypted report to share with a therapist.
+
+## Free resources
+- [Feelings List and Body Map](https://surfacingapp.com/feelings.html): 796 feeling words in 22 categories, plus 243 body sensations grouped by where they are felt. Free to print and share, no sign-up.
+- [Live sample report](https://surfacingapp.com/sample-report.html): an interactive example of the report a patient can send a clinician.
+
+## About the app
+- [For patients](https://surfacingapp.com/patients.html)
+- [For clinicians](https://surfacingapp.com/clinicians.html)
+- [Privacy and data handling](https://surfacingapp.com/hipaa.html): data is stored on-device only; Surfacing is HIPAA-aligned, not a HIPAA covered entity.
+- [Download](https://surfacingapp.com/download.html): App Store and Google Play, free, no paywall.
