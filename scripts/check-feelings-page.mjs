@@ -22,6 +22,9 @@ const visible = sel => ev(`[...document.querySelectorAll(${JSON.stringify(sel)})
 const phone = width < 760;
 
 check('js class set', await ev(`document.documentElement.classList.contains('js')`));
+if (!phone) check('hero fits the first screen (search bar above the fold)', (await ev(`Math.round(document.querySelector('.f-tools').getBoundingClientRect().top)`)) < 900,
+  'search bar top ' + await ev(`Math.round(document.querySelector('.f-tools').getBoundingClientRect().top)`));
+check('nothing in the hero sizes itself to the viewport', (await ev(`[...document.querySelectorAll('.f-hero, .f-hero *')].filter(e=>/vh/.test(e.style.minHeight)||parseFloat(getComputedStyle(e).minHeight)>=window.innerHeight*0.9).length`)) === 0);
 if (!phone) check('Fear & Anxiety card previews 12 words', (await visible('#fear-and-anxiety .chips li')) === 12);
 else check('phone: family cards are compact rows (no chips visible)', (await visible('.fgrid .chips li')) === 0);
 await ev(`document.querySelector('.f-hero .w-slice[data-fam="anger"]').dispatchEvent(new MouseEvent('click',{bubbles:true,cancelable:true}))`);
@@ -60,11 +63,24 @@ check('nothing sticks out past the viewport edge', clipped.length === 0, clipped
 check('no duplicate ids', (await ev(`(()=>{const s=new Set(),d=[];document.querySelectorAll('[id]').forEach(e=>{if(s.has(e.id))d.push(e.id);s.add(e.id)});return d.length})()`)) === 0);
 // family page popover
 await send('Page.navigate', { url: url.replace(/feelings\.html.*$/, 'feelings/sadness.html') }); await sleep(1200);
-await ev(`document.querySelectorAll('.word')[3].click()`); await sleep(200);
-check('family page: word opens the popover', (await ev(`!document.getElementById('pop').hidden && document.getElementById('pop-word').textContent`)) === (await ev(`document.querySelectorAll('.word')[3].textContent`)));
-check('family page: popover stays on screen', await ev(`(()=>{const r=document.getElementById('pop').getBoundingClientRect();return r.left>=0&&r.right<=window.innerWidth})()`));
-await ev(`document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}))`);
-check('family page: Escape closes the popover', await ev(`document.getElementById('pop').hidden`));
+await ev(`document.querySelectorAll('.word')[3].click()`); await sleep(300);
+check('family page: tapping a word confirms the copy', /Copied|^[A-Z]/.test(await ev(`document.getElementById('toast').textContent`)) && await ev(`document.querySelectorAll('.word')[3].classList.contains('picked')`));
 check('family page: no horizontal overflow', await ev(`document.documentElement.scrollWidth <= window.innerWidth`));
+// print layout: every generated page fits a Letter sheet, and no checkbox overlaps its word
+const printCheck = async (pageUrl, label) => {
+  await send('Emulation.setDeviceMetricsOverride', { width: 741, height: 960, deviceScaleFactor: 1, mobile: false });
+  await send('Emulation.setEmulatedMedia', { media: 'print' });
+  await send('Page.navigate', { url: pageUrl }); await sleep(1200);
+  for (const mode of label === 'family' ? [''] : ['', 'print-body']) {
+    if (mode) await ev(`document.body.classList.add('${mode}')`);
+    const tall = await ev(`[...document.querySelectorAll('.ppage')].filter(p=>p.offsetParent!==null).map(p=>Math.round(p.getBoundingClientRect().height)).filter(h=>h>956)`);
+    check(`print ${label}${mode ? ' ' + mode : ''}: every page fits the sheet`, tall.length === 0, tall.join(','));
+    const overlap = await ev(`[...document.querySelectorAll('.plist li')].filter(li=>li.offsetParent!==null).filter(li=>{const i=li.querySelector('i').getBoundingClientRect(), t=li.querySelector('span').getBoundingClientRect(); return t.left < i.right - 0.5;}).length`);
+    check(`print ${label}${mode ? ' ' + mode : ''}: checkboxes never overlap words`, overlap === 0, overlap + ' overlaps');
+  }
+  await send('Emulation.setEmulatedMedia', { media: '' });
+};
+await printCheck(url.replace(/feelings\/sadness\.html$/, 'feelings.html').replace(/feelings\.html.*$/, 'feelings.html'), 'feelings list');
+await printCheck(url.replace(/feelings\.html.*$/, 'feelings/fear-and-anxiety.html'), 'family');
 console.log(`${checks.filter(Boolean).length}/${checks.length} passed at ${width}px`);
 ws.close(); chrome.kill();
