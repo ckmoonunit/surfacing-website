@@ -297,7 +297,11 @@ function pack(blocks, colHeights) {
         // largest prefix that fits; split only if at least 3 rows go in this column
         let k = words.length - 1;
         while (k > 0 && listHeight(words.slice(0, k), o.cols, o.rowMm, o.maxChars) > room) k--;
-        if (k >= o.cols * 3 && !b.keep) {
+        // never leave fewer than 4 rows for a continuation
+        const minRest = o.cols * 4;
+        if (words.length - k < minRest) k = Math.max(0, words.length - minRest);
+        // short lists move whole; only long ones split
+        if (k >= o.cols * 3 && words.length > o.cols * 10 && !b.keep) {
           col.items.push({ b, words: words.slice(0, k), cont: !first });
           words = words.slice(k); first = false;
         }
@@ -353,22 +357,28 @@ const regionBlocks = regions.map(c => ({
   ...(c === wholeBody[0] ? { pre: 10, preHtml: `<p class="psub">Whole body and mind</p>` } : {}),
   head: cont => `<p class="phead"><span class="fnum sq">${c.letter}</span>${esc(c.label)}${cont ? ' <em>(cont.)</em>' : ''}</p>`,
 }));
-const PB_H = MM.pageH, PB_FIRST = PB_H - 26;
-const pbCols = pack(regionBlocks, [PB_FIRST, PB_FIRST, ...Array(9).fill(PB_H)]);
+const PB_H = MM.pageH, PB_FIRST = PB_H - 26, PB_FIG = PB_FIRST - 126; // the figure takes about 120mm of its column
+const pbCols = pack(regionBlocks, [PB_FIG, PB_FIRST, PB_FIRST, ...Array(9).fill(PB_H)]);
 const pbUsed = pbCols.filter(c => c.items.length);
-const pbPages = [pbUsed.slice(0, 2)];
-for (let i = 2; i < pbUsed.length; i += 3) pbPages.push(pbUsed.slice(i, i + 3));
+const pbPages = [pbUsed.slice(0, 3)];
+for (let i = 3; i < pbUsed.length; i += 3) pbPages.push(pbUsed.slice(i, i + 3));
 
 const bodyHowTo = `<div class="phow"><p class="phow-t">How to use the body map</p><p>Pause and notice where something shows up in your body right now. Find that spot on the figure, then check the sensations that match in its lettered list.</p><p>Then look for a feeling word that fits in the feelings list. A tight chest and racing heart often sit next to fear. Heavy limbs often sit next to sadness.</p><p>Free to print and share. surfacingapp.com/feelings.html</p></div>`;
 const printBodyHtml = `<div class="print-pages pb-pages" aria-hidden="true">
   ${pbPages.map((cols, pi) => `<div class="ppage">
     ${pi === 0 ? `${printHead('Body Map', `${bodyCount} physical sensations in ${body.length} lettered regions. Find the letter on the body, then its list. Check what you notice.`, PAGE_URL)}
-    <div class="pbody-first"><div class="pfig">${bodyFigureSvg('p')}</div><div class="pcols two">${cols.map(renderCol).join('')}</div></div>`
+    <div class="pcols"><div class="pfig">${bodyFigureSvg('p')}${cols[0] ? renderCol(cols[0]) : ''}</div>${cols.slice(1).map(renderCol).join('')}</div>`
       : `<div class="pcols">${cols.map(renderCol).join('')}${pi === pbPages.length - 1 && cols.length < 3 ? `<div class="pcol">${bodyHowTo}</div>` : ''}</div>`}
   </div>`).join('')}
 </div>`;
 
 // Family handout: one page
+// lines per prompt: whatever fills the page under the word list (all values in mm)
+const promptLines = (c, cols) => {
+  const rows = Math.ceil(c.items.length / cols);
+  const free = MM.pageH - 30 - rows * 6.8 - 16 - 16 - 3 * 8;
+  return Math.max(1, Math.min(6, Math.floor(free / (3 * 7.5))));
+};
 const famPrintHtml = c => {
   const p = prevOf(c), n = nextOf(c), url = `${ORIGIN}/${SUB}/${c.slug}.html`;
   const cols = c.items.length > 44 ? 4 : 3;
@@ -376,8 +386,8 @@ const famPrintHtml = c => {
     <div class="fp-band" style="--c:${c.c}"><span class="fnum">${c.num}</span><div><p class="fp-title">${esc(c.label)}</p><p class="fp-desc">${esc(c.d)} ${c.items.length} words. Check the ones that fit.</p></div><div class="ph-qr">${qr(url)}<span>${url.replace('https://', '')}</span></div></div>
     <ul class="plist fp-list" style="--pc:${cols}">${c.items.map(w => checkLi(w, nwClass(w))).join('')}</ul>
     <div class="fp-near"><span>Next to it on the wheel</span>${[p, n].map(x => `<p style="--c:${x.c}"><i></i><b>${x.num}. ${esc(x.label)}</b> ${x.core.slice(0, 4).map(esc).join(', ')}</p>`).join('')}</div>
-    <div class="fp-scale"><p>How strong is it right now?</p><ol>${Array.from({ length: 11 }, (_, i) => `<li>${i}</li>`).join('')}</ol></div>
-    <div class="fp-prompts">${['When did I notice this?', 'Where did I feel it in my body?', 'Which word fits best, and why?'].map(q => `<div><p>${q}</p>${'<span></span>'.repeat(Math.ceil(c.items.length / cols) > 13 ? 1 : Math.ceil(c.items.length / cols) > 10 ? 2 : 3)}</div>`).join('')}</div>
+    <div class="fp-scale"><p>How strong is it right now?</p><div><ol>${Array.from({ length: 11 }, (_, i) => `<li>${i}</li>`).join('')}</ol><p class="fp-ends"><span>0 = barely</span><span>10 = as strong as it gets</span></p></div></div>
+    <div class="fp-prompts">${['When did I notice this?', 'Where did I feel it in my body?', 'Which word fits best, and why?'].map(q => `<div><p>${q}</p>${'<span></span>'.repeat(promptLines(c, cols))}</div>`).join('')}</div>
   </div></div>`;
 };
 
@@ -394,7 +404,7 @@ const famCard = c => `
         <p class="fdesc"><span class="pcount">${c.items.length} words. </span><span class="dtext">${esc(c.d)}</span></p>
         <ul class="chips">${c.items.map((w, k) => `<li${k >= PREVIEW ? ' class="extra"' : ''}>${esc(w)}</li>`).join('')}</ul>
         <div class="card-foot">
-          ${c.items.length > PREVIEW ? `<button type="button" class="more" data-open="${c.slug}">See all ${c.items.length} words</button>` : '<span></span>'}
+          ${c.items.length > PREVIEW ? `<button type="button" class="more" data-open="${c.slug}">See all ${c.items.length} words</button>` : `<span class="all-shown">All ${c.items.length} words shown</span>`}
           <a class="open-page" href="${SUB}/${c.slug}.html" aria-label="Open the ${esc(c.label)} page">Full page <span aria-hidden="true">&rarr;</span></a>
         </div>
       </section>`;
@@ -536,6 +546,7 @@ ${toast}
   var regionSelect = document.getElementById('fregion');
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var phone = matchMedia('(max-width: 760px)');
+  if (phone.matches) input.placeholder = 'Search feelings or sensations';
 
   function clearSearch() { if (input.value) { input.value = ''; run(); } }
 
@@ -803,12 +814,13 @@ ${markActive(navHtml)}
   <div class="wp-head">
     <div>
       <h1>Feelings Wheel</h1>
-      <p class="wp-sub">${N} families of feelings, five core words each. Start in the middle with the family that feels closest, then move out to a more precise word. Tap a family for all of its words.</p>
+      <p class="wp-sub">${N} families of feelings, five core words each. Start in the middle with the family that feels closest, then read its five core words on the outer ring. Need a sharper word? Every family has more on the full list. Tap a family for all of its words.</p>
     </div>
     <div class="f-actions"><button class="btn btn-primary" type="button" id="wp-print">Print the wheel</button><a class="btn btn-ghost" href="feelings.html">All ${feelingCount} feelings</a></div>
   </div>
-  ${printHead('Feelings Wheel', `Start in the middle with the family that feels closest, then move out to a more precise word. All ${feelingCount} words by family: surfacingapp.com/feelings.html`, WHEEL_URL)}
+  ${printHead('Feelings Wheel', `Start in the middle with the family that feels closest, then read its five core words on the outer ring. Need a sharper word? All ${feelingCount} words by family: surfacingapp.com/feelings.html`, WHEEL_URL)}
   <div class="wp-wheel">${wheel('poster')}</div>
+  <ol class="wp-list">${feelings.map(c => `<li style="--c:${c.c}"><a href="${SUB}/${c.slug}.html"><span class="fnum">${c.num}</span><b>${esc(c.label)}</b><span class="wp-core">${c.core.map(esc).join(', ')}</span></a></li>`).join('')}</ol>
   <p class="wp-note">Colors group similar feelings. They never mean good or bad. Free to print, copy, and share.</p>
 </div>
 </main>
@@ -893,6 +905,7 @@ const CSS = `/* Surfacing feelings pages. GENERATED by scripts/build-feelings.mj
 .card-foot { margin-top: auto; padding-top: 14px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 .more, .open-page { font: inherit; font-size: 13.5px; font-weight: 700; color: var(--c); background: none; border: 0; padding: 6px 0; cursor: pointer; }
 .open-page { color: var(--text2); }
+.all-shown { font-size: 13.5px; color: var(--text3); }
 .more:hover, .open-page:hover { text-decoration: underline; opacity: 1; }
 html:not(.js) .more { display: none; }
 
@@ -937,7 +950,7 @@ html:not(.js) .rbs, html:not(.js) .bm-group-label, html:not(.js) .bm-hint { disp
 .f-cta { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 32px; align-items: center; margin-block: 80px 96px; padding: 32px 36px; border-radius: 24px; background: linear-gradient(120deg, rgba(78,205,196,0.10), rgba(59,142,240,0.08)); border: 1px solid var(--border2); }
 .f-cta h2 { font-size: clamp(1.4rem, 2.6vw, 1.9rem); font-weight: 800; letter-spacing: -0.6px; }
 .f-cta p { color: var(--text2); margin-top: 8px; max-width: 560px; line-height: 1.65; }
-.f-cta .btn { white-space: nowrap; }
+.f-cta .btn { white-space: nowrap; align-self: center; }
 
 /* family sheet (desktop side panel, phone bottom sheet) */
 html.sheet-open, html.sheet-open body { overflow: hidden; }
@@ -965,7 +978,9 @@ html.sheet-open body { position: fixed; left: 0; right: 0; }
 .sheet-nb:last-child { justify-content: flex-end; text-align: right; }
 
 /* toast */
-.toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); opacity: 0; background: var(--text); color: var(--bg); font-weight: 600; font-size: 14px; padding: 10px 16px; border-radius: 999px; transition: opacity .2s, transform .2s; pointer-events: none; z-index: 1200; }
+.toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); opacity: 0; background: var(--text); color: var(--bg); font-weight: 600; font-size: 14px; padding: 10px 16px; border-radius: 999px; transition: opacity .2s, transform .2s; pointer-events: none; z-index: 1200; white-space: nowrap; max-width: calc(100vw - 32px); overflow: hidden; text-overflow: ellipsis; }
+html.sheet-open .toast { left: auto; right: calc(min(520px, 100%) / 2); transform: translate(50%, 20px); }
+html.sheet-open .toast.show { transform: translate(50%, 0); }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
 /* family pages */
@@ -978,9 +993,9 @@ html.sheet-open body { position: fixed; left: 0; right: 0; }
 .fam-tip { color: var(--text3); font-size: 13px; margin-top: 14px; }
 .fam-desc { font-size: clamp(1.1rem, 1.8vw, 1.3rem); color: var(--text); margin-top: 12px; max-width: 560px; line-height: 1.5; }
 .fam-wheel p { font-size: 12px; color: var(--text3); text-align: center; margin-top: 8px; }
-.w-mini .w-slice path { opacity: 1; fill: color-mix(in srgb, var(--c) 45%, var(--surface)); }
-.w-mini .w-slice:hover path, .w-mini .w-slice:focus-visible path { fill: color-mix(in srgb, var(--c) 80%, var(--surface)); }
-.w-mini .w-slice.here path { fill: var(--c); transform: scale(1.07); }
+.w-mini .w-slice path { opacity: .82; }
+.w-mini .w-slice:hover path, .w-mini .w-slice:focus-visible path { opacity: 1; }
+.w-mini .w-slice.here path { opacity: 1; transform: scale(1.09); stroke: #fff; stroke-width: 4; paint-order: stroke; }
 /* the site stylesheet pads every <section> 100px; these sections set their own spacing */
 .fam-words, .fam-near, .fam-all, .print-prompts, .az { padding: 0; }
 .fam-words, .fam-near, .fam-all { margin-top: 48px; }
@@ -1015,6 +1030,11 @@ html.sheet-open body { position: fixed; left: 0; right: 0; }
 .w-poster .w-band { fill: color-mix(in srgb, var(--c) 16%, var(--bg)); stroke: var(--bg); stroke-width: 1.5; }
 .w-poster .w-word { fill: color-mix(in srgb, var(--c) 70%, #fff); font: 600 11.5px var(--font); text-anchor: start; }
 .w-poster .w-big { font-size: 30px; }
+.wp-list { display: none; list-style: none; margin-top: 18px; }
+.wp-list a { display: grid; grid-template-columns: auto 1fr; column-gap: 12px; row-gap: 2px; align-items: center; padding: 12px 14px; border-radius: 14px; color: var(--text);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--c) 16%, var(--surface)), var(--surface)); border: 1px solid color-mix(in srgb, var(--c) 30%, var(--border2)); margin-bottom: 8px; }
+.wp-list b { font-size: 16px; }
+.wp-core { grid-column: 2; font-size: 15px; color: color-mix(in srgb, var(--c) 70%, #fff); }
 .wp-note { text-align: center; color: var(--text3); font-size: 13px; margin: 16px 0 80px; }
 
 /* search mode: every match visible, browsing aids hidden */
@@ -1027,6 +1047,10 @@ html.sheet-open body { position: fixed; left: 0; right: 0; }
 .searching .bm-panels .bm-panel { margin-bottom: 14px; }
 .searching .fgrid .fcat:last-child { grid-column: auto; }
 
+@media (max-width: 600px) {
+  .w-poster .w-word { display: none; }
+  .wp-list { display: block; }
+}
 @media (max-width: 1020px) {
   .fgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .fgrid .fcat:last-child:nth-child(3n + 1) { grid-column: auto; }
@@ -1081,7 +1105,7 @@ html.sheet-open body { position: fixed; left: 0; right: 0; }
   @page flist { @bottom-center { content: "Surfacing Feelings List  ·  surfacingapp.com/feelings.html  ·  page " counter(page) " of " counter(pages); font: 7pt sans-serif; color: #666; } }
   @page bmap { @bottom-center { content: "Surfacing Body Map  ·  surfacingapp.com/feelings.html  ·  page " counter(page) " of " counter(pages); font: 7pt sans-serif; color: #666; } }
   @page fam { @bottom-center { content: "Surfacing Feelings List  ·  free to print and share"; font: 7pt sans-serif; color: #666; } }
-  @page poster { size: letter landscape; margin: 8mm; }
+  @page poster { size: letter landscape; margin: 12mm; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   html, body { background: #fff !important; color: #111 !important; }
   body { position: static !important; }
@@ -1147,7 +1171,7 @@ html.sheet-open body { position: fixed; left: 0; right: 0; }
 
   /* body map */
   .pbody-first { display: grid; grid-template-columns: 70mm 1fr; gap: 6mm; align-items: start; }
-  .pfig .body-figure { width: 100%; height: auto; }
+  .pfig .body-figure { width: 100%; height: auto; max-height: 118mm; margin-bottom: 4mm; }
   .pfig .body-figure .fig > * { fill: #EEF2F6; stroke: #667; }
   .pfig .body-figure .zone { opacity: .55; stroke-opacity: .7; animation: none; }
   .pfig .callout line { stroke: #333; stroke-opacity: 1; }
@@ -1163,11 +1187,14 @@ html.sheet-open body { position: fixed; left: 0; right: 0; }
   .fp-list { column-gap: 6mm; margin-left: 2mm; }
   .fp-list li { font-size: 12.5pt; line-height: 1.5; gap: 2mm; }
   .fp-list li i { width: 3.6mm; height: 3.6mm; transform: translateY(0.4mm); }
-  .fp-near { display: grid; grid-template-columns: auto 1fr 1fr; gap: 4mm; align-items: center; margin-top: 5mm; padding: 2.5mm 3mm; border: 0.4pt solid #999; border-radius: 2mm; font-size: 8.5pt; color: #333; }
+  .fp-near { display: grid; grid-template-columns: auto 1fr 1fr; gap: 4mm; align-items: center; margin-top: 5mm; padding: 3mm 3.5mm; border: 0.4pt solid #999; border-radius: 2mm; font-size: 9pt; color: #333; }
+  .fp-near p { font-size: 9pt; line-height: 1.35; }
   .fp-near > span { font-weight: 700; color: #111; }
   .fp-near p { display: flex; align-items: center; gap: 1.5mm; }
-  .fp-near p i { width: 3mm; height: 3mm; border-radius: 0.8mm; background: var(--c); border: 0.2mm solid #555; flex: none; }
-  .fp-scale { display: flex; align-items: center; gap: 4mm; margin-top: 5mm; font-size: 10pt; font-weight: 700; color: #111; }
+  .fp-near p i { width: 3.6mm; height: 3.6mm; border-radius: 0.8mm; background: var(--c); border: 0.2mm solid #555; flex: none; }
+  .fp-scale { display: flex; align-items: flex-start; gap: 5mm; margin-top: 5mm; font-size: 10pt; font-weight: 700; color: #111; }
+  .fp-scale > p { padding-top: 1.4mm; }
+  .fp-ends { display: flex; justify-content: space-between; font-size: 7.5pt; font-weight: 500; color: #444; margin-top: 1mm; }
   .fp-scale ol { list-style: none; display: flex; gap: 2.4mm; }
   .fp-scale li { width: 7mm; height: 7mm; display: grid; place-items: center; border: 0.3mm solid #444; border-radius: 50%; font-weight: 600; font-size: 9pt; }
   .fp-prompts { margin-top: 5mm; display: grid; gap: 3.5mm; }
@@ -1176,14 +1203,16 @@ html.sheet-open body { position: fixed; left: 0; right: 0; }
 
   /* poster wheel: one landscape page, header on the left */
   .wheel-page main { page: poster; }
-  .wheel-page main > .f-wrap { display: grid !important; grid-template-columns: 62mm 1fr; gap: 6mm; align-items: center; padding: 0; max-width: none; }
+  .wheel-page main > .f-wrap { display: grid !important; grid-template-columns: 62mm 1fr; gap: 6mm; align-items: center; justify-items: center; min-height: 190mm; padding: 0; max-width: none; }
+  .wheel-page .wp-list { display: none !important; }
   .wheel-page .crumbs, .wheel-page .wp-head, .wheel-page .wp-note, .wheel-page .f-cta { display: none !important; }
   .wheel-page .print-head { display: block !important; border: 0; padding: 0; margin: 0; }
   .wheel-page .ph-title { font-size: 26pt; }
   .wheel-page .ph-sub { font-size: 10pt; margin-top: 3mm; }
   .wheel-page .ph-qr { margin-top: 6mm; flex-direction: column; align-items: flex-start; }
   .wheel-page .ph-qr svg { width: 24mm; height: 24mm; }
-  .wp-wheel { max-width: none; width: 186mm; margin: 0; }
+  .wp-wheel { max-width: none; width: 176mm; margin: 0; }
+  .w-poster .w-word { display: inline !important; }
   .w-poster .w-slice path { opacity: 1; }
   .w-poster .w-band { fill: color-mix(in srgb, var(--c) 15%, #fff); stroke: #fff; stroke-width: 1.5; }
   .w-poster .w-word { fill: #111; font-weight: 600; }

@@ -75,6 +75,8 @@ const printCheck = async (pageUrl, label) => {
     if (mode) await ev(`document.body.classList.add('${mode}')`);
     const tall = await ev(`[...document.querySelectorAll('.ppage')].filter(p=>p.offsetParent!==null).map(p=>Math.round(p.getBoundingClientRect().height)).filter(h=>h>956)`);
     check(`print ${label}${mode ? ' ' + mode : ''}: every page fits the sheet`, tall.length === 0, tall.join(','));
+    const sparse = await ev(`[...document.querySelectorAll('.ppage')].filter(p=>p.offsetParent!==null).map((p,i)=>{const r=p.getBoundingClientRect(); const kids=[...p.querySelectorAll('.pblock,.phow,.az-list li,.fp-prompts,.pindex')]; const bottom=Math.max(...kids.map(k=>k.getBoundingClientRect().bottom), r.top); return [i+1, Math.round((bottom-r.top)/956*100)];}).filter(([i,pct])=>pct<30)`);
+    check(`print ${label}${mode ? ' ' + mode : ''}: no page under 30% filled`, sparse.length === 0, sparse.map(([i,p])=>'page '+i+' '+p+'%').join(', '));
     const overlap = await ev(`[...document.querySelectorAll('.plist li')].filter(li=>li.offsetParent!==null).filter(li=>{const i=li.querySelector('i').getBoundingClientRect(), t=li.querySelector('span').getBoundingClientRect(); return t.left < i.right - 0.5;}).length`);
     check(`print ${label}${mode ? ' ' + mode : ''}: checkboxes never overlap words`, overlap === 0, overlap + ' overlaps');
   }
