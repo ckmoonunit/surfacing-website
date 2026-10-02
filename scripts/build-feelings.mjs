@@ -145,7 +145,7 @@ function wheel(mode, opts = {}) {
   }).join('\n    ');
   const vb = poster ? 378 : 222;
   const hub = mode === 'hero'
-    ? `<circle class="w-hub" r="${r - 6}"/><g class="w-hub-text" aria-hidden="true"><text class="w-big" y="-6">${feelingCount}</text><text class="w-small" y="20">feelings</text></g>`
+    ? `<circle class="w-hub" r="${r - 6}"/><g class="w-hub-text" aria-hidden="true"><text class="w-big" y="-6">${opts.pages ? N : feelingCount}</text><text class="w-small" y="20">${opts.pages ? 'families' : 'feelings'}</text></g>`
     : mode === 'mini' ? `<circle class="w-hub" r="${r - 6}"/>`
     : `<circle class="w-hub" r="${r - 6}"/><text class="w-big" y="${poster ? 2 : -4}">${poster ? 'Feelings' : feelingCount}</text><text class="w-small" y="${poster ? 26 : 22}">${poster ? `${N} families` : 'feelings'}</text>`;
   return `<svg class="f-wheel w-${mode}" viewBox="${-vb} ${-vb} ${vb * 2} ${vb * 2}" role="img" aria-label="Feelings wheel with ${N} families${mode === 'index' ? '' : '. Choose one to see its words.'}">
