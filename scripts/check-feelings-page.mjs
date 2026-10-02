@@ -18,30 +18,53 @@ const ev = async expr => (await send('Runtime.evaluate', { expression: expr, ret
 await send('Emulation.setDeviceMetricsOverride', { width, height: 900, deviceScaleFactor: 1, mobile: width < 600 }); await send('Page.enable'); await send('Page.navigate', { url }); await sleep(1500);
 const checks = [];
 const check = (label, ok, detail = '') => { checks.push(ok); console.log(`${ok ? 'PASS' : 'FAIL'}  ${label}${detail ? '  (' + detail + ')' : ''}`); };
+const visible = sel => ev(`[...document.querySelectorAll(${JSON.stringify(sel)})].filter(e=>e.offsetParent!==null).length`);
+const phone = width < 760;
 
 check('js class set', await ev(`document.documentElement.classList.contains('js')`));
-check('Fear & Anxiety shows 12 words collapsed', (await ev(`[...document.querySelectorAll('#fear-and-anxiety li')].filter(l=>getComputedStyle(l).display!=='none').length`)) === 12);
-await ev(`document.querySelector('#fear-and-anxiety .more').click()`);
-check('Show all expands to 65', (await ev(`[...document.querySelectorAll('#fear-and-anxiety li')].filter(l=>getComputedStyle(l).display!=='none').length`)) === 65,
-  await ev(`document.querySelector('#fear-and-anxiety .more').textContent`));
-check('Disgust (14) has no Show all button', !(await ev(`!!document.querySelector('#disgust .more')`)));
+if (!phone) check('Fear & Anxiety card previews 12 words', (await visible('#fear-and-anxiety .chips li')) === 12);
+else check('phone: family cards are compact rows (no chips visible)', (await visible('.fgrid .chips li')) === 0);
+await ev(`document.querySelector('.f-hero .w-slice[data-fam="anger"]').dispatchEvent(new MouseEvent('click',{bubbles:true,cancelable:true}))`);
+await sleep(400);
+check('wheel tap opens the family sheet', (await ev(`!document.getElementById('sheet').hidden && document.getElementById('sheet-title').textContent`)) === 'Anger');
+check('sheet lists every word in the family', (await ev(`document.querySelectorAll('#sheet-body .word').length`)) === (await ev(`document.querySelectorAll('#anger .chips li').length`)));
+await ev(`document.querySelector('#sheet-body .sheet-nb:last-child').click()`); await sleep(200);
+check('sheet neighbor button moves to the next family', (await ev(`document.getElementById('sheet-title').textContent`)) === 'Disgust');
+await ev(`document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}))`); await sleep(400);
+check('Escape closes the sheet', await ev(`document.getElementById('sheet').hidden`));
+check('focus returns to the wheel slice', (await ev(`document.activeElement && document.activeElement.getAttribute('data-fam')`)) === 'anger');
+if (phone) { await ev(`document.querySelector('#sadness .row-open').click()`); await sleep(400);
+  check('phone: tapping a family row opens its sheet', (await ev(`document.getElementById('sheet-title').textContent`)) === 'Sadness');
+  await ev(`document.querySelector('.sheet-close').click()`); await sleep(400); }
+else { await ev(`document.querySelector('#sadness .more').click()`); await sleep(400);
+  check('See all opens the sheet', (await ev(`document.getElementById('sheet-title').textContent`)) === 'Sadness');
+  await ev(`document.querySelector('.sheet-close').click()`); await sleep(400); }
 check('one body panel visible by default', (await ev(`[...document.querySelectorAll('.bm-panel')].filter(p=>getComputedStyle(p).display!=='none').map(p=>p.id).join()`)) === 'body-heart-and-chest');
 await ev(`document.querySelector('.zone[data-region="stomach"]').dispatchEvent(new MouseEvent('click',{bubbles:true}))`);
-check('clicking the stomach zone switches the panel', (await ev(`[...document.querySelectorAll('.bm-panel')].filter(p=>getComputedStyle(p).display!=='none').map(p=>p.id).join()`)) === 'body-stomach',
-  'select=' + await ev(`document.getElementById('fregion').value`));
-await ev(`document.querySelector('.rb[data-region="sleep"]').click()`);
-check('region button switches to Sleep', (await ev(`document.querySelector('.bm-panel.active').id`)) === 'body-sleep');
-await ev(`(()=>{const s=document.getElementById('fregion'); s.value='legs-and-feet'; s.dispatchEvent(new Event('change'));})()`);
-check('region select switches to Legs & Feet, both leg zones lit', (await ev(`document.querySelector('.bm-panel.active').id`)) === 'body-legs-and-feet' && (await ev(`document.querySelectorAll('.zone.on').length`)) === 2);
+check('clicking the stomach zone switches the panel and select', (await ev(`document.querySelector('.bm-panel.active').id + '|' + document.getElementById('fregion').value`)) === 'body-stomach|stomach');
+await ev(`(()=>{const s=document.getElementById('fregion'); s.value='sleep'; s.dispatchEvent(new Event('change'));})()`);
+check('whole-body region via select shows only that panel', (await ev(`[...document.querySelectorAll('.bm-panel')].filter(p=>getComputedStyle(p).display!=='none').map(p=>p.id).join()`)) === 'body-sleep');
+await ev(`(()=>{const i=document.getElementById('fsearch'); i.value='resent'; i.dispatchEvent(new Event('input'));})()`);
+const hits = await ev(`[...document.querySelectorAll('.chips li.hit')].filter(l=>l.offsetParent!==null).map(l=>l.textContent)`);
+const weak = await ev(`[...document.querySelectorAll('.chips li.weak')].map(l=>l.textContent)`);
+check('search "resent": word-start hit highlighted, inside-word match dim', hits.includes('Resentful') && weak.includes('Present'), `hit ${hits.join(',')} / weak ${weak.join(',')}`);
+check('search hides the body map when it has no matches', (await ev(`getComputedStyle(document.getElementById('body-map-section')).display`)) === 'none');
 await ev(`(()=>{const i=document.getElementById('fsearch'); i.value='tight'; i.dispatchEvent(new Event('input'));})()`);
-const vis = await ev(`[...document.querySelectorAll('li')].filter(l=>l.closest('main') && l.offsetParent!==null).map(l=>l.textContent)`);
-check('search "tight" shows only matching words', vis.length > 0 && vis.every(w => w.toLowerCase().includes('tight')), vis.length + ' visible: ' + vis.slice(0, 6).join(', '));
-check('search shows body matches outside the selected region', vis.includes('Chest tightness') && vis.includes('Throat tightening'));
-check('status line', /match/.test(await ev(`document.getElementById('fstatus').textContent`)), await ev(`document.getElementById('fstatus').textContent`));
+const vis = await ev(`[...document.querySelectorAll('main .chips li')].filter(l=>l.offsetParent!==null).map(l=>l.textContent)`);
+check('search "tight" shows only matching words, including body ones', vis.length > 0 && vis.every(w => w.toLowerCase().includes('tight')) && vis.includes('Chest tightness'), vis.length + ' visible');
 await ev(`(()=>{const i=document.getElementById('fsearch'); i.value=''; i.dispatchEvent(new Event('input'));})()`);
-check('clearing search restores collapsed view', (await ev(`[...document.querySelectorAll('#anger li')].filter(l=>getComputedStyle(l).display!=='none').length`)) === 12);
+check('clearing search restores the default view', !(await ev(`document.documentElement.classList.contains('searching')`)));
 check('no horizontal overflow', (await ev(`document.documentElement.scrollWidth <= window.innerWidth`)), `${await ev('document.documentElement.scrollWidth')} vs ${await ev('window.innerWidth')}`);
-const clipped = await ev(`[...document.querySelectorAll('main *')].filter(e=>{const r=e.getBoundingClientRect(); return r.width>0 && (r.right>window.innerWidth+1 || r.left< -1);}).map(e=>e.tagName+'.'+e.className).slice(0,5)`);
-check('no element sticks out past the viewport edge', clipped.length === 0, clipped.join(' '));
+const clipped = await ev(`[...document.querySelectorAll('main *')].filter(e=>{const r=e.getBoundingClientRect(); return r.width>0 && e.offsetParent!==null && (r.right>window.innerWidth+1 || r.left< -1);}).map(e=>e.tagName+'.'+e.className).slice(0,5)`);
+check('nothing sticks out past the viewport edge', clipped.length === 0, clipped.join(' '));
+check('no duplicate ids', (await ev(`(()=>{const s=new Set(),d=[];document.querySelectorAll('[id]').forEach(e=>{if(s.has(e.id))d.push(e.id);s.add(e.id)});return d.length})()`)) === 0);
+// family page popover
+await send('Page.navigate', { url: url.replace(/feelings\.html.*$/, 'feelings/sadness.html') }); await sleep(1200);
+await ev(`document.querySelectorAll('.word')[3].click()`); await sleep(200);
+check('family page: word opens the popover', (await ev(`!document.getElementById('pop').hidden && document.getElementById('pop-word').textContent`)) === (await ev(`document.querySelectorAll('.word')[3].textContent`)));
+check('family page: popover stays on screen', await ev(`(()=>{const r=document.getElementById('pop').getBoundingClientRect();return r.left>=0&&r.right<=window.innerWidth})()`));
+await ev(`document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}))`);
+check('family page: Escape closes the popover', await ev(`document.getElementById('pop').hidden`));
+check('family page: no horizontal overflow', await ev(`document.documentElement.scrollWidth <= window.innerWidth`));
 console.log(`${checks.filter(Boolean).length}/${checks.length} passed at ${width}px`);
 ws.close(); chrome.kill();
