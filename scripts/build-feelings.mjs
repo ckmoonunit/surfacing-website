@@ -136,7 +136,7 @@ function wheel(mode, opts = {}) {
           return `<text class="w-word" x="${wx}" y="${wy}" transform="rotate(${(fl ? a + 180 : a).toFixed(2)} ${wx} ${wy})" dy="0.35em">${esc(w)}</text>`;
         }).join('');
     }
-    const href = mode === 'mini' ? `${c.slug}.html` : poster ? `${SUB}/${c.slug}.html` : `#${c.slug}`;
+    const href = mode === 'mini' ? `${c.slug}.html` : poster || opts.pages ? `${SUB}/${c.slug}.html` : `#${c.slug}`;
     const here = opts.here === c.slug ? ' here' : '';
     const tag = mode === 'index' ? 'g' : 'a';
     const attrs = mode === 'index' ? `class="w-slice" style="--c:${c.c}"`
@@ -300,8 +300,11 @@ function pack(blocks, colHeights) {
         // never leave fewer than 4 rows for a continuation
         const minRest = o.cols * 4;
         if (words.length - k < minRest) k = Math.max(0, words.length - minRest);
-        // short lists move whole; only long ones split
-        if (k >= o.cols * 3 && words.length > o.cols * 10 && !b.keep) {
+        // short lists move whole; a long one moves whole too when most of it would be a continuation
+        // and the next column can hold all of it
+        const next = cols[ci + 1];
+        const movesWhole = next && k < words.length * 0.4 && fixed + full <= next.h - next.used;
+        if (k >= o.cols * 3 && words.length > o.cols * 10 && !movesWhole && !b.keep) {
           col.items.push({ b, words: words.slice(0, k), cont: !first });
           words = words.slice(k); first = false;
         }
@@ -402,9 +405,9 @@ const famCard = c => `
           <span class="chev" aria-hidden="true">&rsaquo;</span>
         </header>
         <p class="fdesc"><span class="pcount">${c.items.length} words. </span><span class="dtext">${esc(c.d)}</span></p>
-        <ul class="chips">${c.items.map((w, k) => `<li${k >= PREVIEW ? ' class="extra"' : ''}>${esc(w)}</li>`).join('')}</ul>
+        <ul class="chips">${c.items.map((w, k) => `<li${k >= PREVIEW && c.items.length > PREVIEW + 2 ? ' class="extra"' : ''}>${esc(w)}</li>`).join('')}</ul>
         <div class="card-foot">
-          ${c.items.length > PREVIEW ? `<button type="button" class="more" data-open="${c.slug}">See all ${c.items.length} words</button>` : `<span class="all-shown">All ${c.items.length} words shown</span>`}
+          ${c.items.length > PREVIEW + 2 ? `<button type="button" class="more" data-open="${c.slug}">See all ${c.items.length} words</button>` : `<span class="all-shown">All ${c.items.length} words shown</span>`}
           <a class="open-page" href="${SUB}/${c.slug}.html" aria-label="Open the ${esc(c.label)} page">Full page <span aria-hidden="true">&rarr;</span></a>
         </div>
       </section>`;
@@ -814,12 +817,12 @@ ${markActive(navHtml)}
   <div class="wp-head">
     <div>
       <h1>Feelings Wheel</h1>
-      <p class="wp-sub">${N} families of feelings, five core words each. Start in the middle with the family that feels closest, then read its five core words on the outer ring. Need a sharper word? Every family has more on the full list. Tap a family for all of its words.</p>
+      <p class="wp-sub">${N} families of feelings, five core words each. Start in the middle with the family that feels closest, then read its five core words <span class="wide-only">on the outer ring</span><span class="narrow-only">in the list below the wheel</span>. Need a sharper word? Every family has more on the full list. Tap a family for all of its words.</p>
     </div>
     <div class="f-actions"><button class="btn btn-primary" type="button" id="wp-print">Print the wheel</button><a class="btn btn-ghost" href="feelings.html">All ${feelingCount} feelings</a></div>
   </div>
   ${printHead('Feelings Wheel', `Start in the middle with the family that feels closest, then read its five core words on the outer ring. Need a sharper word? All ${feelingCount} words by family: surfacingapp.com/feelings.html`, WHEEL_URL)}
-  <div class="wp-wheel">${wheel('poster')}</div>
+  <div class="wp-wheel">${wheel('poster')}<div class="wp-compact">${wheel('hero', { pages: true })}</div></div>
   <ol class="wp-list">${feelings.map(c => `<li style="--c:${c.c}"><a href="${SUB}/${c.slug}.html"><span class="fnum">${c.num}</span><b>${esc(c.label)}</b><span class="wp-core">${c.core.map(esc).join(', ')}</span></a></li>`).join('')}</ol>
   <p class="wp-note">Colors group similar feelings. They never mean good or bad. Free to print, copy, and share.</p>
 </div>
@@ -992,7 +995,7 @@ html.sheet-open .toast.show { transform: translate(50%, 0); }
 .fam-kicker .ks { display: none; }
 .fam-tip { color: var(--text3); font-size: 13px; margin-top: 14px; }
 .fam-desc { font-size: clamp(1.1rem, 1.8vw, 1.3rem); color: var(--text); margin-top: 12px; max-width: 560px; line-height: 1.5; }
-.fam-wheel p { font-size: 12px; color: var(--text3); text-align: center; margin-top: 8px; }
+.fam-wheel p { font-size: 13px; color: var(--text2); text-align: center; margin-top: 8px; }
 .w-mini .w-slice path { opacity: .82; }
 .w-mini .w-slice:hover path, .w-mini .w-slice:focus-visible path { opacity: 1; }
 .w-mini .w-slice.here path { opacity: 1; transform: scale(1.09); stroke: #fff; stroke-width: 4; paint-order: stroke; }
@@ -1031,6 +1034,8 @@ html.sheet-open .toast.show { transform: translate(50%, 0); }
 .w-poster .w-word { fill: color-mix(in srgb, var(--c) 70%, #fff); font: 600 11.5px var(--font); text-anchor: start; }
 .w-poster .w-big { font-size: 30px; }
 .wp-list { display: none; list-style: none; margin-top: 18px; }
+.wp-compact { display: none; }
+.narrow-only { display: none; }
 .wp-list a { display: grid; grid-template-columns: auto 1fr; column-gap: 12px; row-gap: 2px; align-items: center; padding: 12px 14px; border-radius: 14px; color: var(--text);
   background: linear-gradient(90deg, color-mix(in srgb, var(--c) 16%, var(--surface)), var(--surface)); border: 1px solid color-mix(in srgb, var(--c) 30%, var(--border2)); margin-bottom: 8px; }
 .wp-list b { font-size: 16px; }
@@ -1048,8 +1053,10 @@ html.sheet-open .toast.show { transform: translate(50%, 0); }
 .searching .fgrid .fcat:last-child { grid-column: auto; }
 
 @media (max-width: 600px) {
-  .w-poster .w-word { display: none; }
+  .wp-wheel > .w-poster { display: none; }
+  .wp-compact { display: block; max-width: 380px; margin-inline: auto; }
   .wp-list { display: block; }
+  .wide-only { display: none; } .narrow-only { display: inline; }
 }
 @media (max-width: 1020px) {
   .fgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1204,7 +1211,8 @@ html.sheet-open .toast.show { transform: translate(50%, 0); }
   /* poster wheel: one landscape page, header on the left */
   .wheel-page main { page: poster; }
   .wheel-page main > .f-wrap { display: grid !important; grid-template-columns: 62mm 1fr; gap: 6mm; align-items: center; justify-items: center; min-height: 190mm; padding: 0; max-width: none; }
-  .wheel-page .wp-list { display: none !important; }
+  .wheel-page .wp-list, .wheel-page .wp-compact { display: none !important; }
+  .wp-wheel > .w-poster { display: block !important; }
   .wheel-page .crumbs, .wheel-page .wp-head, .wheel-page .wp-note, .wheel-page .f-cta { display: none !important; }
   .wheel-page .print-head { display: block !important; border: 0; padding: 0; margin: 0; }
   .wheel-page .ph-title { font-size: 26pt; }

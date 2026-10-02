@@ -157,7 +157,7 @@ html.sheet-open .toast.show { transform: translate(50%, 0); }
 .fam-kicker .ks { display: none; }
 .fam-tip { color: var(--text3); font-size: 13px; margin-top: 14px; }
 .fam-desc { font-size: clamp(1.1rem, 1.8vw, 1.3rem); color: var(--text); margin-top: 12px; max-width: 560px; line-height: 1.5; }
-.fam-wheel p { font-size: 12px; color: var(--text3); text-align: center; margin-top: 8px; }
+.fam-wheel p { font-size: 13px; color: var(--text2); text-align: center; margin-top: 8px; }
 .w-mini .w-slice path { opacity: .82; }
 .w-mini .w-slice:hover path, .w-mini .w-slice:focus-visible path { opacity: 1; }
 .w-mini .w-slice.here path { opacity: 1; transform: scale(1.09); stroke: #fff; stroke-width: 4; paint-order: stroke; }
@@ -196,6 +196,8 @@ html.sheet-open .toast.show { transform: translate(50%, 0); }
 .w-poster .w-word { fill: color-mix(in srgb, var(--c) 70%, #fff); font: 600 11.5px var(--font); text-anchor: start; }
 .w-poster .w-big { font-size: 30px; }
 .wp-list { display: none; list-style: none; margin-top: 18px; }
+.wp-compact { display: none; }
+.narrow-only { display: none; }
 .wp-list a { display: grid; grid-template-columns: auto 1fr; column-gap: 12px; row-gap: 2px; align-items: center; padding: 12px 14px; border-radius: 14px; color: var(--text);
   background: linear-gradient(90deg, color-mix(in srgb, var(--c) 16%, var(--surface)), var(--surface)); border: 1px solid color-mix(in srgb, var(--c) 30%, var(--border2)); margin-bottom: 8px; }
 .wp-list b { font-size: 16px; }
@@ -213,8 +215,10 @@ html.sheet-open .toast.show { transform: translate(50%, 0); }
 .searching .fgrid .fcat:last-child { grid-column: auto; }
 
 @media (max-width: 600px) {
-  .w-poster .w-word { display: none; }
+  .wp-wheel > .w-poster { display: none; }
+  .wp-compact { display: block; max-width: 380px; margin-inline: auto; }
   .wp-list { display: block; }
+  .wide-only { display: none; } .narrow-only { display: inline; }
 }
 @media (max-width: 1020px) {
   .fgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -369,7 +373,8 @@ html.sheet-open .toast.show { transform: translate(50%, 0); }
   /* poster wheel: one landscape page, header on the left */
   .wheel-page main { page: poster; }
   .wheel-page main > .f-wrap { display: grid !important; grid-template-columns: 62mm 1fr; gap: 6mm; align-items: center; justify-items: center; min-height: 190mm; padding: 0; max-width: none; }
-  .wheel-page .wp-list { display: none !important; }
+  .wheel-page .wp-list, .wheel-page .wp-compact { display: none !important; }
+  .wp-wheel > .w-poster { display: block !important; }
   .wheel-page .crumbs, .wheel-page .wp-head, .wheel-page .wp-note, .wheel-page .f-cta { display: none !important; }
   .wheel-page .print-head { display: block !important; border: 0; padding: 0; margin: 0; }
   .wheel-page .ph-title { font-size: 26pt; }
