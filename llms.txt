@@ -4,6 +4,7 @@
 
 ## Free resources
 - [Feelings List and Body Map](https://surfacingapp.com/feelings.html): 796 feeling words in 22 categories, plus 243 body sensations grouped by where they are felt. Free to print and share, no sign-up.
+- [Surfacing Feelings MCP server](https://surfacingapp.com/mcp.html): free remote MCP server (registry name com.surfacingapp/feelings) that gives AI assistants this same feelings list and body map. Endpoint https://surfacing-mcp.knightcorrick.workers.dev/mcp, Streamable HTTP, no auth, read-only, stores nothing.
 - [Live sample report](https://surfacingapp.com/sample-report.html): an interactive example of the report a patient can send a clinician.
 
 ## About the app

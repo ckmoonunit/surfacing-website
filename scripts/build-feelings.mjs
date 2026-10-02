@@ -334,6 +334,10 @@ ${nav}
       <h4>For therapists and teachers</h4>
       <p>Print it for sessions, classrooms, or a waiting room. Use the search to find a word with a client in the moment. Every category is on this page, so there's nothing to unlock and nothing to buy.</p>
     </div>
+    <div>
+      <h4>Inside your AI assistant</h4>
+      <p>Add the free <a href="mcp.html">Surfacing Feelings MCP server</a> to Claude, ChatGPT, or another AI assistant, and it can look up words from this exact list when you're trying to name what you feel. Setup takes about two minutes. No account, and it stores nothing.</p>
+    </div>
   </div>
 </div>
 

@@ -77,13 +77,14 @@
   <p class="lead">A free MCP server that gives Claude, ChatGPT, and other AI assistants the <a href="feelings.html">Surfacing feelings list</a>: 796 feeling words in 22 categories and a body map of 243 physical sensations. When someone can't find the word for what they feel, the assistant can look it up instead of guessing.</p>
 
   <div class="endpoint"><code id="ep">https://surfacing-mcp.knightcorrick.workers.dev/mcp</code><button class="btn btn-ghost btn-sm" type="button" onclick="navigator.clipboard&&navigator.clipboard.writeText(document.getElementById('ep').textContent);this.textContent='Copied'">Copy URL</button></div>
-  <p style="font-size:14px">Streamable HTTP. No account, no API key, no sign-in.</p>
+  <p style="font-size:14px">Streamable HTTP. No account, no API key, no sign-in. Listed in the official MCP Registry as <code style="font-family:var(--mono);color:var(--teal)">com.surfacingapp/feelings</code>.</p>
 
   <h2>Add it to Claude</h2>
   <ol>
     <li>Open <strong>Settings</strong>, then <strong>Connectors</strong>.</li>
     <li>Choose <strong>Add custom connector</strong>.</li>
     <li>Name it <strong>Surfacing Feelings</strong>, paste the URL above, and save. No authentication is needed.</li>
+    <li>When Claude asks permission to use a tool, choose <strong>Always allow</strong>. The tools only read the word list, so this saves you a prompt on every lookup.</li>
     <li>In a chat, try: "I feel off today and I can't name it. Help me find the word."</li>
   </ol>
 
@@ -129,6 +130,7 @@
           <li><a href="clinicians.html">For Clinicians</a></li>
           <li><a href="research.html">For Research</a></li>
           <li><a href="feelings.html">Feelings List</a></li>
+          <li><a href="mcp.html">For AI Assistants</a></li>
         </ul>
       </div>
       <div class="footer-col">
