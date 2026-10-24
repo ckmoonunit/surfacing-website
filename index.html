@@ -5,24 +5,24 @@
 <script>if(location.protocol!=='https:')location.replace('https:'+location.href.slice(location.protocol.length));else if(location.pathname.endsWith("/index.html"))location.replace(location.href.replace("/index.html","/"));</script>
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Surfacing - Private Mental Health Symptom Tracker</title>
-<meta name="description" content="Surfacing is a private, 100% offline mental health symptom and episode tracker. AES-256 encrypted, on-device only, zero data collection. Free for iOS and Android.">
+<title>Surfacing - Mental Health Tracker Built Around a Pause</title>
+<meta name="description" content="A private mental health symptom tracker built around a pause: a quick check-in between trigger and response, and a record your therapist can read.">
 <link rel="canonical" href="https://surfacingapp.com/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://surfacingapp.com/">
-<meta property="og:title" content="Surfacing - Private, Offline Mental Health Tracker">
-<meta property="og:description" content="100% offline mental health event tracker. AES-256 encrypted. DBT/CBT/ACT skill logging. HIPAA-aligned design. Zero data collection. Free.">
+<meta property="og:title" content="Surfacing - A Pause in the Moment, a Record for Therapy">
+<meta property="og:description" content="A private, offline mental health symptom tracker built around a pause. Log a moment in seconds, then share an encrypted report your therapist can read.">
 <meta property="og:image" content="https://surfacingapp.com/assets/og-image.png">
 <meta property="og:site_name" content="Surfacing">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Surfacing - Private Mental Health Tracker">
-<meta name="twitter:description" content="Clinically-informed offline mental health symptom and episode tracker. No servers. No subscriptions. No surveillance. All data stays on the device.">
+<meta name="twitter:title" content="Surfacing - A Pause and a Record">
+<meta name="twitter:description" content="A quick check-in that gives you a moment between the trigger and the response, and a private record your clinician can read. All data stays on the device.">
 <meta name="twitter:image" content="https://surfacingapp.com/assets/og-image.png">
 <link rel="icon" href="assets/favicon-32.png?v=4" sizes="32x32" type="image/png">
 <link rel="icon" href="assets/favicon.ico?v=4" sizes="any">
 <meta name="theme-color" content="#050D1E">
 <link rel="apple-touch-icon" href="assets/icon-180.png?v=4">
-<link rel="stylesheet" href="css/style.css?v=9">
+<link rel="stylesheet" href="css/style.css?v=10">
 <noscript><style>.fade-up{opacity:1!important;transform:none!important}</style></noscript>
 <script type="application/ld+json">
 {
@@ -32,12 +32,12 @@
       "@type": "WebSite",
       "name": "Surfacing",
       "url": "https://surfacingapp.com/",
-      "description": "Clinically-informed offline mental health event tracker"
+      "description": "Private, offline mental health symptom tracker built around a pause, with an encrypted record a clinician can read"
     },
     {
       "@type": "SoftwareApplication",
       "name": "Surfacing",
-      "description": "Clinically-informed offline mental health event tracker with AES-256 encryption, DBT/CBT/ACT skill logging, 30+ condition-specific field sets, and encrypted clinical export. Zero data collection.",
+      "description": "Private, offline mental health symptom tracker built around a structured pause: a quick check-in between a trigger and the response. Each entry adds to an encrypted, password-protected report a clinician can read, with CSV and AI-readable JSON export. DBT/CBT/ACT skill logging, 30+ condition-specific field sets, AES-256 encryption, zero data collection.",
       "applicationCategory": "HealthApplication",
       "operatingSystem": "iOS, Android",
       "offers": {
@@ -47,7 +47,7 @@
       },
       "url": "https://surfacingapp.com/",
       "screenshot": "https://surfacingapp.com/assets/og-image.png",
-      "featureList": "AES-256 Encryption, DBT/CBT/ACT Skill Tracking, 30+ Clinical Conditions, Encrypted Clinical Export, Zero Data Collection, Fully Offline, HIPAA-Aligned Design, Custom Condition Builder"
+      "featureList": "Structured Check-In Logging, AES-256 Encryption, DBT/CBT/ACT Skill Tracking, 30+ Clinical Conditions, Encrypted Clinical Export, CSV and AI-Readable JSON Export, Zero Data Collection, Fully Offline, HIPAA-Aligned Design, Custom Condition Builder"
     }
   ]
 }
@@ -73,6 +73,7 @@
       <li><a href="download.html">Download</a></li>
       <li><a href="#contact" class="nav-cta">Contact Us</a></li>
     </ul>
+    <button type="button" class="nav-support" data-support-open aria-haspopup="dialog"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg><span class="ns-long">Support the dev</span><span class="ns-short">Support</span></button>
     <button class="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -112,10 +113,10 @@
       </div>
       <div class="hero-kicker">Dive deep. <span class="gradient-text">Surface clarity.</span></div>
       <h1 class="display hero-title">
-        <span class="gradient-text">Private mental health<br>tracking.</span>
+        <span class="gradient-text">A pause in the moment.<br> A record for therapy.</span>
       </h1>
       <p class="lead hero-sub">
-        Log episodes in seconds, surface your patterns, and share encrypted reports with your clinician. 100% offline, on your device.
+        Surfacing is a private mental health symptom tracker built around a pause. A 30-second check-in gives you a moment between the trigger and your response, and every entry becomes part of a record your clinician can actually use. 100% offline and encrypted on your device.
       </p>
       <div class="store-badges hero-stores">
         <a href="https://apps.apple.com/us/app/surfacing/id6764362634" class="store-badge" target="_blank" rel="noopener">
@@ -199,6 +200,33 @@
       <div class="stat-item">
         <div class="stat-num" data-target="100" data-suffix="%">100%</div>
         <div class="stat-label">Offline Functionality</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── One entry, two jobs (positioning) ─────────────────────────────────────── -->
+<section id="pause-and-record">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="label">One Entry, Two Jobs</div>
+      <h2 class="h2">Logging is the pause. The log is the record.</h2>
+      <p class="lead">Surfacing is a symptom tracker built on one simple behavioral practice: when something hits, stop and write it down. That one habit does two different jobs.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card fade-up fade-up-delay-1">
+        <div class="card-icon teal"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4ECDC4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="10" y1="9" x2="10" y2="15"/><line x1="14" y1="9" x2="14" y2="15"/></svg></div>
+        <div class="label" style="color:var(--teal);margin-bottom:8px;">During and between episodes</div>
+        <h3 class="h3" style="margin-bottom:12px;">A structured pause</h3>
+        <p style="color:var(--text2);font-size:15px;line-height:1.7;">Opening the app and answering a few plain questions (what set it off, how intense it is, what you did, whether it helped) puts a short, deliberate step between the trigger and whatever comes next. It's the self-monitoring idea behind CBT thought records and DBT diary cards, in a form that takes under 30 seconds.</p>
+        <p style="color:var(--text2);font-size:15px;line-height:1.7;margin-top:12px;">Between episodes, the dashboard shows which triggers keep coming up and which skills you rated as helpful, so you walk into the next one with more to go on.</p>
+      </div>
+      <div class="card fade-up fade-up-delay-2">
+        <div class="card-icon purple"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></div>
+        <div class="label" style="color:var(--purple);margin-bottom:8px;">For your clinician</div>
+        <h3 class="h3" style="margin-bottom:12px;">A record they can actually read</h3>
+        <p style="color:var(--text2);font-size:15px;line-height:1.7;">Every pause leaves a timestamped entry behind. When you're ready, export a password-protected report that opens in any browser, with charts, filters, the full entry history, and CSV or AI-readable JSON downloads inside.</p>
+        <p style="color:var(--text2);font-size:15px;line-height:1.7;margin-top:12px;">Your therapist sees the week as it happened instead of a reconstruction from memory. <a href="clinicians.html">What clinicians see &rarr;</a></p>
       </div>
     </div>
   </div>

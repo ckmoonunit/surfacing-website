@@ -1,4 +1,4 @@
-/* ── Surfacing Website — Shared JS ─────────────────────────────────────────── */
+/* ── Surfacing Website: Shared JS ─────────────────────────────────────────── */
 
 // ── Nav scroll effect ──────────────────────────────────────────────────────────
 const nav = document.querySelector('nav');
@@ -72,11 +72,11 @@ contactForm?.addEventListener('submit', async (e) => {
       contactForm.style.display = 'none';
       if (successEl) successEl.style.display = 'block';
     } else {
-      btn.textContent = 'Error — try again';
+      btn.textContent = 'Error, try again';
       btn.disabled = false;
     }
   } catch {
-    btn.textContent = 'Error — try again';
+    btn.textContent = 'Error, try again';
     btn.disabled = false;
     setTimeout(() => { btn.textContent = original; }, 3000);
   }
@@ -124,3 +124,66 @@ document.querySelectorAll('.filter-pill').forEach(pill => {
     });
   });
 });
+
+// ── Support the dev modal ──────────────────────────────────────────────────────
+// Design preview: every payment option is a disabled placeholder until a real
+// provider is chosen. The markup is built here so each page only carries the
+// nav button.
+(function () {
+  const openers = document.querySelectorAll('[data-support-open]');
+  if (!openers.length || typeof HTMLDialogElement !== 'function') return;
+
+  const heart = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>';
+  const amounts = ['$3', '$5', '$10', '$25', 'Custom']
+    .map(a => `<button type="button" disabled aria-disabled="true">${a}</button>`).join('');
+  const providers = ['Ko-fi', 'GitHub Sponsors', 'One-time card payment (Stripe)']
+    .map(p => `<button type="button" class="sm-provider" disabled aria-disabled="true"><span>${p}</span><span class="sm-soon">Coming soon</span></button>`).join('');
+
+  const dlg = document.createElement('dialog');
+  dlg.className = 'support-modal';
+  dlg.setAttribute('aria-labelledby', 'sm-title');
+  dlg.setAttribute('aria-describedby', 'sm-desc');
+  dlg.innerHTML = `
+    <div class="sm-body">
+      <button type="button" class="sm-close" data-support-close aria-label="Close">&times;</button>
+      <div class="sm-mark">${heart}</div>
+      <h2 id="sm-title">Support the developer</h2>
+      <div id="sm-desc">
+        <p>Surfacing is built and maintained by one developer. There are no ads, no accounts, and no paywall, and every feature is free for everyone.</p>
+        <p>If the app has been useful to you and you want to chip in, it helps keep it maintained. If not, that is completely fine. Nothing in the app changes either way.</p>
+      </div>
+      <p class="sm-note" style="margin-top:12px;">This is a tip jar, not a price. A donation does not unlock anything, and it never touches your app data.</p>
+
+      <div class="sm-label">Pick an amount</div>
+      <div class="sm-amounts">${amounts}</div>
+
+      <div class="sm-label">Or give through</div>
+      <div class="sm-providers">${providers}</div>
+      <p class="sm-placeholder">Payments are not set up yet. These buttons are placeholders and do not go anywhere.</p>
+
+      <div class="sm-other">
+        <p>Other ways to help, no money involved: leave a review on the <a href="https://apps.apple.com/app/id6764362634?action=write-review" target="_blank" rel="noopener">App Store</a> or <a href="https://play.google.com/store/apps/details?id=com.surfacing.app" target="_blank" rel="noopener">Google Play</a>, or tell your therapist about it.</p>
+      </div>
+    </div>`;
+  document.body.appendChild(dlg);
+
+  let lastFocus = null;
+  const close = () => { if (dlg.open) dlg.close(); };
+  openers.forEach(btn => btn.addEventListener('click', () => {
+    lastFocus = document.activeElement;
+    // Close the phone menu first if it is open, so the two overlays never stack.
+    hamburger?.classList.remove('open');
+    mobileMenu?.classList.remove('open');
+    dlg.showModal();
+    document.documentElement.style.overflow = 'hidden';
+    dlg.querySelector('.sm-close')?.focus();
+  }));
+  dlg.addEventListener('close', () => {
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
+    if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+  });
+  dlg.querySelector('[data-support-close]')?.addEventListener('click', close);
+  // A click on the dialog element itself (not its content) is a backdrop click.
+  dlg.addEventListener('click', e => { if (e.target === dlg) close(); });
+})();

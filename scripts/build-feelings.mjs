@@ -243,7 +243,7 @@ const head = ({ title, desc, url, depth = '', ld }) => `<!DOCTYPE html>
 <link rel="icon" href="${depth}assets/favicon.ico?v=4" sizes="any">
 <meta name="theme-color" content="#050D1E">
 <link rel="apple-touch-icon" href="${depth}assets/icon-180.png?v=4">
-<link rel="stylesheet" href="${depth}css/style.css?v=9">
+<link rel="stylesheet" href="${depth}css/style.css?v=10">
 <link rel="stylesheet" href="${depth}css/feelings.css?v=__CSSVER__">
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>`;
