@@ -728,8 +728,9 @@ const familyPage = c => {
     crumbsLd([['Surfacing', `${ORIGIN}/`], ['Feelings List', PAGE_URL], [c.label, url]]),
   ] };
   return `${head({
-    title: `${c.label} Words: ${c.items.length} Feelings to Name It (Free List)`,
-    desc: `${c.items.length} words for ${c.label.toLowerCase()} from the free Surfacing feelings list: ${c.core.join(', ')}, and more. Printable, no sign-up.`,
+    // Worded the way people search: "anger emotions list", "list of sad feelings", "words for conflicted".
+    title: `${c.label} Emotions List: ${c.items.length} Words (Free Printable)`,
+    desc: `List of ${c.items.length} ${c.label.toLowerCase()} feelings and emotion words: ${c.core.join(', ')}, and more. Find the word that fits. Free to print, no sign-up.`,
     url, depth: '../', ld })}
 <body class="fam-page" style="--c:${c.c}">
 
