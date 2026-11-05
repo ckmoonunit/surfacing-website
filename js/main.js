@@ -149,7 +149,7 @@ document.querySelectorAll('.filter-pill').forEach(pill => {
       <div class="sm-mark">${heart}</div>
       <h2 id="sm-title">Support the developer</h2>
       <div id="sm-desc">
-        <p>Surfacing is built and maintained by one developer. There are no ads, no accounts, and no paywall, and every feature is free for everyone.</p>
+        <p>Surfacing has no ads, no accounts, and no paywall, and every feature is free for everyone.</p>
         <p>If the app has been useful to you and you want to chip in, it helps keep it maintained. If not, that is completely fine. Nothing in the app changes either way.</p>
       </div>
       <p class="sm-note" style="margin-top:12px;">This is a tip jar, not a price. A tip does not unlock anything, and it never touches your app data.</p>
