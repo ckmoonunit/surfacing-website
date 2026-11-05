@@ -135,6 +135,9 @@ document.querySelectorAll('.filter-pill').forEach(pill => {
 
   const heart = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>';
   const TIP_URL = 'https://buy.stripe.com/bJe7sL1uQa8L6Mg1bifAc01';
+  // Same store buttons as thanks.html (where Stripe sends tippers): white Apple logo, full-color Play logo.
+  const APPLE_LOGO = '<svg viewBox="0 0 814 1000" aria-hidden="true"><path fill="#fff" d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-37.8-155.5-127.4C46 790.9 0 663.8 0 541.3c0-207.8 136-317.3 271.6-317.3 100.8 0 184.3 64.2 244.3 64.2 56 0 152.5-67.6 265.7-67.6zm-147.4-86.7c-40.5 47.1-106.4 83.5-165.9 83.5-7.7 0-15.4-.6-21.7-1.9-1.9-7.7-3.2-16.4-3.2-25.7 0-44.5 21.1-91.5 58.3-127.4 37.2-35.9 100.8-64.2 158.1-64.2 2.6 0 5.1 0 7.7.6-.6 45.1-19.2 91.5-33.3 135.1z"/></svg>';
+  const PLAY_LOGO = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#00d7fe" d="M3.6 1.8 13.4 12l-9.8 10.2c-.4-.2-.6-.7-.6-1.2V3c0-.5.2-1 .6-1.2z"/><path fill="#ffce00" d="M17 8.5 13.4 12l3.6 3.5 4-2.3c.9-.5.9-1.9 0-2.4z"/><path fill="#00f076" d="M3.6 1.8 13.4 12 17 8.5 5.2 1.8c-.6-.3-1.2-.3-1.6 0z"/><path fill="#ff3a44" d="M3.6 22.2c.4.3 1 .3 1.6 0L17 15.5 13.4 12z"/></svg>';
 
   const dlg = document.createElement('dialog');
   dlg.className = 'support-modal';
@@ -155,7 +158,11 @@ document.querySelectorAll('.filter-pill').forEach(pill => {
       <p class="sm-note sm-tip-note">You pick the amount on a secure Stripe page. Card statements show KNIGHT DEVELOPERS.</p>
 
       <div class="sm-other">
-        <p>Other ways to help, no money involved: leave a review on the <a href="https://apps.apple.com/app/id6764362634?action=write-review" target="_blank" rel="noopener">App Store</a> or <a href="https://play.google.com/store/apps/details?id=com.surfacing.app" target="_blank" rel="noopener">Google Play</a>, or tell your therapist about it.</p>
+        <p>Other ways to help, no money involved: leave a review, or tell your therapist about it.</p>
+        <div class="sm-reviews">
+          <a class="sm-review" href="https://apps.apple.com/app/id6764362634?action=write-review" target="_blank" rel="noopener noreferrer">${APPLE_LOGO}<span><small>Review on the</small>App Store</span><span class="sr-only"> (opens in a new tab)</span></a>
+          <a class="sm-review" href="https://play.google.com/store/apps/details?id=com.surfacing.app&amp;showAllReviews=true" target="_blank" rel="noopener noreferrer">${PLAY_LOGO}<span><small>Review on</small>Google Play</span><span class="sr-only"> (opens in a new tab)</span></a>
+        </div>
       </div>
     </div>`;
   document.body.appendChild(dlg);

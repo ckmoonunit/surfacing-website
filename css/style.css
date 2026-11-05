@@ -876,6 +876,15 @@ footer {
 .sm-other { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--border2); }
 .sm-other p { font-size: 14px; }
 .sm-other a { color: var(--teal); font-weight: 600; }
+.sm-reviews { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 14px; }
+.sm-other a.sm-review {
+  display: inline-flex; align-items: center; gap: 10px; min-width: 170px; padding: 9px 16px 9px 12px;
+  border-radius: 12px; background: #000; color: #fff; border: 1px solid rgba(255,255,255,0.28);
+  text-decoration: none; text-align: left; font-size: 1.05rem; font-weight: 600; line-height: 1.15;
+}
+.sm-other a.sm-review:hover { border-color: rgba(255,255,255,0.6); }
+.sm-review svg { width: 24px; height: 26px; flex: none; }
+.sm-review small { display: block; font-size: 0.68rem; font-weight: 500; opacity: .85; }
 @media (max-width: 480px) {
   .sm-body { padding: 24px 18px 20px; }
 }
