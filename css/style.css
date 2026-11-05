@@ -870,31 +870,14 @@ footer {
 .support-modal p { color: var(--text2); font-size: 15px; line-height: 1.65; }
 .support-modal p + p { margin-top: 10px; }
 .sm-note { font-size: 13px !important; color: var(--text3) !important; }
-.sm-label { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text3); margin: 22px 0 10px; }
-.sm-amounts { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
-.sm-amounts button, .sm-provider {
-  font-family: var(--font); border-radius: var(--radius-sm);
-  border: 1px dashed var(--border); background: var(--bg2); color: var(--text2);
-  cursor: not-allowed;
-}
-.sm-amounts button { padding: 11px 0; font-size: 15px; font-weight: 700; }
-.sm-providers { display: flex; flex-direction: column; gap: 8px; }
-.sm-provider {
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  width: 100%; padding: 12px 14px; font-size: 14px; font-weight: 600; text-align: left;
-}
-.sm-soon { font-size: 11px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--amber); white-space: nowrap; }
-.sm-placeholder {
-  margin-top: 12px; padding: 10px 12px; border-radius: var(--radius-sm);
-  background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25);
-  color: #f3c46b !important; font-size: 13px !important; line-height: 1.5 !important;
-}
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.sm-tip { display: flex; justify-content: center; width: 100%; margin-top: 20px; }
+.sm-tip-note { margin-top: 8px !important; text-align: center; }
 .sm-other { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--border2); }
 .sm-other p { font-size: 14px; }
 .sm-other a { color: var(--teal); font-weight: 600; }
 @media (max-width: 480px) {
   .sm-body { padding: 24px 18px 20px; }
-  .sm-amounts { grid-template-columns: repeat(3, 1fr); }
 }
 
 /* Hero headline: keep each sentence on one line on phones instead of orphaning a word. */

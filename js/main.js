@@ -126,18 +126,15 @@ document.querySelectorAll('.filter-pill').forEach(pill => {
 });
 
 // ── Support the dev modal ──────────────────────────────────────────────────────
-// Design preview: every payment option is a disabled placeholder until a real
-// provider is chosen. The markup is built here so each page only carries the
-// nav button.
+// One tip link (Stripe payment link, Knight Developers LLC, set up 2026-11-05;
+// the tipper picks the amount, $2 to $500). The markup is built here so each
+// page only carries the nav button.
 (function () {
   const openers = document.querySelectorAll('[data-support-open]');
   if (!openers.length || typeof HTMLDialogElement !== 'function') return;
 
   const heart = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>';
-  const amounts = ['$3', '$5', '$10', '$25', 'Custom']
-    .map(a => `<button type="button" disabled aria-disabled="true">${a}</button>`).join('');
-  const providers = ['Ko-fi', 'GitHub Sponsors', 'One-time card payment (Stripe)']
-    .map(p => `<button type="button" class="sm-provider" disabled aria-disabled="true"><span>${p}</span><span class="sm-soon">Coming soon</span></button>`).join('');
+  const TIP_URL = 'https://buy.stripe.com/bJe7sL1uQa8L6Mg1bifAc01';
 
   const dlg = document.createElement('dialog');
   dlg.className = 'support-modal';
@@ -152,14 +149,10 @@ document.querySelectorAll('.filter-pill').forEach(pill => {
         <p>Surfacing is built and maintained by one developer. There are no ads, no accounts, and no paywall, and every feature is free for everyone.</p>
         <p>If the app has been useful to you and you want to chip in, it helps keep it maintained. If not, that is completely fine. Nothing in the app changes either way.</p>
       </div>
-      <p class="sm-note" style="margin-top:12px;">This is a tip jar, not a price. A donation does not unlock anything, and it never touches your app data.</p>
+      <p class="sm-note" style="margin-top:12px;">This is a tip jar, not a price. A tip does not unlock anything, and it never touches your app data.</p>
 
-      <div class="sm-label">Pick an amount</div>
-      <div class="sm-amounts">${amounts}</div>
-
-      <div class="sm-label">Or give through</div>
-      <div class="sm-providers">${providers}</div>
-      <p class="sm-placeholder">Payments are not set up yet. These buttons are placeholders and do not go anywhere.</p>
+      <a class="btn btn-primary sm-tip" href="${TIP_URL}" target="_blank" rel="noopener noreferrer">Leave a tip<span class="sr-only"> (opens a secure Stripe page in a new tab)</span></a>
+      <p class="sm-note sm-tip-note">You pick the amount on a secure Stripe page. Card statements show KNIGHT DEVELOPERS.</p>
 
       <div class="sm-other">
         <p>Other ways to help, no money involved: leave a review on the <a href="https://apps.apple.com/app/id6764362634?action=write-review" target="_blank" rel="noopener">App Store</a> or <a href="https://play.google.com/store/apps/details?id=com.surfacing.app" target="_blank" rel="noopener">Google Play</a>, or tell your therapist about it.</p>
