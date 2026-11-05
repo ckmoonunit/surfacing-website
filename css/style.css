@@ -876,15 +876,20 @@ footer {
 .sm-other { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--border2); }
 .sm-other p { font-size: 14px; }
 .sm-other a { color: var(--teal); font-weight: 600; }
-.sm-reviews { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 14px; }
+.sm-reviews { display: flex; flex-wrap: nowrap; gap: 10px; justify-content: center; margin-top: 14px; }
+.sm-share { margin-top: 20px; text-align: center; }
+.sm-share p { font-size: 14px; }
+.sm-share .sm-share-title { color: var(--text) !important; font-weight: 700; font-size: 15px !important; }
+.sm-share-links { display: flex; gap: 22px; justify-content: center; margin-top: 10px !important; }
 .sm-other a.sm-review {
-  display: inline-flex; align-items: center; gap: 10px; min-width: 170px; padding: 9px 16px 9px 12px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; flex: 1 1 0; min-width: 0; padding: 9px 10px;
   border-radius: 12px; background: #000; color: #fff; border: 1px solid rgba(255,255,255,0.28);
   text-decoration: none; text-align: left; font-size: 1.05rem; font-weight: 600; line-height: 1.15;
 }
 .sm-other a.sm-review:hover { border-color: rgba(255,255,255,0.6); }
 .sm-review svg { width: 24px; height: 26px; flex: none; }
-.sm-review small { display: block; font-size: 0.68rem; font-weight: 500; opacity: .85; }
+.sm-review small { display: block; font-size: 0.68rem; font-weight: 500; opacity: .85; white-space: nowrap; }
+.sm-review > span:not(.sr-only) { white-space: nowrap; }
 @media (max-width: 480px) {
   .sm-body { padding: 24px 18px 20px; }
 }

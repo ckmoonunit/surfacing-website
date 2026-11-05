@@ -10,7 +10,7 @@
 <link rel="icon" href="assets/favicon.ico?v=4" sizes="any">
 <meta name="theme-color" content="#050D1E">
 <link rel="apple-touch-icon" href="assets/icon-180.png?v=4">
-<link rel="stylesheet" href="css/style.css?v=11">
+<link rel="stylesheet" href="css/style.css?v=12">
 <style>
 /* Where Stripe sends a tipper after paying (the tip link's "After payment" redirect). Not linked anywhere else. */
 .thanks { min-height: 100vh; display: grid; place-items: center; padding: 48px 20px; text-align: center; }
@@ -31,6 +31,12 @@
 .review-badge svg { flex: none; }
 .review-badge .rb-sub { display: block; font-size: 0.7rem; opacity: .85; }
 .review-badge .rb-name { display: block; font-size: 1.2rem; font-weight: 600; line-height: 1.15; }
+.review-badges { flex-wrap: nowrap; }
+.review-badge { flex: 1 1 0; min-width: 0; justify-content: center; padding: 10px 12px; }
+.review-badge .rb-name { font-size: clamp(1rem, 3.8vw, 1.2rem); white-space: nowrap; }
+.review-badge .rb-sub { white-space: nowrap; }
+.share-links { display: flex; gap: 22px; justify-content: center; margin-top: 14px; }
+.share-links a { color: var(--teal); font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; }
 .thanks .home { display: inline-block; margin-top: 36px; color: var(--teal); font-weight: 600; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 </style>
@@ -54,6 +60,20 @@
         <span><span class="rb-sub">Review on</span><span class="rb-name">Google Play</span></span><span class="sr-only"> (opens in a new tab)</span>
       </a>
     </div>
+
+    <h2>Share the app</h2>
+    <p class="ask">Know someone who could use a pause? Send them Surfacing.</p>
+    <div class="review-badges">
+      <a class="review-badge" href="https://apps.apple.com/app/id6764362634" target="_blank" rel="noopener noreferrer">
+        <svg width="26" height="32" viewBox="0 0 814 1000" fill="currentColor" aria-hidden="true"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-37.8-155.5-127.4C46 790.9 0 663.8 0 541.3c0-207.8 136-317.3 271.6-317.3 100.8 0 184.3 64.2 244.3 64.2 56 0 152.5-67.6 265.7-67.6zm-147.4-86.7c-40.5 47.1-106.4 83.5-165.9 83.5-7.7 0-15.4-.6-21.7-1.9-1.9-7.7-3.2-16.4-3.2-25.7 0-44.5 21.1-91.5 58.3-127.4 37.2-35.9 100.8-64.2 158.1-64.2 2.6 0 5.1 0 7.7.6-.6 45.1-19.2 91.5-33.3 135.1z"/></svg>
+        <span><span class="rb-sub">Download on the</span><span class="rb-name">App Store</span></span><span class="sr-only"> (opens in a new tab)</span>
+      </a>
+      <a class="review-badge" href="https://play.google.com/store/apps/details?id=com.surfacing.app" target="_blank" rel="noopener noreferrer">
+        <svg width="28" height="30" viewBox="0 0 24 24" aria-hidden="true"><path fill="#00d7fe" d="M3.6 1.8 13.4 12l-9.8 10.2c-.4-.2-.6-.7-.6-1.2V3c0-.5.2-1 .6-1.2z"/><path fill="#ffce00" d="M17 8.5 13.4 12l3.6 3.5 4-2.3c.9-.5.9-1.9 0-2.4z"/><path fill="#00f076" d="M3.6 1.8 13.4 12 17 8.5 5.2 1.8c-.6-.3-1.2-.3-1.6 0z"/><path fill="#ff3a44" d="M3.6 22.2c.4.3 1 .3 1.6 0L17 15.5 13.4 12z"/></svg>
+        <span><span class="rb-sub">Get it on</span><span class="rb-name">Google Play</span></span><span class="sr-only"> (opens in a new tab)</span>
+      </a>
+    </div>
+    <p class="share-links"><a href="sms:?&amp;body=Surfacing%3A%20a%20private%20mental%20health%20tracker.%20Log%20what%20happened%20and%20how%20you%20felt%2C%20and%20bring%20a%20report%20to%20therapy.%20https%3A%2F%2Fsurfacingapp.com">Text a friend</a><a href="mailto:?subject=Surfacing&amp;body=Surfacing%3A%20a%20private%20mental%20health%20tracker.%20Log%20what%20happened%20and%20how%20you%20felt%2C%20and%20bring%20a%20report%20to%20therapy.%20https%3A%2F%2Fsurfacingapp.com">Email a friend</a></p>
 
     <a class="home" href="/">Back to Surfacing</a>
   </div>

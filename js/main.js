@@ -163,6 +163,15 @@ document.querySelectorAll('.filter-pill').forEach(pill => {
           <a class="sm-review" href="https://apps.apple.com/app/id6764362634?action=write-review" target="_blank" rel="noopener noreferrer">${APPLE_LOGO}<span><small>Review on the</small>App Store</span><span class="sr-only"> (opens in a new tab)</span></a>
           <a class="sm-review" href="https://play.google.com/store/apps/details?id=com.surfacing.app&amp;showAllReviews=true" target="_blank" rel="noopener noreferrer">${PLAY_LOGO}<span><small>Review on</small>Google Play</span><span class="sr-only"> (opens in a new tab)</span></a>
         </div>
+        <div class="sm-share">
+          <p class="sm-share-title">Share the app</p>
+          <p>Know someone who could use a pause? Send them Surfacing.</p>
+          <div class="sm-reviews">
+            <a class="sm-review" href="https://apps.apple.com/app/id6764362634" target="_blank" rel="noopener noreferrer">${APPLE_LOGO}<span><small>Download on the</small>App Store</span><span class="sr-only"> (opens in a new tab)</span></a>
+            <a class="sm-review" href="https://play.google.com/store/apps/details?id=com.surfacing.app" target="_blank" rel="noopener noreferrer">${PLAY_LOGO}<span><small>Get it on</small>Google Play</span><span class="sr-only"> (opens in a new tab)</span></a>
+          </div>
+          <p class="sm-share-links"><a href="sms:?&amp;body=Surfacing%3A%20a%20private%20mental%20health%20tracker.%20Log%20what%20happened%20and%20how%20you%20felt%2C%20and%20bring%20a%20report%20to%20therapy.%20https%3A%2F%2Fsurfacingapp.com">Text a friend</a><a href="mailto:?subject=Surfacing&amp;body=Surfacing%3A%20a%20private%20mental%20health%20tracker.%20Log%20what%20happened%20and%20how%20you%20felt%2C%20and%20bring%20a%20report%20to%20therapy.%20https%3A%2F%2Fsurfacingapp.com">Email a friend</a></p>
+        </div>
       </div>
     </div>`;
   document.body.appendChild(dlg);
