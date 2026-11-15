@@ -539,7 +539,7 @@ ${footer}
   </div>
 </div>
 ${toast}
-<script src="js/main.js" defer></script>
+<script src="js/main.js?v=5" defer></script>
 <script>
 (function () {
   var root = document.documentElement;
@@ -777,7 +777,7 @@ ${famPrintHtml(c)}
 ${up(footer)}
 
 ${toast}
-<script src="../js/main.js" defer></script>
+<script src="../js/main.js?v=5" defer></script>
 <script>
 (function () {
   var toastEl = document.getElementById('toast'), toastT;
@@ -830,7 +830,7 @@ ${markActive(navHtml)}
 </main>
 
 ${footer}
-<script src="js/main.js" defer></script>
+<script src="js/main.js?v=5" defer></script>
 <script>document.getElementById('wp-print').addEventListener('click', function () { window.print(); });</script>
 </body>
 </html>

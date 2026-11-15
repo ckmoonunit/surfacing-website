@@ -196,3 +196,33 @@ document.querySelectorAll('.filter-pill').forEach(pill => {
   // A click on the dialog element itself (not its content) is a backdrop click.
   dlg.addEventListener('click', e => { if (e.target === dlg) close(); });
 })();
+
+// Store link tracking (11/15). Tags every download link with where it was clicked, so the stores can name the
+// source. Apple: campaign link (pt = Knight Developers provider id, ct = campaign), shown in App Store Connect >
+// Analytics > Campaigns once a campaign passes Apple's privacy threshold, so ct stays coarse (site, site-feelings,
+// share). Play: utm_ referrer, utm_campaign = the page. Review links (?action=write-review, showAllReviews) are left
+// alone. Runs on click-ready links only; crawlers and no-JS visitors keep the plain store URLs.
+(function () {
+  const APPLE = 'https://apps.apple.com/app/apple-store/id6764362634';
+  const PLAY = 'https://play.google.com/store/apps/details?id=com.surfacing.app';
+  const path = location.pathname.replace(/\.html$/, '').replace(/^\/+|\/+$/g, '');
+  const page = (path || 'home').replace(/\//g, '-');
+  const feelings = /^feelings/.test(page);
+  const tag = (a, share) => {
+    const h = a.getAttribute('href') || '';
+    if (/action=write-review|showAllReviews/.test(h)) return;
+    if (/apps\.apple\.com\/(us\/)?app\/(surfacing\/)?id6764362634/.test(h)) {
+      const ct = share ? 'share' : feelings ? 'site-feelings' : 'site';
+      a.href = `${APPLE}?pt=128839716&ct=${ct}&mt=8`;
+    } else if (/play\.google\.com\/store\/apps\/details\?id=com\.surfacing\.app/.test(h)) {
+      const ref = `utm_source=${share ? 'share' : 'surfacingapp'}&utm_medium=website&utm_campaign=${page}`;
+      a.href = `${PLAY}&referrer=${encodeURIComponent(ref)}`;
+    }
+  };
+  const run = root => root.querySelectorAll('a[href*="6764362634"], a[href*="com.surfacing.app"]')
+    .forEach(a => tag(a, !!a.closest('.sm-share')));
+  run(document);
+  // The support dialog is built later; tag its links as it appears.
+  new MutationObserver(ms => ms.forEach(m => m.addedNodes.forEach(n => n.nodeType === 1 && run(n))))
+    .observe(document.body, { childList: true });
+})();
