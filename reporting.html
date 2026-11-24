@@ -209,7 +209,7 @@
         <div class="step-pill-num">2</div>
         <div>
           <h4>Export &amp; password-protect</h4>
-          <p>Generate a self-contained encrypted HTML file. You set the password - Surfacing never knows it.</p>
+          <p>Generate a self-contained encrypted HTML file, in English or in your app language. Each report gets its own new 21-character password, made on your phone and sent in a separate message. Surfacing never sees it.</p>
         </div>
       </div>
       <div class="step-pill fade-up fade-up-delay-3">
@@ -233,7 +233,7 @@
     <div class="section-head fade-up">
       <div class="label">The Clinical Report</div>
       <h2 class="h2">What your clinician actually sees</h2>
-      <p class="lead">An interactive dashboard - not a static PDF. Clinicians can filter by date, drill into individual entries, and interact with charts. All from a single local file.</p>
+      <p class="lead">An interactive dashboard, not a static PDF. Clinicians can filter by date, intensity, time of day and segment, change the time step of every chart with one slider, and click any row to read the full entry. All from a single local file.</p>
     </div>
     <div class="grid-2" style="gap:24px;">
 
@@ -299,8 +299,8 @@
 
     </div>
     <div class="callout" style="margin-top:28px;" class="fade-up">
-      <h4>📊 Custom charts embedded</h4>
-      <p>Any charts you build in the app's Chart Builder are included in the report. Clinicians can hover data points, zoom into date ranges, and read exact values - all offline, inside the file.</p>
+      <h4>📊 The charts that fit the conditions</h4>
+      <p>Average and Highest Intensity over time, a calendar of the whole year, feelings and the feelings named together, body regions, triggers, skills (with an option to mark when skills were used on the time charts), and a chart for each question of the conditions being tracked. Charts built in the app's Chart Builder come along, and the report has its own Chart Builder. Every chart opens full-screen or as a plain table. Yellow arrows point out the controls the first time, and one tap hides them.</p>
     </div>
     <div class="disclaimer-box" style="margin-top:16px;">
       <div class="icon">ℹ️</div>
@@ -315,7 +315,7 @@
     <div class="section-head fade-up">
       <div class="label">See It In Action</div>
       <h2 class="h2">What the report actually looks like</h2>
-      <p class="lead">An interactive, filterable dashboard - not a flat PDF. Every data point is live, hoverable, and exportable from a single self-contained file.</p>
+      <p class="lead">An interactive, filterable dashboard, not a flat PDF. Every chart is live and has a table view, and the data exports to CSV or JSON from the same self-contained file.</p>
     </div>
     <div class="iso-wrapper fade-up">
       <div class="iso-box">
@@ -522,11 +522,11 @@
       </div>
       <div class="accordion-item">
         <div class="accordion-header">What if the clinician forgets the password?<span class="icon">+</span></div>
-        <div class="accordion-body">The password cannot be recovered - there is no server that holds it, no reset mechanism, and no backdoor. If the password is lost, export a new report with a new password. This is by design: security depends on Surfacing having zero knowledge of the decryption key.</div>
+        <div class="accordion-body">The password cannot be recovered - there is no server that holds it, no reset mechanism, and no backdoor. If the password is lost, export a new report. Every export makes a new password. This is by design: security depends on Surfacing having zero knowledge of the decryption key.</div>
       </div>
       <div class="accordion-item">
         <div class="accordion-header">Can the report be attached to an EHR?<span class="icon">+</span></div>
-        <div class="accordion-body">Yes. The .html file is a single attachment, the same as a PDF. Any EHR that supports file attachments can store it. When a clinician opens it later, they enter the password and the full interactive report loads - no internet required.</div>
+        <div class="accordion-body">Yes. The .html file is a single attachment, the same as a PDF. Any EHR that supports file attachments can store it. When a clinician opens it, they paste the password (or the whole message it came in) and the full interactive report loads, no internet required. A report stops opening 30 days after it was exported, so for a longer record, ask for a fresh export.</div>
       </div>
       <div class="accordion-item">
         <div class="accordion-header">Is the AI JSON export safe to use?<span class="icon">+</span></div>

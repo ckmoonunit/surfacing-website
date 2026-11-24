@@ -106,7 +106,7 @@
       </div>
       <div class="compliance-badge fade-up fade-up-delay-2">
         <div class="dot"></div>
-        <div><h5>Export encryption is end-to-end</h5><p>Exported files are AES-256 encrypted with a user-set password before leaving the device. No plaintext PHI is transmitted.</p></div>
+        <div><h5>Export encryption is end-to-end</h5><p>Exported files are AES-256 encrypted with a one-time password made on the device before leaving it. No plaintext PHI is transmitted.</p></div>
       </div>
       <div class="compliance-badge fade-up fade-up-delay-3">
         <div class="dot"></div>
@@ -177,7 +177,7 @@ Device Storage
 
 Patient taps "Export"
   → App generates <span class="c-teal">JSON payload</span>
-  → <span class="c-green">AES-256</span> encrypt with user password
+  → <span class="c-green">AES-256</span> encrypt with one-time password
   → Write to <span class="c-amber">.html</span> file (self-contained)
         ↓
 Patient shares file to clinician
@@ -192,7 +192,7 @@ Clinician opens in browser
         </div>
         <ul class="checklist">
           <li>Export is encrypted before leaving the device</li>
-          <li>Password set by patient - not stored by Surfacing</li>
+          <li>New password for every export, made on the patient's phone, never stored by Surfacing</li>
           <li>File transfer is peer-to-peer - no Surfacing intermediary</li>
           <li>HTML file contains all libraries inline (no CDN calls)</li>
           <li>Clinician views data locally - no upload, no cloud</li>
